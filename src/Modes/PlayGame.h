@@ -29,5 +29,8 @@ public:
     //display results
     //then go back to the main menu (wait for a touch)
     void endGame();
+
+private:
+    virtual void bringUpStats();
     
 }
