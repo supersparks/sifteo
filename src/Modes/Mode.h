@@ -2,7 +2,7 @@
 using namespace Sifteo;
 
 class Mode {
-    //an inteface containing all the events that we will need
+    //an interface containing all the events that we will need
     
 public:
     void onAccelChange(void *x, unsigned int id); /*needed for the menu?*/
