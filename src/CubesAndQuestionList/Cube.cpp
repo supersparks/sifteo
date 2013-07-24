@@ -2,4 +2,5 @@
 
 Cube::Cube(CubeID cubeId){
 	myCubeId = cubeId;
+	
 }
