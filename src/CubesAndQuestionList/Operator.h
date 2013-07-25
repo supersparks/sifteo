@@ -1,7 +1,7 @@
 #include <sifteo,h>
 using namespace Sifteo;
 
-class Operator : Cube {
+class Operator{
 
 public:
 	Operator(CubeID cubeID);

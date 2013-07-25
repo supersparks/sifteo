@@ -1,7 +1,7 @@
 #include <sifteo,h>
 using namespace Sifteo;
 
-class Questioner : Cube {
+class Questioner{
 
 private:
     int leftOp, rightOp;
