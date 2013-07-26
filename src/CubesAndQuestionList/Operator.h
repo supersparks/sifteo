@@ -5,7 +5,6 @@ class Operator{
 
 private:
 	CubeID myCube;
-	GameDrawer* myDrawer;
 
 public:
 	Operator(GameDrawer* gameDrawer, CubeID cubeID);

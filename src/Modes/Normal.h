@@ -13,4 +13,13 @@ private:
 public:
 	Normal(GameDrawer* gameDrawer, CubeID[] cubes);
 
+private:
+	void onNeighbourAdd(
+	unsigned int cube0Id, unsigned int side0, 
+	unsigned int cube1Id, unsigned int side1);
+
+	void onNeighbourRemove(
+	unsigned int cube0Id, unsigned int side0, 
+	unsigned int cube1Id, unsigned int side1);
+
 }
