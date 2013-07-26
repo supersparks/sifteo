@@ -1,4 +1,4 @@
-#include <sifteo,h>
+#include <sifteo.h>
 using namespace Sifteo;
 
 class Questioner{

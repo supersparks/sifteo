@@ -1,5 +1,55 @@
 #include "Operator.h"
 
-Operator::Operator(CubeID cubeID){
-	Cube(cubeID);
+Operator::Operator(GameDrawer* gameDrawer, CubeID cubeID)
+{
+	myCube = cubeID;
+	myDrawer = gameDrawer;
+}
+
+void Operator::highlightOperator(unsigned int opCubeId, unsigned int quSide,unsigned int opSide)
+{
+	CubeID cube(opCubeId);
+
+	Int2 OpPosition = vec(0,0);
+
+	switch(opSide)
+	{
+		case(0) :
+			OpPosition = vec(5,0);
+			break;
+		case(1) :
+			OpPosition = vec(0,5);
+			break;
+		case(2) :
+			OpPosition = vec(5,10);
+			break;
+		case(3) :
+			OpPosition = vec(10,5);
+			break;
+	}
+	myDrawer.drawOpHighlight(OpPosition, vec(6,6), 1);
+}
+
+void Operator::dehighlightOperator(unsigned int opCubeId, unsigned int side)
+{
+	CubeID cube(opCubeId);
+
+	Int2 OpPosition = vec(0,0);
+
+	switch(opSide)
+	{
+		case(0) :
+			OpPosition = vec(5,0);
+			break;
+		case(1) :
+			OpPosition = vec(0,5);
+			break;
+		case(2) :
+			OpPosition = vec(5,10);
+			break;
+		case(3) :
+			OpPosition = vec(10,5);
+			break;
+	}
+	myDrawer.drawOpHighlight(OpPosition,vec(6,6), 0);
 }
