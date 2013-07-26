@@ -20,10 +20,12 @@ MenuImages_multi = list{ image{"assets/menu_competitive.png"}, image{"assets/men
 
 GameAssets = group{}
 
-Background = image{"assets/background.png"}
+OperatorBackground = image{"operator.png"}
 
 Gameover = image{"assets/gameover.png"}
 
-OpHighlight = list { image{"assets/operator.divide.png"}, image{"assets/operator.minus.png"}, image{"assets/operator.plus.ng"}, image{"assets/operator.times.png"}}
+--OpHighlight = list { image{"assets/operator.divide.png"}, image{"assets/operator.minus.png"}, image{"assets/operator.plus.ng"}, image{"assets/operator.times.png"}}
+--Highlights = 
+
 Ops = list { image{"assets/plus.png"}, image{"assets/minus.png"}, image{"assets/times.png"}, image{"assets/divide.png"}}
 
