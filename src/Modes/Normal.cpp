@@ -31,12 +31,25 @@ Normal::Normal(GameDrawer* gameDrawer)
 	timerCubes[0] = myCubes[3];
 }
 
-Normal::getMinCubesReq()
+int Normal::getMinCubesReq()
 {
 	return 4;
 }
 
-Normal::runSpecificGameComms()
+int Normal::runSpecificGameComms()
 {
-	
+	Result currResult = questionerCubes[0].questionUpdate();
+	if(currResult.getExtraTime())
+	{
+		timerCubes[0].streakIncrease();
+	}
+
+	timerCubes[0].updateResults(currResult.getCurrStreak(), currResult.getTotalCorrect());
+
+	if(timerCubes[0].gameOver())
+	{
+		questionerCubes[0].cleanGame();
+		operatorCubes[0].cleanGame();
+		operatorCubes[1].cleanGame();
+	}
 }

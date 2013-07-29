@@ -1,7 +1,7 @@
 --Metadata
 
 IconAssets = group{}
-Icon = image{"icon.png"}
+Icon = image{"./assets/icon.png"}
 
 
 --Menu assets
@@ -26,6 +26,7 @@ Gameover = image{"assets/gameover.png"}
 
 --OpHighlight = list { image{"assets/operator.divide.png"}, image{"assets/operator.minus.png"}, image{"assets/operator.plus.ng"}, image{"assets/operator.times.png"}}
 --Highlights = 
-
-Ops = list { image{"assets/plus.png"}, image{"assets/minus.png"}, image{"assets/times.png"}, image{"assets/divide.png"}}
+Font = image{"./assets/Font-8x16.png", pinned=true, width=8, height=16}
+Font2 = image{"./assets/Font(2)-8x16.png", pinned=true, width=8, height=16}
+OperImages = list { image{"./assets/times.png"}, image{"./assets/minus.png"}, image{"./assets/divide.png"}, image{"./assets/plus.png"}, image{"./assets/clearOp.png"}}
 

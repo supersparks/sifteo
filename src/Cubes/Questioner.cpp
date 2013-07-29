@@ -52,8 +52,15 @@ void Questioner::runGame(TimeDelta myDelta)
 			}
 			currStreak = 0;
 		}
-		currStreak += correct;
-		totalCorrect += correct;
+		else
+		{
+			currStreak += correct;
+			totalCorrect += correct;
+			if(currStreak % 5)
+			{
+				extraTime = 1;
+			}
+		}
 		totalAsked++;
 	}
 
@@ -77,9 +84,22 @@ void Questioner::runGame(TimeDelta myDelta)
 	}
 }
 
-Result Questioner::cleanGame()
+Result Questioner::questionUpdate()
 {
-	Result result = Result(longestStreak, totalAsked, totalCorrect);
+	if(extraTime)
+	{
+		extraTime = 0;
+		return Result(currStreak, totalCorrect, 1);
+	}
+	else
+	{
+		return Result(currStreak, totalCorrect, 0);
+	}
+}
+
+void Questioner::cleanGame()
+{
+	//Do something with memory adding longestStreak, totalAsked, totalCorrect
 	myGameDrawer.paintGameOver(myCube, totalCorrect, longestStreak);
 	return result;
 }
@@ -103,7 +123,7 @@ void Questioner::removeOperator(int mySide)
 		opPos = 2;
 	}
 
-	currQuestion.printOperator(opPos);
+	currQuestion.printOperator(4, opPos);
 }
 
 Int2 doPanning(Int2 targetPan, int timetaken)

@@ -12,6 +12,7 @@ private:
     int totalCorrect;
     int totalAsked;
     int longestStreak;
+    int extraTime;
 
     Question currQuestion;
     Question prevQuestion;

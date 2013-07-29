@@ -14,6 +14,9 @@ private:
 
 public:
 	Timer(GameDrawer* gameDrawer, CubeID cubeID);
-	void updateAnimation();
+	void updateAnimation(TimeDelta delta);
+	int gameOver();
+	void streakIncrease();
+	void updateResults(int currStreak, int totalCorrect);
 
 };

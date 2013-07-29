@@ -102,7 +102,7 @@ unsigned int cube1Id, unsigned int side1)
 	}
 }
 
-int findIndex(int[] myArray, int member)
+int PlayGame::findIndex(int[] myArray, int member)
 {
 	int i=0;
 	while(i < arraysize(myArray))

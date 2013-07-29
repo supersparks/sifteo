@@ -54,3 +54,9 @@ void Operator::dehighlightOperator(unsigned int opSide)
 	}
 	myDrawer.drawOpHighlight(myCube, OpPosition,vec(6,6), 0);
 }
+
+void Operator::cleanGame()
+{
+	myGameDrawer.paintBlack(myCube);
+	return result;
+}

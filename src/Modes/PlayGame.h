@@ -18,18 +18,9 @@ private:
     Timer[] myTimers;
 
     int countdown;
+    int countdownSecs;
     int startgame;
 
-    
-    double timeLeft;
-    
-    //this is at the beginning of the game - a countdown of when
-    //the user starts to play
-    double timeUntilStart;
-
-    //getScore and streak from questioner
-    //display results
-    //then go back to the main menu (wait for a touch)
     int endGame(TimeDelta delta);
 
     virtual int runSpecificGameComms();
@@ -39,9 +30,17 @@ public:
     //controls the start and end of the game
     //updates timeUntilStart and timeLeft
     void updateTime(TimeDelta delta);
+
+    void PlayGame::onNeighbourAdd(
+unsigned int cube0Id, unsigned int side0, 
+unsigned int cube1Id, unsigned int side1);
+
+    void PlayGame::onNeighbourRemove(
+unsigned int cube0Id, unsigned int side0, 
+unsigned int cube1Id, unsigned int side1);
     
 
 
 private:
-    
+    int findIndex(int[] myArray, int member);
 }
