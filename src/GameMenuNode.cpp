@@ -18,7 +18,7 @@ GameMenuNode::GameMenuNode(VideoBuffer vid,CubeID cube,int menuSet)
 		case GameMenuNode::SINGLE_PLAYER_MENU;
 			hasChild = 1;
 			hasParent = 1;
-			keepLooping = 1;
+			keepLooping = 0;
 			myMenu(vid,&gAssets,singlePlayerItems);
 			numItems = 3;
 			break;
