@@ -12,16 +12,29 @@ using namespace Sifteo;
 class PlayGame : public Mode {
     //constructor for playGame should have a pointer to an instance of
     //VidBuffControl as a parameter
-    
+protected: enum CubeState{
+    NOT_CONNECTED;
+    QUESTIONER;
+    OPERATOR;
+    TIMER;
+};
+
 protected:
     PlayGame();
 
 protected:
     GameDrawer* myGameDrawer;
-    
+
+    //questionerCube = 1;
+    //operatorCube = 2;
+    //timerCube = 3;
+    //not connected = 0;
+    CubeState[12] cubesStates;
+
     CubeID* questionerCubes;
     CubeID* operatorCubes;
     CubeID* timerCubes;
+
     Questioner* myQuestioners;
     Operator* myOperators;
     Timer* myTimers;
