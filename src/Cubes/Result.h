@@ -1,4 +1,8 @@
+#ifndef RESULT_H
+#define RESULT_H
+
 #include <sifteo.h>
+#include ".././GameDrawer.h"
 using namespace Sifteo;
 
 class Result
@@ -15,3 +19,5 @@ public:
 	int getTotalCorrect();
 	int getExtraTime();
 };
+
+#endif

@@ -1,4 +1,8 @@
-#include <sifteo,h>
+#ifndef MODE_H
+#define MODE_H
+
+#include <sifteo.h>
+#include ".././GameDrawer.h"
 using namespace Sifteo;
 
 class Mode
@@ -9,16 +13,19 @@ private:
     GameDrawer* myGameDrawer;
     
 public:
-    virtual void onAccelChange(unsigned int id); /*needed for the menu?*/
-    virtual void onNeighbourAdd(unsigned int cube0Id, unsigned int side0,
+    //virtual void onAccelChange(unsigned int id); /*needed for the menu?*/
+    virtual void onNeighbourAdd(void *x,unsigned int cube0Id, unsigned int side0,
                         unsigned int cube1Id, unsigned int side1);
-    virtual void onNeighbourRemove(unsigned int cube0Id, unsigned int side0,
+    virtual void onNeighbourRemove(void *x,unsigned int cube0Id, unsigned int side0,
                         unsigned int cube1Id, unsigned int side1);
     
     //needed for the menu? also needed for when reults and stats are shown
     //then the user touches to go back to the main menu
-    virtual void onTouch(unsigned int id);
+    //virtual void onTouch(unsigned int id);
 
-    virtual int getMinCubesReq();
+    virtual int getMinCubesReq(){return 1;};
+    virtual int updateTime(TimeDelta delta);
     
-}
+};
+
+#endif

@@ -1,4 +1,10 @@
+#ifndef QUESTIONER_H
+#define QUESTIONER_H
+
 #include <sifteo.h>
+#include ".././GameDrawer.h"
+#include "Question.h"
+#include "Result.h"
 #define TIME_TO_SCROLL 600
 #define TIME_TO_CORRECT 500
 #define PIXEL_SCROLL 48
@@ -16,8 +22,10 @@ private:
 
     Question currQuestion;
     Question prevQuestion;
+    Question newQuestion;
 
     CubeID myCube;
+    GameDrawer* myGameDrawer;
 
     int yCurrQuestion;
 
@@ -31,14 +39,18 @@ private:
     
 public:
     Questioner(GameDrawer * gameDrawer, CubeID cubeID);
+    Questioner(){};
 
     void inputOperator(int mySide,int operSide);
     void removeOperator(unsigned int mySide);
 
     void runGame(TimeDelta myDelta);
+    Result questionUpdate();
     void cleanGame();
 
 private:
     Int2 doPanning(Int2 targetPan, int timetaken);
     
-}
+};
+
+#endif

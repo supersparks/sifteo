@@ -1,7 +1,7 @@
 #include "Questioner.h"
 
 
-Questioner::Questioner(GameDrawer gameDrawer, CubeID cubeId){
+Questioner::Questioner(GameDrawer* gameDrawer, CubeID cubeId){
 	myCube = cubeId;
 	myGameDrawer = gameDrawer;
 
@@ -19,7 +19,7 @@ Questioner::Questioner(GameDrawer gameDrawer, CubeID cubeId){
     panning = 0;
     corrQuestAns = 0;
 
-    currQuestion = Question(myCube, yCurrQuestion);
+    currQuestion = Question(myGameDrawer, myCube, yCurrQuestion);
 }
 
 void Questioner::runGame(TimeDelta myDelta)
@@ -39,7 +39,7 @@ void Questioner::runGame(TimeDelta myDelta)
 		{
 			yCurrQuestion += 18;
 		}
-		newQuestion = Question(0,yCurrQuestion);
+		newQuestion = Question(myGameDrawer, myCube, yCurrQuestion);
 		panning = 1;
 		corrQuestAns = 0;
 
@@ -76,8 +76,8 @@ void Questioner::runGame(TimeDelta myDelta)
 		currPan = doPanning(targetPan,timePanning);
 		if(currPan == targetPan)
 		{
-			lastQuestion.clean();
-			lastQuestion = currQuestion;
+			prevQuestion.clean();
+			prevQuestion = currQuestion;
 			currQuestion = newQuestion;
 			panning = 0;
 		}
@@ -100,8 +100,7 @@ Result Questioner::questionUpdate()
 void Questioner::cleanGame()
 {
 	//Do something with memory adding longestStreak, totalAsked, totalCorrect
-	myGameDrawer.paintGameOver(myCube, totalCorrect, longestStreak);
-	return result;
+	myGameDrawer->paintGameOver(myCube, totalCorrect, longestStreak);
 }
 
 void Questioner::inputOperator(int mySide,int opType)
@@ -115,7 +114,7 @@ void Questioner::inputOperator(int mySide,int opType)
 	currQuestion.printOperator(opType, opPos);
 }
 
-void Questioner::removeOperator(int mySide)
+void Questioner::removeOperator(unsigned int mySide)
 {
 	int opPos = 1;
 	if(mySide == RIGHT)
@@ -126,14 +125,14 @@ void Questioner::removeOperator(int mySide)
 	currQuestion.printOperator(4, opPos);
 }
 
-Int2 doPanning(Int2 targetPan, int timetaken)
+Int2 Questioner::doPanning(Int2 targetPan, int timetaken)
 {
 	float panningPropTimeLeft = (TIME_TO_SCROLL - timetaken) / (float) TIME_TO_SCROLL;
 	
 	Float2 diffPan = vec((float) 0, panningPropTimeLeft * PIXEL_SCROLL);
 	Float2 newPan = targetPan + diffPan;
 
-	myGameDrawer.doPanning(myCube, newPan.round());
+	myGameDrawer->doPanning(myCube, newPan.round());
 
 	return newPan.round();
 }

@@ -1,6 +1,6 @@
 #include "Question.h"
 
-Question::Question(GameDrawer gameDrawer, CubeID cube, int yWritePosition)
+Question::Question(GameDrawer* gameDrawer, CubeID cube, int yWritePosition)
 {
 	myGameDrawer = gameDrawer;
 	myCube = cube;
@@ -11,7 +11,7 @@ Question::Question(GameDrawer gameDrawer, CubeID cube, int yWritePosition)
 	opsLocked = 0;
 	myScore = 0;
 
-	questionArray = QuestionList::INSTANCE.getQuestion();
+	questionArray = QuestionList::getQuestion();
 
 	int totalDigits = 5;
 	xPosFirstOp = numDigits(questionArray[0]);
@@ -31,7 +31,7 @@ Question::Question(GameDrawer gameDrawer, CubeID cube, int yWritePosition)
 	String<16> quText;
 	quText << questionArray[0] << "  " << questionArray[2] << "  "
 		<< questionArray[4] << "=" << questionArray[5];
-	myGameDrawer.printQuestion(myCube, vec(extraSpace,yPos), quText);
+	myGameDrawer->printQuestion(myCube, vec(extraSpace,yPos), quText);
 
 	//This is the 2 values more clearly presented, (wanted
 	//to limit calls to totalDigits() method).
@@ -51,13 +51,13 @@ void Question::printOperator(int whichOp, int whichPos)
 	{
 		if(whichPos == 1)
 		{
-			myGameDrawer.printOperator(myCube, vec(xPosFirstOp,yPos), whichOp);
+			myGameDrawer->printOperator(myCube, vec(xPosFirstOp,yPos), whichOp);
 			firstOpWritten = 1;
 			opsChosen[0] = whichOp;
 		}
 		else
 		{
-			myGameDrawer.printOperator(myCube, vec(xPosSecondOp,yPos), whichOp);
+			myGameDrawer->printOperator(myCube, vec(xPosSecondOp,yPos), whichOp);
 			secondOpWritten = 1;
 			opsChosen[1] = whichOp;
 		}
@@ -74,12 +74,12 @@ void Question::removeOperator(int whichPos)
 	{
 		if(whichPos == 1)
 		{
-			myGameDrawer.printOperator(myCube, vec(xPosFirstOp,yPos), 4);
+			myGameDrawer->printOperator(myCube, vec(xPosFirstOp,yPos), 4);
 			firstOpWritten = 0;
 		}
 		else
 		{
-			myGameDrawer.printOperator(myCube, vec(xPosSecondOp,yPos), 4);
+			myGameDrawer->printOperator(myCube, vec(xPosSecondOp,yPos), 4);
 			secondOpWritten = 0;
 		}
 	}
@@ -89,7 +89,7 @@ void Question::clean()
 {
 	for(int i=0; i < 16; ++i)
 	{
-		myGameDrawer.printOperator(myCube, vec(i,yPos), 4);
+		myGameDrawer->printOperator(myCube, vec(i,yPos), 4);
 	}
 }
 
@@ -113,11 +113,11 @@ void Question::updateToCorrect()
 {
 	if(opsChosen[0] != questionArray[1])
 	{
-		myGameDrawer.printOperator(myCube, vec(xPosFirstOp,yPos), questionArray[1]);
+		myGameDrawer->printOperator(myCube, vec(xPosFirstOp,yPos), questionArray[1]);
 	}
 	if(opsChosen[1] != questionArray[3])
 	{
-		myGameDrawer.printOperator(myCube, vec(xPosSecondOp,yPos), questionArray[3]);
+		myGameDrawer->printOperator(myCube, vec(xPosSecondOp,yPos), questionArray[3]);
 	}
 }
 

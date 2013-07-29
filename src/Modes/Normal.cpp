@@ -10,12 +10,17 @@ Normal::Normal(GameDrawer* gameDrawer)
     	++i;
     }
 
-    questionerCubes = new int[1];
-    operatorCubes = new int[2];
-    timerCubes = new int[1];
-    myQuestioners = new int[1];
-    myOperators = new int[2];
-    myTimers = new int[1];
+    CubeID temp[1];
+    questionerCubes = temp;
+    CubeID temp1[2];
+    operatorCubes = temp1;
+    CubeID temp2[1];
+    timerCubes = temp2;
+
+    
+    myQuestioners = Questioner[1];
+    myOperators = Operator[2];
+    myTimers = Timer[1];
 
 	myDrawer = gameDrawer;
 
@@ -38,18 +43,21 @@ int Normal::getMinCubesReq()
 
 int Normal::runSpecificGameComms()
 {
-	Result currResult = questionerCubes[0].questionUpdate();
+	Result currResult = myQuestioners[0].questionUpdate();
 	if(currResult.getExtraTime())
 	{
-		timerCubes[0].streakIncrease();
+		myTimers[0].streakIncrease();
 	}
 
-	timerCubes[0].updateResults(currResult.getCurrStreak(), currResult.getTotalCorrect());
+	myTimers[0].updateResults(currResult.getCurrStreak(), currResult.getTotalCorrect());
 
-	if(timerCubes[0].gameOver())
+	if(myTimers[0].gameOver())
 	{
-		questionerCubes[0].cleanGame();
-		operatorCubes[0].cleanGame();
-		operatorCubes[1].cleanGame();
+		myQuestioners[0].cleanGame();
+		myOperators[0].cleanGame();
+		myOperators[1].cleanGame();
+		return 1;
 	}
+	return 0;
+
 }

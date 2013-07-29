@@ -3,14 +3,12 @@
 Operator::Operator(GameDrawer* gameDrawer, CubeID cubeID)
 {
 	myCube = cubeID;
-	myDrawer = gameDrawer;
-	myDrawer.drawOperatorBackground(myCube);
+	myGameDrawer = gameDrawer;
+	myGameDrawer->drawOperatorBackground(myCube);
 }
 
 void Operator::highlightOperator(unsigned int opSide)
 {
-	CubeID cube(opCubeId);
-
 	Int2 OpPosition = vec(0,0);
 
 	switch(opSide)
@@ -28,13 +26,11 @@ void Operator::highlightOperator(unsigned int opSide)
 			OpPosition = vec(10,5);
 			break;
 	}
-	myDrawer.drawOpHighlight(myCube, OpPosition, vec(6,6), 1);
+	myGameDrawer->drawOpHighlight(myCube, OpPosition, vec(6,6), 1);
 }
 
 void Operator::dehighlightOperator(unsigned int opSide)
 {
-	CubeID cube(opCubeId);
-
 	Int2 OpPosition = vec(0,0);
 
 	switch(opSide)
@@ -52,11 +48,10 @@ void Operator::dehighlightOperator(unsigned int opSide)
 			OpPosition = vec(10,5);
 			break;
 	}
-	myDrawer.drawOpHighlight(myCube, OpPosition,vec(6,6), 0);
+	myGameDrawer->drawOpHighlight(myCube, OpPosition,vec(6,6), 0);
 }
 
 void Operator::cleanGame()
 {
-	myGameDrawer.paintBlack(myCube);
-	return result;
+	myGameDrawer->paintBlack(myCube);
 }

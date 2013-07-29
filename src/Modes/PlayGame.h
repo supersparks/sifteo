@@ -1,22 +1,32 @@
-#include <sifteo,h>
+#ifndef PLAYGAME_H
+#define PLAYGAME_H
+
+#include <sifteo.h>
+#include ".././GameDrawer.h"
+#include "Mode.h"
+#include ".././Cubes/Questioner.h"
+#include ".././Cubes/Operator.h"
+#include ".././Cubes/Timer.h"
 using namespace Sifteo;
 
-class PlayGame : Mode {
+class PlayGame : public Mode {
     //constructor for playGame should have a pointer to an instance of
     //VidBuffControl as a parameter
     
 protected:
     PlayGame();
 
-private:
-    GameDrawer myGameDrawer;
-    Cube[] questionerCubes;
-    Cube[] operatorCubes;
-    Cube[] timerCubes;
-    Questioner[] myQuestioners;
-    Operator[] myOperators;
-    Timer[] myTimers;
+protected:
+    GameDrawer* myGameDrawer;
+    
+    CubeID* questionerCubes;
+    CubeID* operatorCubes;
+    CubeID* timerCubes;
+    Questioner* myQuestioners;
+    Operator* myOperators;
+    Timer* myTimers;
 
+private:
     int countdown;
     int countdownSecs;
     int startgame;
@@ -24,23 +34,16 @@ private:
     int endGame(TimeDelta delta);
 
     virtual int runSpecificGameComms();
-    
+
+    int findIndex(CubeID* myArray, int member);
+
 public:
-    //this is passed a delta from the main method
-    //controls the start and end of the game
-    //updates timeUntilStart and timeLeft
-    void updateTime(TimeDelta delta);
+    void onNeighbourAdd(void *x,unsigned int cube0Id, unsigned int side0,
+                        unsigned int cube1Id, unsigned int side1);
+    void onNeighbourRemove(void *x,unsigned int cube0Id, unsigned int side0,
+                        unsigned int cube1Id, unsigned int side1);
 
-    void PlayGame::onNeighbourAdd(
-unsigned int cube0Id, unsigned int side0, 
-unsigned int cube1Id, unsigned int side1);
+    int updateTime(TimeDelta delta);
+};
 
-    void PlayGame::onNeighbourRemove(
-unsigned int cube0Id, unsigned int side0, 
-unsigned int cube1Id, unsigned int side1);
-    
-
-
-private:
-    int findIndex(int[] myArray, int member);
-}
+#endif

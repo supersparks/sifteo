@@ -9,25 +9,25 @@ PlayGame::PlayGame()
 
 int PlayGame::endGame(TimeDelta delta)
 {
-	for(int i=0; i < arraysize(questionerCubes); ++i)
+	for(int i=0; i < arraysize(myQuestioners); ++i)
 	{
-		questionerCubes[i].runGame(delta);
+		myQuestioners[i].runGame(delta);
 	}
-	for(int i=0; i < arraysize(timerCubes); ++i)
+	for(int i=0; i < arraysize(myTimers); ++i)
 	{
-		timerCubes[i].updateAnimation(delta);
+		myTimers[i].updateAnimation(delta);
 	}
 	return runSpecificGameComms();
 }
 
-int PlayGame::UpdateTime(TimeDelta delta)
+int PlayGame::updateTime(TimeDelta delta)
 {
 	if(countdown)
 	{
 		countdownSecs += delta.seconds();
 		for(int i=0; i < arraysize(questionerCubes); ++i)
 		{
-			myGameDrawer.drawCountdown(questionerCubes[i], (int) countdownSecs);
+			myGameDrawer->drawCountdown(questionerCubes[i], (int) countdownSecs);
 		}
 		if((int) countdownSecs >= 3)
 		{
@@ -49,6 +49,7 @@ int PlayGame::UpdateTime(TimeDelta delta)
 }
 
 void PlayGame::onNeighbourAdd(
+void *x,
 unsigned int cube0Id, unsigned int side0, 
 unsigned int cube1Id, unsigned int side1)
 {
@@ -76,6 +77,7 @@ unsigned int cube1Id, unsigned int side1)
 }
 
 void PlayGame::onNeighbourRemove(
+void *x,
 unsigned int cube0Id, unsigned int side0, 
 unsigned int cube1Id, unsigned int side1)
 {
@@ -86,7 +88,7 @@ unsigned int cube1Id, unsigned int side1)
 		if(side0 == RIGHT || side0 == LEFT)
 		{
 			myOperators[operIndex].dehighlightOperator(side1);
-			myQuestioners[questIndex].removeOperator(side0,side1);
+			myQuestioners[questIndex].removeOperator(side1);
 		}
 	}
 
@@ -97,12 +99,12 @@ unsigned int cube1Id, unsigned int side1)
 		if(side1 == RIGHT || side1 == LEFT)
 		{
 			myOperators[operIndex].dehighlightOperator(side0);
-			myQuestioners[questIndex].removeOperator(side1,side0);
+			myQuestioners[questIndex].removeOperator(side0);
 		}
 	}
 }
 
-int PlayGame::findIndex(int[] myArray, int member)
+int PlayGame::findIndex(CubeID* myArray, int member)
 {
 	int i=0;
 	while(i < arraysize(myArray))

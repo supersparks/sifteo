@@ -1,4 +1,9 @@
+#ifndef QUESTION_H
+#define QUESTION_H
+
 #include <sifteo.h>
+#include "QuestionList.h"
+#include ".././GameDrawer.h"
 using namespace Sifteo;
 
 class Question
@@ -15,9 +20,10 @@ private:
 	int opsLocked;
 	int myCube;
 	int myScore;
+	GameDrawer* myGameDrawer;
 
 public:
-	Question(GameDrawer gameDrawer, CubeID cube, int yWritePosition);
+	Question(GameDrawer* gameDrawer, CubeID cube, int yWritePosition);
 	//Used only when initialising lastQuestion to an empty question;
 	Question();
 
@@ -33,3 +39,5 @@ private:
 	void questionSubmitted();
 
 };
+
+#endif
