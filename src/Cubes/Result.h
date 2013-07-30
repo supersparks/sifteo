@@ -12,12 +12,16 @@ private:
 	int myTotalCorrect;
 	int myExtraTime;
 
+	int myTotalAsked;
+
 public:
-	Result(int currStreak, int totalCorrect, int extraTime);
+	Result(int currStreak, int totalCorrect, int extraTime, int totalAsked);
 
 	int getCurrStreak();
 	int getTotalCorrect();
 	int getExtraTime();
+
+	int getTotalAsked();
 };
 
 #endif

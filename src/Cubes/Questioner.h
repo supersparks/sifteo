@@ -41,6 +41,8 @@ public:
     Questioner(GameDrawer * gameDrawer, CubeID cubeID);
     Questioner(){};
 
+    void countdownOver();
+
     void inputOperator(int mySide,int operSide);
     void removeOperator(unsigned int mySide);
 

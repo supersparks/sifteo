@@ -20,6 +20,6 @@ extern const Sifteo::AssetImage pixelsWhite;
 extern const Sifteo::AssetImage BlackImage;
 extern const Sifteo::AssetImage StripeTile;
 extern const Sifteo::AssetImage Countdown[3];
-extern const Sifteo::AssetImage TimebarAnim[8];
+extern const Sifteo::AssetImage TimebarAnim[9];
 extern const Sifteo::AssetImage Highlights[2];
 extern const Sifteo::AssetImage OperImages[5];

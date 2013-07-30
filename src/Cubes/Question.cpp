@@ -63,7 +63,7 @@ void Question::printOperator(int whichOp, int whichPos)
 		}
 		if(firstOpWritten && secondOpWritten)
 		{
-			questionSubmitted();
+			questionSubmitted();// locks the operators using opsLocked
 		}
 	}
 }
@@ -103,7 +103,6 @@ int Question::answered()
 	if(answerTaken)
 	{
 		answerTaken = 0;
-		opsLocked = 1;
 		return 1;
 	}
 	return 0;
@@ -135,6 +134,7 @@ int Question::numDigits(int number)
 void Question::questionSubmitted()
 {
 	answerTaken = 1;
+	opsLocked = 1;
 	if(opsChosen[0] == questionArray[1] && opsChosen[1] == questionArray[3])
 	{
 		myScore = 1;

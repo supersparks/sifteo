@@ -13,13 +13,13 @@ class PlayGame : public Mode {
     //constructor for playGame should have a pointer to an instance of
     //VidBuffControl as a parameter
 protected: enum CubeState{
-    NOT_CONNECTED;
-    QUESTIONER;
-    OPERATOR;
-    TIMER;
+    NOT_CONNECTED,
+    QUESTIONER,
+    OPERATOR,
+    TIMER,
 };
 
-protected:
+public:
     PlayGame();
 
 protected:
@@ -29,24 +29,22 @@ protected:
     //operatorCube = 2;
     //timerCube = 3;
     //not connected = 0;
-    CubeState[12] cubesStates;
+    CubeState cubeStates[CUBE_ALLOCATION] = {NOT_CONNECTED};
 
-    CubeID* questionerCubes;
-    CubeID* operatorCubes;
-    CubeID* timerCubes;
-
-    Questioner* myQuestioners;
-    Operator* myOperators;
-    Timer* myTimers;
+    Questioner myQuestioners[CUBE_ALLOCATION];
+    Operator myOperators[CUBE_ALLOCATION];
+    Timer myTimers[CUBE_ALLOCATION];
 
 private:
     int countdown;
-    int countdownSecs;
+    double countdownSecs;
     int startgame;
+    int ended;
+    int ending;
 
     int endGame(TimeDelta delta);
 
-    virtual int runSpecificGameComms();
+    virtual int runSpecificGameComms() {return 0;}
 
     int findIndex(CubeID* myArray, int member);
 
@@ -55,6 +53,7 @@ public:
                         unsigned int cube1Id, unsigned int side1);
     void onNeighbourRemove(void *x,unsigned int cube0Id, unsigned int side0,
                         unsigned int cube1Id, unsigned int side1);
+    void onTouch(void *x, unsigned int id);
 
     int updateTime(TimeDelta delta);
 };

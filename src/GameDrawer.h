@@ -27,6 +27,8 @@ void drawOperatorBackground(CubeID cube);
 
 void drawTimerBackground(CubeID cube);
 
+void drawQuestionerBackground(CubeID cube);
+
 void switchToBG0_BG1(CubeID cube);
 
 void switchToBG0(CubeID cube);

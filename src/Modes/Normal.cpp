@@ -1,39 +1,46 @@
 #include "Normal.h"
 
-Normal::Normal(GameDrawer* gameDrawer)
+Normal::Normal(GameDrawer* gameDrawer) : PlayGame()
 {
-	PlayGame();
+	myGameDrawer = gameDrawer;
+	totalAsked = 0;
+
 	int i = 0;
 	for(CubeID cube : CubeSet::connected())
     {
-    	myCubes[i] = cube;
+    	cubeStates[i] = QUESTIONER;
     	++i;
     }
 
-    CubeID temp[1];
-    questionerCubes = temp;
-    CubeID temp1[2];
-    operatorCubes = temp1;
-    CubeID temp2[1];
-    timerCubes = temp2;
+    i = 0;
+    while(!cubeStates[i])
+    {
+    	++i;
+    }
+    myQuestioners[i] = Questioner(myGameDrawer,i);
+    cubeStates[i] = QUESTIONER;
+    ++i;
+    while(!cubeStates[i])
+    {
+    	++i;
+    }
+    myOperators[i] = Operator(myGameDrawer,i);
+    cubeStates[i] = OPERATOR;
+    ++i;
+    while(!cubeStates[i])
+    {
+    	++i;
+    }
+    myOperators[i] = Operator(myGameDrawer,i);
+    cubeStates[i] = OPERATOR;
+    ++i;
+    while(!cubeStates[i])
+    {
+    	++i;
+    }
+    myTimers[i] = Timer(myGameDrawer,i);
+    cubeStates[i] = TIMER;
 
-    
-    myQuestioners = Questioner[1];
-    myOperators = Operator[2];
-    myTimers = Timer[1];
-
-	myDrawer = gameDrawer;
-
-	myQuestioners[0] = Questioner(myDrawer,myCubes[0]);
-	questionerCubes[0] = myCubes[0];
-
-	myOperators[0] = Operator(myDrawer,myCubes[1]);
-	operatorCubes[0] = myCubes[1];
-	myOperators[1] = Operator(myDrawer,myCubes[2]);
-	operatorCubes[1] = myCubes[2];
-
-	myTimers[0] = Timer(myDrawer,myCubes[3]);
-	timerCubes[0] = myCubes[3];
 }
 
 int Normal::getMinCubesReq()
@@ -43,21 +50,66 @@ int Normal::getMinCubesReq()
 
 int Normal::runSpecificGameComms()
 {
-	Result currResult = myQuestioners[0].questionUpdate();
+	//LOG("Starting runSpecificGameComms()\n");
+	int i=0;
+	while(i < CUBE_ALLOCATION)
+	{
+		if(cubeStates[i] == QUESTIONER)
+		{
+			break;
+		}
+		++i;
+	}
+	Result currResult = myQuestioners[i].questionUpdate();
+
+
+	int j=0;
+	while(j < CUBE_ALLOCATION)
+	{
+		if(cubeStates[j] == TIMER)
+		{
+			break;
+		}
+		++j;
+	}
 	if(currResult.getExtraTime())
 	{
-		myTimers[0].streakIncrease();
+		myTimers[j].streakIncrease();
 	}
 
-	myTimers[0].updateResults(currResult.getCurrStreak(), currResult.getTotalCorrect());
-
-	if(myTimers[0].gameOver())
+	if( totalAsked != currResult.getTotalAsked())
 	{
-		myQuestioners[0].cleanGame();
-		myOperators[0].cleanGame();
-		myOperators[1].cleanGame();
+		totalAsked = currResult.getTotalAsked();
+		myTimers[j].updateResults(currResult.getCurrStreak(), currResult.getTotalCorrect());
+	}
+
+	if(myTimers[j].gameOver())
+	{
+		myQuestioners[i].cleanGame();
+		int k=0;
+		while(k < CUBE_ALLOCATION)
+		{
+			if(cubeStates[k] == OPERATOR)
+			{
+				break;
+			}
+			++k;
+		}
+		int l=k+1;
+		while(l < CUBE_ALLOCATION)
+		{
+			if(cubeStates[l] == OPERATOR)
+			{
+				break;
+			}
+			++l;
+		}
+		myOperators[k].cleanGame();
+		myOperators[l].cleanGame();
 		return 1;
 	}
+
+	//LOG("About to return from runSpecificGameComms() with game not ended\n");
 	return 0;
 
 }

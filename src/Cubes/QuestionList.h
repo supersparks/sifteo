@@ -9,7 +9,7 @@ class QuestionList {
     //contains a private static const variable with all the questions and answers
 private:
     QuestionList();
-    static int questions[3][6];
+    static int questions[495][6];
     static int numQuestions;
     
 public:
