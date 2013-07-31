@@ -2,6 +2,12 @@
 #include <sifteo/menu.h>
 #include "assets.gen.h"
 #include "Globals.cpp"
+#define COOP 0
+#define COMP 1
+
+#define TWOPLAYER 0
+#define THREEPLAYER 1
+#define BACK 2
 using namespace Sifteo;
 
 class SubMenu2
@@ -13,16 +19,53 @@ private:
     VideoBuffer* myVid;
     Globals myGlobals;
     int myGameType;
+    int backIndex;
 
 
 public: 
-    SubMenu2(VideoBuffer* vid, int gameType, Globals globals)
+    SubMenu2(VideoBuffer* vid, int gameType)
     {
-        myGlobals = globals;
         myVid = vid;
         myGameType = gameType;
 
-        myMenu = Menu(*myVid,&myGlobals.gAssets, myGlobals.mItems);
+        int numCubes = CubeSet::connected().count();
+
+        if(gameType == COOP)
+        {
+            if(numCubes < 7)
+            {
+                myMenu = Menu(*myVid,&myGlobals.gAssets, myGlobals.m0Items);
+                backIndex = 0;
+            }
+            else if(numCubes < 10)
+            {
+                myMenu = Menu(*myVid,&myGlobals.gAssets, myGlobals.m2Items);
+                backIndex = 1;
+            }
+            else
+            {
+                myMenu = Menu(*myVid,&myGlobals.gAssets, myGlobals.m3Items);
+                backIndex = 2;
+            }
+        }
+        else
+        {
+            if(numCubes < 8)
+            {
+                myMenu = Menu(*myVid,&myGlobals.gAssets, myGlobals.m0Items);
+                backIndex = 0;
+            }
+            else if(numCubes < 12)
+            {
+                myMenu = Menu(*myVid,&myGlobals.gAssets, myGlobals.m2Items);
+                backIndex = 1;
+            }
+            else
+            {
+                myMenu = Menu(*myVid,&myGlobals.gAssets, myGlobals.m3Items);
+                backIndex = 2;
+            }
+        }
         myMenu.anchor(0);
 
         beingUsed = 1;
@@ -52,9 +95,9 @@ public:
             switch (e.type)
             {
                 case MENU_ITEM_PRESS:
-                    LOG("PRESS");
+                    //LOG("PRESS");
                     myMenu.anchor(e.item);
-                    if(e.item == 2)
+                    if(e.item == backIndex)
                     {
                         beingUsed = 0;
                     }
@@ -92,7 +135,21 @@ public:
             myMenu.performDefault();
         }
 
-        return e.item;
+        if(myGameType == COOP && e.item != backIndex)
+        {
+            return 2 + e.item;
+        }
+        else if(myGameType == COMP && e.item != backIndex)
+        {
+            return 4 + e.item;
+        }
+        else
+        {
+            return -1;
+        }
+
+        //Should never reach here
+        return -1;
     }
 
 

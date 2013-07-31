@@ -2,13 +2,16 @@
 #include "assets.gen.h"
 using namespace Sifteo;
 
-class Globals {
+class Globals
+{
 	// Static Globals
 public:
-struct MenuItem gItems[5] = { {&IconRules, &LabelRules}, {&IconProf, &LabelProf}, {&IconMult, &LabelMult}, {&IconSing, &LabelSing}, {NULL,NULL}}; 
-struct MenuItem sItems[4] = { {&IconPrac, &LabelPrac}, {&IconComp, &LabelComp}, {&IconBack, &LabelBack}, {NULL,NULL} };
-struct MenuItem mItems[4] = { {&IconComp, &LabelComp}, {&IconCoop, &LabelCoop}, {&IconBack, &LabelBack}, {NULL,NULL} };
-struct MenuItem cItems[5] = { {&IconNum2, &LabelComp}, {&IconNum3, &LabelCoop}, {&IconNum4, &LabelBack},{&IconBack, &LabelBack}, {NULL,NULL} };
-struct MenuAssets gAssets = {&BgTile, &Footer, &LabelEmpty, {&Tip0, &Tip1, &Tip2, NULL}};
+	struct MenuItem gItems[5] = { {&IconSing, &LabelSing}, {&IconMult, &LabelMult}, {&IconStats, &LabelStats}, {&IconRules, &LabelRules}, {NULL,NULL}}; 
+	struct MenuItem sItems[4] = { {&IconNorm, &LabelNorm}, {&IconPrac, &LabelPrac}, {&IconBack, &LabelBack}, {NULL,NULL} };
+	struct MenuItem mItems[4] = { {&IconCoop, &LabelCoop}, {&IconComp, &LabelComp}, {&IconBack, &LabelBack}, {NULL,NULL} };
+	struct MenuItem m3Items[4] = { {&IconNum2, &LabelEmpty}, {&IconNum3, &LabelEmpty}, {&IconBack, &LabelBack}, {NULL,NULL} };
+	struct MenuItem m2Items[3] = { {&IconNum2, &LabelEmpty}, {&IconBack, &LabelBack}, {NULL,NULL} };
+	struct MenuItem m0Items[2] = { {&IconBack, &LabelBack}, {NULL,NULL} };
+	struct MenuAssets gAssets = {&BgTile, &Footer, &LabelEmpty, {&Tip0, &Tip1, &Tip2, NULL}};
 
 };

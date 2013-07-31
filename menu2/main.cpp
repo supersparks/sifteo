@@ -5,36 +5,45 @@
 
 using namespace Sifteo;
 
-static const unsigned gNumCubes = 3;
-static VideoBuffer gVideo[gNumCubes];
-
 static AssetSlot MainSlot = AssetSlot::allocate()
     .bootstrap(BetterflowAssets);
+
+static VideoBuffer gVideo[CUBE_ALLOCATION];
+static AssetLoader loader;
+static AssetConfiguration<1> assetConfig;
 
 static Metadata M = Metadata()
     .title("Menu SDK Demo")
     .package("com.sifteo.sdk.menudemo", "1.0.0")
     .icon(Icon)
-    .cubeRange(gNumCubes);
+    .cubeRange(1,CUBE_ALLOCATION);
 
+void onConnect(void *x, unsigned int cube)
+{
+    loader.start(assetConfig);
+    loader.finish();
 
-static void begin() {
-    // Blank screens, attach VideoBuffers
-    for(CubeID cube = 0; cube != gNumCubes; ++cube) {
-        auto &vid = gVideo[cube];
-        vid.initMode(BG0);
-        vid.attach(cube);
-        vid.bg0.erase(StripeTile);
-    }
+    auto &vid = gVideo[cube];
+    vid.initMode(BG0);
+    vid.attach(cube);
+    vid.bg0.erase(StripeTile);
 }
-
 
 void main()
 {
-    begin();
-    Globals globals;
+    assetConfig.append(MainSlot, BetterflowAssets);
+    loader.init();
+
+    for (CubeID cube : CubeSet::connected())
+    {
+        onConnect(NULL, cube);
+    }
+    Events::cubeConnect.set(&onConnect);
+
     gVideo[0].setMode(BG0);
-    MainMenu gameMenu(&gVideo[0],globals);
+
+    MainMenu gameMenu(&gVideo[0]);
+
     int colour;
     Colormap colourList;
     colourList.setEGA();
@@ -43,12 +52,6 @@ void main()
 
     while(1)
     {
-        //int STATS = 1;
-        //int SP_NORMAL = 2;
-        //int SP_PRACTISE = 3;
-        //int MP_TEAM = 4 5 or 6;
-        //int MP_COMP = 7 8 or 9;
-
         colour = gameMenu.runMenu();
 
         gVideo[0].setMode(SOLID_MODE);

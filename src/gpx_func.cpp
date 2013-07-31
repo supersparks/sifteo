@@ -22,7 +22,8 @@ static AssetConfiguration<1> assetConfig;
 VideoBuffer gVideo[CUBE_ALLOCATION];
 
 GameDrawer myGameDrawer;
-Normal currMode;
+Normal normal = Normal();
+Mode *currMode;
 
 int continueGame = 1;
 
@@ -81,18 +82,18 @@ void onConnect(void *x, unsigned int id)
 void onNeighbourAdd(void *x,unsigned int cube0Id, unsigned int side0,
                         unsigned int cube1Id, unsigned int side1)
 {
-	currMode.onNeighbourAdd(x, cube0Id, side0,
+	currMode->onNeighbourAdd(x, cube0Id, side0,
                        cube1Id, side1);
 }
 void onNeighbourRemove(void *x,unsigned int cube0Id, unsigned int side0,
                         unsigned int cube1Id, unsigned int side1)
 {
-	currMode.onNeighbourRemove(x, cube0Id, side0,
+	currMode->onNeighbourRemove(x, cube0Id, side0,
                        cube1Id, side1);
 }
 void onTouch(void *x,unsigned int cube)
 {
-	currMode.onTouch(x, cube);
+	currMode->onTouch(x, cube);
 }
 
 
@@ -249,7 +250,8 @@ void main()
     	onConnect(NULL, cube);
     }
 
-    currMode = Normal(&myGameDrawer);
+    normal = Normal(&myGameDrawer);
+    currMode = &normal;
 
     Events::neighborAdd.set(&onNeighbourAdd);
     Events::neighborRemove.set(&onNeighbourRemove);
@@ -260,7 +262,7 @@ void main()
     while(!exitLoop)
     {
     	//LOG("ts.delta() = %d\n",ts.delta().milliseconds());
-    	exitLoop = currMode.updateTime(ts.delta());
+    	exitLoop = currMode->updateTime(ts.delta());
 
     	ts.next();
     	System::paint();
