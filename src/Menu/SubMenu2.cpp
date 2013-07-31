@@ -89,7 +89,7 @@ public:
         struct MenuEvent e;
         uint8_t item;
 
-        LOG("Running Sub Menu 2\n");
+        //LOG("Running Sub Menu 2\n");
         while (myMenu.pollEvent(&e))
         {
             switch (e.type)

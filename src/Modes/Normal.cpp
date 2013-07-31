@@ -2,6 +2,7 @@
 
 Normal::Normal(GameDrawer* gameDrawer) : PlayGame()
 {
+	System::setCubeRange(4,CUBE_ALLOCATION);
 	myGameDrawer = gameDrawer;
 	totalAsked = 0;
 
@@ -45,11 +46,6 @@ Normal::Normal(GameDrawer* gameDrawer) : PlayGame()
 
 Normal::Normal()
 {}
-
-int Normal::getMinCubesReq()
-{
-	return 4;
-}
 
 int Normal::runSpecificGameComms()
 {

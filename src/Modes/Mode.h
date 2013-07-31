@@ -24,7 +24,6 @@ public:
     //then the user touches to go back to the main menu
     //virtual void onTouch(unsigned int id);
 
-    virtual int getMinCubesReq() = 0;
     virtual int updateTime(TimeDelta delta) = 0;
 
     Mode();

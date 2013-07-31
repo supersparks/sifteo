@@ -28,10 +28,7 @@ int Mode::updateTime(TimeDelta delta)
 	return 0;
 }
 
-int getMinCubesReq()
-{
-	return 0;
-}
+
 
 int updateTime(TimeDelta delta)
 {

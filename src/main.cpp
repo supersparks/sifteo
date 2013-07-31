@@ -41,7 +41,7 @@ void addMoreCubes()
 
 void onDisconnect(void *x, unsigned int id)
 {
-	addMoreCubes(); //sets flag to 0 so that main loop does not call currMode.UpdateTime()
+	//addMoreCubes(); //sets flag to 0 so that main loop does not call currMode.UpdateTime()
 }
 
 void onConnect(void *x, unsigned int id)
@@ -51,10 +51,10 @@ void onConnect(void *x, unsigned int id)
     vid.attach(id);
     //vid.bg0.erase(StripeTile);
 
-    CubeSet cubesLeft = CubeSet::connected();
+    /*CubeSet cubesLeft = CubeSet::connected();
 	//if(currMode != NULL)
 	{
-		int numNeeded = 4;//currMode.getMinCubesReq();
+		int numNeeded = currMode->getMinCubesReq();
 		if(id >= numNeeded -1)
 		{
 			continueGame = 1;
@@ -76,7 +76,7 @@ void onConnect(void *x, unsigned int id)
 				continueGame = 1;
 			}
 		}
-	}
+	}*/
 
 	
 }
