@@ -119,7 +119,7 @@ bool GameMenuMode::runMenu()
 
     } while (keepLooping);
 
-    return e.item;
+    return keepLooping;
 }
 
 
@@ -129,6 +129,7 @@ bool GameMenuNode::inUse()
 	return isBeingUsed;
 }
 
+//returns whether it's parent menu should keep looping
 bool GameMenuNode::menuLogic(int item)
 {
 	bool keepLoopingRes = 1;
@@ -142,14 +143,17 @@ bool GameMenuNode::menuLogic(int item)
 				case 1;
 					//single player
 					LOG("SINGLE PLAYER");
+					keepLoopingRes = 1
 					break;
 				case 2;
 					//multiplayer
 					LOG("MULTIPLAYER");
+					keepLoopingRes = 1
 					break;
 				case 3;
 					//show stats
 					LOG("SHOW STATS");
+					keepLoopingRes = 1
 					break;
 			}
 			break;
@@ -159,14 +163,16 @@ bool GameMenuNode::menuLogic(int item)
 				case 1;
 					//single player normal
 					LOG("NORMAL");
+					keepLoopingRes = 0;
 					break;
 				case 2;
 					//single player practise
 					LOG("PRACTISE");
+					keepLoopingRes = 0;
 					break;
 				case 3;
 					//move back to main menu
-					return(1);
+					keepLoopingRes = 1;
 					break;
 			}
 			break;
@@ -176,10 +182,12 @@ bool GameMenuNode::menuLogic(int item)
 				case 1;
 					//move to GameMenuNode::TEAMWORK_SELECT_NUM
 					mySubMenu = GameMenu(menuCube,GameMenuNode::TEAMWORK_SELECT_NUM);
+					keepLoopingRes = mySubMenu.runMenu();
 					break;
 				case 2;
 					//move to GameMenuNode::COMPETITIVE_SELECT_NUM
-				mySubMenu = GameMenu(menuCube,GameMenuNode::COMPETITIVE_SELECT_NUM);
+					mySubMenu = GameMenu(menuCube,GameMenuNode::COMPETITIVE_SELECT_NUM);
+					keepLoopingRes = mySubMenu.runMenu();
 					break;
 				case 3;
 					//move back to main menu
@@ -192,16 +200,19 @@ bool GameMenuNode::menuLogic(int item)
 			{
 				case 1;
 					//2 player teamwork game
+					keepLoopingRes = 0;
 					break;
 				case 2;
 					//3 player teamwork game
+					keepLoopingRes = 0;
 					break;
 				case 3;
 					//4 player teamwork game
+					keepLoopingRes = 0;
 					break;
 				case 4;
 					//back to multiplayer menu
-					return 1;
+					keppLoopingRes = 1;
 					break;
 			}
 			break;
@@ -210,24 +221,23 @@ bool GameMenuNode::menuLogic(int item)
 			{
 				case 1;
 					//2 player competitive game
-
+					keepLoopingRes = 0;
 					break;
 				case 2;
 					//3 player competitive game
-
+					keepLoopingRes = 0;
 					break;
 				case 3;
 					//4 player competitive game
-
+					keepLoopingRes = 0;
 					break;
 				case 4;
 					//back to multiplayer menu
 					keepLoopingRes = 1;
 					break;
 			}
-			break;
+			break;s
 	}
-
 
 	return keepLoopingRes;
 }
