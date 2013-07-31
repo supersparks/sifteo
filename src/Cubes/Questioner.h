@@ -11,6 +11,10 @@
 #define FIRST_QUESTION_HEIGHT 4
 using namespace Sifteo;
 
+    static StoredObject s_HighScore = StoredObject(255);
+    static StoredObject s_LongestStreak(254);
+    static StoredObject s_TotalAsked(253);
+    
 class Questioner{
 
 private:
@@ -36,7 +40,7 @@ private:
     int panning;
     int corrQuestAns;
 
-    
+
 public:
     Questioner(GameDrawer * gameDrawer, CubeID cubeID);
     Questioner(){};
@@ -52,6 +56,7 @@ public:
 
 private:
     Int2 doPanning(Int2 targetPan, int timetaken);
+    void initStoredObjects();
     
 };
 

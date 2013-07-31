@@ -108,9 +108,41 @@ Result Questioner::questionUpdate()
 	}
 }
 
+void Questioner::initStoredObjects()
+{
+	void* buff;
+	//no highscore has been saved before
+	if (s_HighScore.readObject(buff,0) <= 0)
+	{
+		//we asssume that s_highscore hasn't been written to before
+		//if and only if s_longestStreeam and s_TotalAsked hasn't 
+		//been written to before
+		s_HighScore.writeObject(0);
+		s_LongestStreak.writeObject(0);
+		s_TotalAsked.writeObject(0);
+	}
+}
+
 void Questioner::cleanGame()
 {
-	//Do something with memory adding longestStreak, totalAsked, totalCorrect
+	initStoredObjects();
+
+	int prevHighscore = -1;
+	s_HighScore.readObject(prevHighscore,0);
+	LOG("prevHighscore = %d\n",prevHighscore);
+	if (prevHighscore<totalCorrect)	s_HighScore.write(totalCorrect);
+
+	int prevLongestStreak = -1;
+	s_LongestStreak.readObject(prevLongestStreak,0);
+	LOG("prevLongestStreak = %d\n",prevLongestStreak);
+	if (prevLongestStreak<longestStreak) s_LongestStreak.write(longestStreak);
+
+	int prevTotalAsked = -1;
+	s_TotalAsked.readObject(prevTotalAsked,0);
+	LOG("prevTotalAsked = %d\n",prevTotalAsked);
+	int newTotalAsked = prevTotalAsked + totalAsked;
+	s_TotalAsked.write(newTotalAsked);
+
 	myGameDrawer->paintGameOver(myCube, totalCorrect, longestStreak);
 }
 
