@@ -108,9 +108,29 @@ void GameDrawer::printQuestion(CubeID cube, Int2 TopLeft, String<16> quText)
 	gVideo[cube].bg0.text(TopLeft, Font, quText, ' ');
 }
 
+void GameDrawer::printGreenQuestion(CubeID cube, Int2 TopLeft, String<16> quText)
+{
+	gVideo[cube].bg0.text(TopLeft, FontGreen, quText, ' ');
+}
+
+void GameDrawer::printRedQuestion(CubeID cube, Int2 TopLeft, String<16> quText)
+{
+	gVideo[cube].bg0.text(TopLeft, FontRed, quText, ' ');
+}
+
 void GameDrawer::printOperator(CubeID cube, Int2 TopLeft, int whichOp)
 {
 	gVideo[cube].bg0.image(TopLeft,OperImages[whichOp] );
+}
+
+void GameDrawer::printGreenOperator(CubeID cube, Int2 TopLeft, int whichOp)
+{
+	gVideo[cube].bg0.image(TopLeft,OperImagesGreen[whichOp] );
+}
+
+void GameDrawer::printRedOperator(CubeID cube, Int2 TopLeft, int whichOp)
+{
+	gVideo[cube].bg0.image(TopLeft,OperImagesRed[whichOp] );
 }
 
 void GameDrawer::doPanning(CubeID cube, Int2 Pan)
@@ -194,17 +214,24 @@ void GameDrawer::paintBlack(CubeID cube)
 
 void GameDrawer::drawUpdatedResults(CubeID cube, int currStreak, int totalCorrect)
 {
-	for(int i=8; i < 11; ++i)
+	if(!currStreak)
 	{
-		gVideo[cube].bg0.image(vec(i,10), pixelsWhite);
-		gVideo[cube].bg0.image(vec(i,11), pixelsWhite);
+		for(int i=10; i < 13; ++i)
+		{
+			gVideo[cube].bg0.image(vec(i,12), pixelsWhite);
+			gVideo[cube].bg0.image(vec(i,13), pixelsWhite);
+		}
 	}
 	String<9> score;
 	score << totalCorrect;
+
+	gVideo[cube].bg0.text(vec(10,8),Font, score, ' ');
+
 	String<9> cStreak;
 	cStreak << currStreak;
-	gVideo[cube].bg0.text(vec(8,8),Font, score, ' ');
-	gVideo[cube].bg0.text(vec(8,10),Font, cStreak, ' ');
+	gVideo[cube].bg0.text(vec(10,12),Font, cStreak, ' ');
+
+
 }
 
 void main()

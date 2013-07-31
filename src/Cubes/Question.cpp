@@ -22,7 +22,7 @@ Question::Question(GameDrawer* gameDrawer, CubeID cube, int yWritePosition)
 	totalDigits += numDigits(questionArray[4]);
 	totalDigits += numDigits(questionArray[5]);
 
-	int extraSpace = 16 - totalDigits;
+	extraSpace = 16 - totalDigits;
 	extraSpace /= 2;
 
 	xPosFirstOp += extraSpace;
@@ -110,13 +110,21 @@ int Question::answered()
 
 void Question::updateToCorrect()
 {
-	if(opsChosen[0] != questionArray[1])
+	String<16> quText;
+	quText << questionArray[0] << "  " << questionArray[2] << "  "
+		<< questionArray[4] << "=" << questionArray[5];
+
+	if(myScore)
 	{
-		myGameDrawer->printOperator(myCube, vec(xPosFirstOp,yPos), questionArray[1]);
+		myGameDrawer->printGreenQuestion(myCube, vec(extraSpace,yPos), quText);
+		myGameDrawer->printGreenOperator(myCube, vec(xPosFirstOp,yPos), questionArray[1]);
+		myGameDrawer->printGreenOperator(myCube, vec(xPosSecondOp,yPos), questionArray[3]);
 	}
-	if(opsChosen[1] != questionArray[3])
+	else
 	{
-		myGameDrawer->printOperator(myCube, vec(xPosSecondOp,yPos), questionArray[3]);
+		myGameDrawer->printRedQuestion(myCube, vec(extraSpace,yPos), quText);
+		myGameDrawer->printRedOperator(myCube, vec(xPosFirstOp,yPos), questionArray[1]);
+		myGameDrawer->printRedOperator(myCube, vec(xPosSecondOp,yPos), questionArray[3]);
 	}
 }
 

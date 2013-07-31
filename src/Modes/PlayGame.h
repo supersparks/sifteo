@@ -44,7 +44,7 @@ private:
 
     int endGame(TimeDelta delta);
 
-    virtual int runSpecificGameComms() {return 0;}
+    virtual int runSpecificGameComms() =0;
 
     int findIndex(CubeID* myArray, int member);
 

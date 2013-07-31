@@ -14,8 +14,7 @@ Timer::Timer(GameDrawer* gameDrawer, CubeID cubeID)
 	myGameDrawer->drawTimerBackground(myCube);
 	myGameDrawer->setBG1Mask(myCube);
 	myGameDrawer->drawTimeBar(myCube);
-
-
+	myGameDrawer->drawUpdatedResults(myCube, 0, 0);
 }
 
 Timer::Timer()
