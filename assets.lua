@@ -18,13 +18,12 @@ Icon = image{"./assets/icon.png"}
 
 --Game assets. Operators should be in the order as defined in Cube.h
 
-GameAssets = group{quality = 1}
+GameAssets = group{}
 
 OperatorBackground = image{"./assets/operator.png"}
 
 GameOver = image{"./assets/gameover.png"}
 
---OpHighlight = list { image{"assets/operator.divide.png"}, image{"assets/operator.minus.png"}, image{"assets/operator.plus.ng"}, image{"assets/operator.times.png"}}
 Highlights = {image{"./assets/operator.png"},image{"./assets/operator.highlighted.png"}}
 Font = image{"./assets/Font-8x16.png", pinned=true, width=8, height=16}
 Font2 = image{"./assets/Font(2)-8x16.png", pinned=true, width=8, height=16}
@@ -37,7 +36,7 @@ ConnectCube = image{"./assets/connect_more_cubes.png"}
 Countdown = {image{"./assets/countdown_3.png"}, image{"./assets/countdown_2.png"}, image{"./assets/countdown_1.png"}}
 
 TimerBackground = image{"./assets/timer_background.png"}
---QuestionerBackground = image{"./assets/background.png"}
+QuestionerBackground = image{"./assets/background.png"}
 Timebar = image{"./assets/timebar.png"}
 TimebarAnim = {image{"./assets/timebar_0.png"},image{"./assets/timebar_1.png"},image{"./assets/timebar_2.png"},image{"./assets/timebar_3.png"},image{"./assets/timebar_4.png"},image{"./assets/timebar_5.png"},image{"./assets/timebar_6.png"},image{"./assets/timebar_7.png"},image{"./assets/timebar_8.png"}}
 pixelsWhite = image{"./assets/white_box.png"}

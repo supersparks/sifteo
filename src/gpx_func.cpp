@@ -22,7 +22,7 @@ static AssetConfiguration<1> assetConfig;
 VideoBuffer gVideo[CUBE_ALLOCATION];
 
 GameDrawer myGameDrawer;
-Normal currMode(&myGameDrawer);
+Normal currMode;
 
 int continueGame = 1;
 
@@ -81,18 +81,18 @@ void onConnect(void *x, unsigned int id)
 void onNeighbourAdd(void *x,unsigned int cube0Id, unsigned int side0,
                         unsigned int cube1Id, unsigned int side1)
 {
-	//currMode.onNeighbourAdd(x, cube0Id, side0,
-    //                    cube1Id, side1);
+	currMode.onNeighbourAdd(x, cube0Id, side0,
+                       cube1Id, side1);
 }
 void onNeighbourRemove(void *x,unsigned int cube0Id, unsigned int side0,
                         unsigned int cube1Id, unsigned int side1)
 {
-	//currMode.onNeighbourRemove(x, cube0Id, side0,
-    //                    cube1Id, side1);
+	currMode.onNeighbourRemove(x, cube0Id, side0,
+                       cube1Id, side1);
 }
 void onTouch(void *x,unsigned int cube)
 {
-	//currMode.onTouch(x, cube);
+	currMode.onTouch(x, cube);
 }
 
 
@@ -137,6 +137,7 @@ void GameDrawer::GameDrawer::drawConnectCube(CubeID cube)
 
 void GameDrawer::drawCountdown(CubeID cube, int CountdownSecs)
 {
+	//LOG("real cube id is = %d\n",(unsigned int)gVideo[cube].cube());
 	gVideo[cube].bg0.image(vec(0,0),Countdown[CountdownSecs]);
 }
 
@@ -147,14 +148,14 @@ void GameDrawer::drawOperatorBackground(CubeID cube)
 
 void GameDrawer::drawTimerBackground(CubeID cube)
 {
-	LOG("real cube id is = %d\n",(unsigned int)gVideo[cube].cube());
-	//gVideo[cube].bg0.image(vec(0,0),TimerBackground);
+	//LOG("real cube id is = %d\n",(unsigned int)gVideo[cube].cube());
+	gVideo[cube].bg0.image(vec(0,0),TimerBackground);
 }
 
-// void GameDrawer::drawQuestionerBackground(CubeID cube)
-// {
-// 	gVideo[cube].bg0.image(vec(0,0),QuestionerBackground);
-// }
+void GameDrawer::drawQuestionerBackground(CubeID cube)
+{
+	gVideo[cube].bg0.image(vec(0,0),QuestionerBackground);
+}
 
 void GameDrawer::switchToBG0_BG1(CubeID cube)
 {
@@ -231,7 +232,8 @@ void main()
 
     while(!exitLoop)
     {
-    	//exitLoop = currMode.updateTime(ts.delta());
+    	//LOG("ts.delta() = %d\n",ts.delta().milliseconds());
+    	exitLoop = currMode.updateTime(ts.delta());
 
     	ts.next();
     	System::paint();

@@ -43,6 +43,9 @@ Normal::Normal(GameDrawer* gameDrawer) : PlayGame()
 
 }
 
+Normal::Normal()
+{}
+
 int Normal::getMinCubesReq()
 {
 	return 4;

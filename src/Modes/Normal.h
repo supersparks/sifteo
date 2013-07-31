@@ -19,6 +19,8 @@ private:
 public:
 	Normal(GameDrawer* gameDrawer);
 
+	Normal();
+
 	int getMinCubesReq();
 
 private:

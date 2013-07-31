@@ -15,6 +15,7 @@ extern const Sifteo::PinnedAssetImage Font;
 extern const Sifteo::PinnedAssetImage Font2;
 extern const Sifteo::AssetImage TimerBackground;
 extern const Sifteo::AssetImage ConnectCube;
+extern const Sifteo::AssetImage QuestionerBackground;
 extern const Sifteo::AssetImage Timebar;
 extern const Sifteo::AssetImage pixelsWhite;
 extern const Sifteo::AssetImage BlackImage;

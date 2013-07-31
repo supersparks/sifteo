@@ -34,8 +34,11 @@ int PlayGame::updateTime(TimeDelta delta)
 	{
 		//LOG("Doing countdown\n");
 		countdownSecs += delta.seconds();
+		//LOG("delta.seconds() = %f\n", delta.seconds());
 		if((int) countdownSecs >= 3)
 		{
+			//LOG("countdownSecs = %f\n", countdownSecs);
+
 			countdown = 0;
 			startgame = 1;
 			for(int i=0; i < CUBE_ALLOCATION; ++i)
@@ -73,7 +76,7 @@ int PlayGame::updateTime(TimeDelta delta)
 		return 1;
 	}
 
-	return 0;
+ 	return 0;
 }
 
 void PlayGame::onTouch(void *x, unsigned int id)

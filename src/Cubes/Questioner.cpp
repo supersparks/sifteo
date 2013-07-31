@@ -26,7 +26,8 @@ Questioner::Questioner(GameDrawer* gameDrawer, CubeID cubeId)
 
 void Questioner::countdownOver()
 {
-	myGameDrawer->drawTimerBackground(myCube);
+	//LOG("Questioner cube is %d\n",(int) myCube );
+	myGameDrawer->drawQuestionerBackground(myCube);
 	currQuestion = Question(myGameDrawer, myCube, yCurrQuestion);
 }
 

@@ -12,17 +12,15 @@ Timer::Timer(GameDrawer* gameDrawer, CubeID cubeID)
 
 	myGameDrawer->switchToBG0_BG1(myCube);
 	myGameDrawer->drawTimerBackground(myCube);
-
-	LOG("myCube =  %d\n", (unsigned int) myCube);
-	LOG("IS IT CONNECTED? %d\n",myCube.isDefined());
-	//myGameDrawer->setBG1Mask(myCube);
-	//myGameDrawer->drawTimeBar(myCube);
+	myGameDrawer->setBG1Mask(myCube);
+	myGameDrawer->drawTimeBar(myCube);
 
 
 }
 
-Timer::Timer(){
-		LOG("EMPTY CONTRUCTOR FOR TIMER\n");
+Timer::Timer()
+{
+	//LOG("EMPTY CONTRUCTOR FOR TIMER\n");
 }
 
 void Timer::updateAnimation(TimeDelta delta)
