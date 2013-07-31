@@ -1,7 +1,8 @@
 #include "Questioner.h"
 
 
-Questioner::Questioner(GameDrawer* gameDrawer, CubeID cubeId){
+Questioner::Questioner(GameDrawer* gameDrawer, CubeID cubeId)
+{
 	myCube = cubeId;
 	myGameDrawer = gameDrawer;
 
@@ -18,13 +19,40 @@ Questioner::Questioner(GameDrawer* gameDrawer, CubeID cubeId){
     timePanning = 0;
     panning = 0;
     corrQuestAns = 0;
+    extraTime = 0;
 
-    currQuestion = Question(myGameDrawer, myCube, yCurrQuestion);
+    //LOG("Created first question for Questioner %d\n", (int) cubeId);
+}
+
+void Questioner::countdownOver()
+{
+	//LOG("Questioner cube is %d\n",(int) myCube );
+	myGameDrawer->drawQuestionerBackground(myCube);
+	currQuestion = Question(myGameDrawer, myCube, yCurrQuestion);
 }
 
 void Questioner::runGame(TimeDelta myDelta)
 {
-	if(currQuestion.answered())
+
+	if(panning)
+	{
+		timePanning += myDelta.milliseconds();
+		if(timePanning > TIME_TO_CORRECT && !corrQuestAns)
+		{
+			corrQuestAns = 1;
+			currQuestion.updateToCorrect();
+		}
+
+		currPan = doPanning(targetPan,timePanning);
+		if(currPan == targetPan)
+		{
+			prevQuestion.clean();
+			prevQuestion = currQuestion;
+			currQuestion = newQuestion;
+			panning = 0;
+		}
+	}
+	else if(currQuestion.answered())
 	{
 		targetPan = currPan - vec(0,48);
 		if(currPan.y < 0)
@@ -56,7 +84,7 @@ void Questioner::runGame(TimeDelta myDelta)
 		{
 			currStreak += correct;
 			totalCorrect += correct;
-			if(currStreak % 5)
+			if(!(currStreak % 5))
 			{
 				extraTime = 1;
 			}
@@ -64,24 +92,7 @@ void Questioner::runGame(TimeDelta myDelta)
 		totalAsked++;
 	}
 
-	if(panning)
-	{
-		timePanning += myDelta.milliseconds();
-		if(timePanning > TIME_TO_CORRECT && !corrQuestAns)
-		{
-			corrQuestAns = 1;
-			currQuestion.updateToCorrect();
-		}
-
-		currPan = doPanning(targetPan,timePanning);
-		if(currPan == targetPan)
-		{
-			prevQuestion.clean();
-			prevQuestion = currQuestion;
-			currQuestion = newQuestion;
-			panning = 0;
-		}
-	}
+	//LOG("Questioner about to return runGame()\n");
 }
 
 Result Questioner::questionUpdate()
@@ -89,11 +100,11 @@ Result Questioner::questionUpdate()
 	if(extraTime)
 	{
 		extraTime = 0;
-		return Result(currStreak, totalCorrect, 1);
+		return Result(currStreak, totalCorrect, 1, totalAsked);
 	}
 	else
 	{
-		return Result(currStreak, totalCorrect, 0);
+		return Result(currStreak, totalCorrect, 0, totalAsked);
 	}
 }
 
@@ -122,7 +133,7 @@ void Questioner::removeOperator(unsigned int mySide)
 		opPos = 2;
 	}
 
-	currQuestion.printOperator(4, opPos);
+	currQuestion.removeOperator(opPos);
 }
 
 Int2 Questioner::doPanning(Int2 targetPan, int timetaken)

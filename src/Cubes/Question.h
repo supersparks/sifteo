@@ -13,6 +13,7 @@ private:
 	int xPosFirstOp;
 	int xPosSecondOp;
 	int yPos;
+	int extraSpace;
 	int firstOpWritten;
 	int secondOpWritten;
 	int opsChosen[2];

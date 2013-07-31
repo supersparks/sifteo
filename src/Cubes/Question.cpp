@@ -22,7 +22,7 @@ Question::Question(GameDrawer* gameDrawer, CubeID cube, int yWritePosition)
 	totalDigits += numDigits(questionArray[4]);
 	totalDigits += numDigits(questionArray[5]);
 
-	int extraSpace = 16 - totalDigits;
+	extraSpace = 16 - totalDigits;
 	extraSpace /= 2;
 
 	xPosFirstOp += extraSpace;
@@ -63,7 +63,7 @@ void Question::printOperator(int whichOp, int whichPos)
 		}
 		if(firstOpWritten && secondOpWritten)
 		{
-			questionSubmitted();
+			questionSubmitted();// locks the operators using opsLocked
 		}
 	}
 }
@@ -103,7 +103,6 @@ int Question::answered()
 	if(answerTaken)
 	{
 		answerTaken = 0;
-		opsLocked = 1;
 		return 1;
 	}
 	return 0;
@@ -111,13 +110,21 @@ int Question::answered()
 
 void Question::updateToCorrect()
 {
-	if(opsChosen[0] != questionArray[1])
+	String<16> quText;
+	quText << questionArray[0] << "  " << questionArray[2] << "  "
+		<< questionArray[4] << "=" << questionArray[5];
+
+	if(myScore)
 	{
-		myGameDrawer->printOperator(myCube, vec(xPosFirstOp,yPos), questionArray[1]);
+		myGameDrawer->printGreenQuestion(myCube, vec(extraSpace,yPos), quText);
+		myGameDrawer->printGreenOperator(myCube, vec(xPosFirstOp,yPos), questionArray[1]);
+		myGameDrawer->printGreenOperator(myCube, vec(xPosSecondOp,yPos), questionArray[3]);
 	}
-	if(opsChosen[1] != questionArray[3])
+	else
 	{
-		myGameDrawer->printOperator(myCube, vec(xPosSecondOp,yPos), questionArray[3]);
+		myGameDrawer->printRedQuestion(myCube, vec(extraSpace,yPos), quText);
+		myGameDrawer->printRedOperator(myCube, vec(xPosFirstOp,yPos), questionArray[1]);
+		myGameDrawer->printRedOperator(myCube, vec(xPosSecondOp,yPos), questionArray[3]);
 	}
 }
 
@@ -135,6 +142,7 @@ int Question::numDigits(int number)
 void Question::questionSubmitted()
 {
 	answerTaken = 1;
+	opsLocked = 1;
 	if(opsChosen[0] == questionArray[1] && opsChosen[1] == questionArray[3])
 	{
 		myScore = 1;

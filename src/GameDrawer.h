@@ -13,7 +13,15 @@ void drawOpHighlight(CubeID cube, Int2 TopLeft, Int2 OpSize, int Highlight);
 
 void printQuestion(CubeID cube, Int2 TopLeft, String<16> quText);
 
+void printRedQuestion(CubeID cube, Int2 TopLeft, String<16> quText);
+
+void printGreenQuestion(CubeID cube, Int2 TopLeft, String<16> quText);
+
 void printOperator(CubeID cube, Int2 TopLeft, int whichOp);
+
+void printRedOperator(CubeID cube, Int2 TopLeft, int whichOp);
+
+void printGreenOperator(CubeID cube, Int2 TopLeft, int whichOp);
 
 void doPanning(CubeID cube, Int2 Pan);
 
@@ -26,6 +34,8 @@ void drawCountdown(CubeID cube, int CountdownSecs);
 void drawOperatorBackground(CubeID cube);
 
 void drawTimerBackground(CubeID cube);
+
+void drawQuestionerBackground(CubeID cube);
 
 void switchToBG0_BG1(CubeID cube);
 

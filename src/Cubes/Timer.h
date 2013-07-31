@@ -18,7 +18,7 @@ private:
 
 public:
 	Timer(GameDrawer* gameDrawer, CubeID cubeID);
-	Timer(){};
+	Timer();
 	
 	void updateAnimation(TimeDelta delta);
 	int gameOver();

@@ -14,10 +14,12 @@ class Normal : public PlayGame
 
 private:
     CubeID* myCubes;
-    GameDrawer* myDrawer;
+    int totalAsked;
 
 public:
 	Normal(GameDrawer* gameDrawer);
+
+	Normal();
 
 	int getMinCubesReq();
 
