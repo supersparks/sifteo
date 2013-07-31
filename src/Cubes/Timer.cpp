@@ -22,6 +22,22 @@ Timer::Timer()
 	//LOG("EMPTY CONTRUCTOR FOR TIMER\n");
 }
 
+void Timer::repaintNewCube(unsigned int cube)
+{
+	myCube = cube;
+	myGameDrawer->switchToBG0_BG1(myCube);
+	myGameDrawer->drawTimerBackground(myCube);
+	myGameDrawer->setBG1Mask(myCube);
+
+	myGameDrawer->drawTimeBar(myCube);
+	for(int i=15; i > endTile; --i)
+	{
+		myGameDrawer->drawBlankTimeBar(myCube, vec(i,1));
+	}
+	myGameDrawer->drawTimeBarPartial(myCube, vec(endTile,1),imageNumber);
+	myGameDrawer->drawUpdatedResults(myCube, 0, 0);
+}
+
 void Timer::updateAnimation(TimeDelta delta)
 {
 	int tickCount = ticker.tick( delta );

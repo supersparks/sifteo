@@ -14,9 +14,13 @@ class PlayGame : public Mode {
     //VidBuffControl as a parameter
 protected: enum CubeState{
     NOT_CONNECTED,
+    CONNECTED,
     QUESTIONER,
     OPERATOR,
     TIMER,
+    QUESTIONER_NEEDED,
+    OPERATOR_NEEDED,
+    TIMER_NEEDED,
 };
 
 public:
@@ -25,10 +29,6 @@ public:
 protected:
     GameDrawer* myGameDrawer;
 
-    //questionerCube = 1;
-    //operatorCube = 2;
-    //timerCube = 3;
-    //not connected = 0;
     CubeState cubeStates[CUBE_ALLOCATION] = {NOT_CONNECTED};
 
     Questioner myQuestioners[CUBE_ALLOCATION];
@@ -56,6 +56,10 @@ public:
     void onTouch(void *x, unsigned int id);
 
     int updateTime(TimeDelta delta);
+
+    void updateDisconnect(unsigned int id);
+
+    void updateConnect(unsigned int id);
 };
 
 #endif

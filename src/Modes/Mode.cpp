@@ -28,9 +28,12 @@ int Mode::updateTime(TimeDelta delta)
 	return 0;
 }
 
-
-
-int updateTime(TimeDelta delta)
+void updateConnect(unsigned int id)
 {
-	return 0;
+
+}
+
+void updateDisconnect(unsigned int id)
+{
+
 }

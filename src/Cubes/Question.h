@@ -25,6 +25,9 @@ private:
 
 public:
 	Question(GameDrawer* gameDrawer, CubeID cube, int yWritePosition);
+	//Only used on disconnection of questioner cube
+	Question(GameDrawer* gameDrawer, CubeID cube, int yWritePosition,
+		int* question, int updateCorrect);
 	//Used only when initialising lastQuestion to an empty question;
 	Question();
 
@@ -34,6 +37,8 @@ public:
 	int answered();
 	int wasRight();
 	void updateToCorrect();
+	int* retrieveQuestion();
+	bool equals(const Question& q) const;
 
 private:
 	int numDigits(int number);

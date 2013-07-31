@@ -51,6 +51,12 @@ void Operator::dehighlightOperator(unsigned int opSide)
 	myGameDrawer->drawOpHighlight(myCube, OpPosition,vec(6,6), 0);
 }
 
+void Operator::repaintNewCube(unsigned int cube)
+{
+	myCube = cube;
+	myGameDrawer->drawOperatorBackground(myCube);
+}
+
 void Operator::cleanGame()
 {
 	myGameDrawer->paintBlack(myCube);

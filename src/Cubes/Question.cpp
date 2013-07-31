@@ -39,10 +39,65 @@ Question::Question(GameDrawer* gameDrawer, CubeID cube, int yWritePosition)
 	//xPosSecondOp = xPosFirstOp + 2 + numDigits(questionArray[2]);
 }
 
+Question::Question(GameDrawer* gameDrawer, CubeID cube, int yWritePosition, 
+	int* question, int updateCorrect)
+{
+	myGameDrawer = gameDrawer;
+	myCube = cube;
+	yPos = yWritePosition;
+	firstOpWritten = 0;
+	secondOpWritten = 0;
+	answerTaken = 0;
+	opsLocked = 0;
+	myScore = 0;
+
+	questionArray = question;
+
+	int totalDigits = 5;
+	xPosFirstOp = numDigits(questionArray[0]);
+	totalDigits += xPosFirstOp;
+
+	xPosSecondOp = numDigits(questionArray[2]);
+	totalDigits += xPosSecondOp;
+	totalDigits += numDigits(questionArray[4]);
+	totalDigits += numDigits(questionArray[5]);
+
+	extraSpace = 16 - totalDigits;
+	extraSpace /= 2;
+
+	xPosFirstOp += extraSpace;
+	xPosSecondOp += xPosFirstOp + 2;
+
+	if(updateCorrect)
+	{
+		updateToCorrect();
+	}
+	else
+	{
+		String<16> quText;
+		quText << questionArray[0] << "  " << questionArray[2] << "  "
+			<< questionArray[4] << "=" << questionArray[5];
+		myGameDrawer->printQuestion(myCube, vec(extraSpace,yPos), quText);
+	}
+}
+
 //Used only when initialising lastQuestion to an empty question;
 Question::Question()
 {
 	yPos = 8;
+}
+
+bool Question::equals(const Question& q) const
+{
+	return (questionArray[0] == q.questionArray[0] &&
+		questionArray[2] == q.questionArray[2] &&
+		questionArray[4] == q.questionArray[4] &&
+		questionArray[5] == q.questionArray[5]);
+}
+
+int* Question::retrieveQuestion()
+{
+	return questionArray;
 }
 
 void Question::printOperator(int whichOp, int whichPos)

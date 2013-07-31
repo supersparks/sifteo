@@ -25,6 +25,8 @@ public:
     //virtual void onTouch(unsigned int id);
 
     virtual int updateTime(TimeDelta delta) = 0;
+    virtual void updateDisconnect(unsigned int id) = 0;
+    virtual void updateConnect(unsigned int id) = 0;
 
     Mode();
     

@@ -17,6 +17,7 @@ public:
     void highlightOperator(unsigned int opSide);
     void dehighlightOperator(unsigned int opSide);
     void cleanGame();
+    void repaintNewCube(unsigned int cube);
 };
 
 #endif

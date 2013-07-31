@@ -24,6 +24,7 @@ public:
 	int gameOver();
 	void streakIncrease();
 	void updateResults(int currStreak, int totalCorrect);
+	void repaintNewCube(unsigned int cube);
 
 };
 
