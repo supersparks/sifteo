@@ -1,4 +1,4 @@
-src/Cubes/Result.o: src/Cubes/Result.cpp src/Cubes/Result.h \
+Cubes/Result.o: Cubes/Result.cpp Cubes/Result.h \
   /Users/sparxmacmini/Intern/sifteo-sdk/include/sifteo.h \
   /Users/sparxmacmini/Intern/sifteo-sdk/include/sifteo/abi.h \
   /Users/sparxmacmini/Intern/sifteo-sdk/include/sifteo/abi/syscall.h \
@@ -36,9 +36,9 @@ src/Cubes/Result.o: src/Cubes/Result.cpp src/Cubes/Result.h \
   /Users/sparxmacmini/Intern/sifteo-sdk/include/sifteo/video/bg1.h \
   /Users/sparxmacmini/Intern/sifteo-sdk/include/sifteo/video/bg2.h \
   /Users/sparxmacmini/Intern/sifteo-sdk/include/sifteo/video/tilebuffer.h \
-  src/Cubes/.././GameDrawer.h
+  Cubes/.././GameDrawer.h
 
-src/Cubes/Result.h:
+Cubes/Result.h:
 
 /Users/sparxmacmini/Intern/sifteo-sdk/include/sifteo.h:
 
@@ -114,4 +114,4 @@ src/Cubes/Result.h:
 
 /Users/sparxmacmini/Intern/sifteo-sdk/include/sifteo/video/tilebuffer.h:
 
-src/Cubes/.././GameDrawer.h:
+Cubes/.././GameDrawer.h:

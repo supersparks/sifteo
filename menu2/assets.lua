@@ -41,3 +41,4 @@ LabelRules = image{ "LabelRules.png"}
 LabelSing = image{ "LabelSing.png"}
 LabelBack = image{ "LabelBack.png"}
 LabelNorm = image{ "LabelNormal.png"}
+LabelNumPlayers = image{ "LabelNumPlayers.png"}

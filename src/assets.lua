@@ -30,7 +30,7 @@ BlackImage = image{"../assets/blackimage.png"}
 StripeTile = image{"../assets/stripes.png"}
 
 
-MenuAssets = group{quality=8}
+--MenuImageAssets = group{quality=8}
 
 BgTile = image{ "../assets/bg.png", pinned=1 }
 StripeTile = image{ "../assets/stripes.png", pinned=1 }

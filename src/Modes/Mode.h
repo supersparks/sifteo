@@ -15,10 +15,10 @@ private:
 public:
     //virtual void onAccelChange(unsigned int id); /*needed for the menu?*/
     virtual void onNeighbourAdd(void *x,unsigned int cube0Id, unsigned int side0,
-                        unsigned int cube1Id, unsigned int side1) = 0;
+                        unsigned int cube1Id, unsigned int side1);
     virtual void onNeighbourRemove(void *x,unsigned int cube0Id, unsigned int side0,
-                        unsigned int cube1Id, unsigned int side1) = 0;
-    virtual void onTouch(void *x, unsigned int id) = 0;
+                        unsigned int cube1Id, unsigned int side1);
+    virtual void onTouch(void *x, unsigned int id);
     
     //needed for the menu? also needed for when reults and stats are shown
     //then the user touches to go back to the main menu

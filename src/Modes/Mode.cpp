@@ -18,6 +18,11 @@ unsigned int cube1Id, unsigned int side1)
 
 }
 
+void Mode::onTouch(void *x, unsigned int id)
+{
+	
+}
+
 int Mode::updateTime(TimeDelta delta)
 {
 	return 0;

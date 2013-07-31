@@ -1,4 +1,4 @@
-src/Cubes/Question.o: src/Cubes/Question.cpp src/Cubes/Question.h \
+Cubes/Question.o: Cubes/Question.cpp Cubes/Question.h \
   /Users/sparxmacmini/Intern/sifteo-sdk/include/sifteo.h \
   /Users/sparxmacmini/Intern/sifteo-sdk/include/sifteo/abi.h \
   /Users/sparxmacmini/Intern/sifteo-sdk/include/sifteo/abi/syscall.h \
@@ -36,9 +36,9 @@ src/Cubes/Question.o: src/Cubes/Question.cpp src/Cubes/Question.h \
   /Users/sparxmacmini/Intern/sifteo-sdk/include/sifteo/video/bg1.h \
   /Users/sparxmacmini/Intern/sifteo-sdk/include/sifteo/video/bg2.h \
   /Users/sparxmacmini/Intern/sifteo-sdk/include/sifteo/video/tilebuffer.h \
-  src/Cubes/QuestionList.h src/Cubes/.././GameDrawer.h
+  Cubes/QuestionList.h Cubes/.././GameDrawer.h
 
-src/Cubes/Question.h:
+Cubes/Question.h:
 
 /Users/sparxmacmini/Intern/sifteo-sdk/include/sifteo.h:
 
@@ -114,6 +114,6 @@ src/Cubes/Question.h:
 
 /Users/sparxmacmini/Intern/sifteo-sdk/include/sifteo/video/tilebuffer.h:
 
-src/Cubes/QuestionList.h:
+Cubes/QuestionList.h:
 
-src/Cubes/.././GameDrawer.h:
+Cubes/.././GameDrawer.h:

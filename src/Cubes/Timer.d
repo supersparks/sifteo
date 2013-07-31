@@ -1,4 +1,4 @@
-src/Cubes/Timer.o: src/Cubes/Timer.cpp src/Cubes/Timer.h \
+Cubes/Timer.o: Cubes/Timer.cpp Cubes/Timer.h \
   /Users/sparxmacmini/Intern/sifteo-sdk/include/sifteo.h \
   /Users/sparxmacmini/Intern/sifteo-sdk/include/sifteo/abi.h \
   /Users/sparxmacmini/Intern/sifteo-sdk/include/sifteo/abi/syscall.h \
@@ -36,9 +36,9 @@ src/Cubes/Timer.o: src/Cubes/Timer.cpp src/Cubes/Timer.h \
   /Users/sparxmacmini/Intern/sifteo-sdk/include/sifteo/video/bg1.h \
   /Users/sparxmacmini/Intern/sifteo-sdk/include/sifteo/video/bg2.h \
   /Users/sparxmacmini/Intern/sifteo-sdk/include/sifteo/video/tilebuffer.h \
-  src/Cubes/.././GameDrawer.h
+  Cubes/.././GameDrawer.h
 
-src/Cubes/Timer.h:
+Cubes/Timer.h:
 
 /Users/sparxmacmini/Intern/sifteo-sdk/include/sifteo.h:
 
@@ -114,4 +114,4 @@ src/Cubes/Timer.h:
 
 /Users/sparxmacmini/Intern/sifteo-sdk/include/sifteo/video/tilebuffer.h:
 
-src/Cubes/.././GameDrawer.h:
+Cubes/.././GameDrawer.h:

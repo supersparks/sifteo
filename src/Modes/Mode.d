@@ -1,4 +1,4 @@
-src/Modes/Mode.o: src/Modes/Mode.cpp src/Modes/Mode.h \
+Modes/Mode.o: Modes/Mode.cpp Modes/Mode.h \
   /Users/sparxmacmini/Intern/sifteo-sdk/include/sifteo.h \
   /Users/sparxmacmini/Intern/sifteo-sdk/include/sifteo/abi.h \
   /Users/sparxmacmini/Intern/sifteo-sdk/include/sifteo/abi/syscall.h \
@@ -36,9 +36,9 @@ src/Modes/Mode.o: src/Modes/Mode.cpp src/Modes/Mode.h \
   /Users/sparxmacmini/Intern/sifteo-sdk/include/sifteo/video/bg1.h \
   /Users/sparxmacmini/Intern/sifteo-sdk/include/sifteo/video/bg2.h \
   /Users/sparxmacmini/Intern/sifteo-sdk/include/sifteo/video/tilebuffer.h \
-  src/Modes/.././GameDrawer.h
+  Modes/.././GameDrawer.h
 
-src/Modes/Mode.h:
+Modes/Mode.h:
 
 /Users/sparxmacmini/Intern/sifteo-sdk/include/sifteo.h:
 
@@ -114,4 +114,4 @@ src/Modes/Mode.h:
 
 /Users/sparxmacmini/Intern/sifteo-sdk/include/sifteo/video/tilebuffer.h:
 
-src/Modes/.././GameDrawer.h:
+Modes/.././GameDrawer.h:

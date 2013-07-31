@@ -1,4 +1,4 @@
-src/Modes/PlayGame.o: src/Modes/PlayGame.cpp src/Modes/PlayGame.h \
+Modes/PlayGame.o: Modes/PlayGame.cpp Modes/PlayGame.h \
   /Users/sparxmacmini/Intern/sifteo-sdk/include/sifteo.h \
   /Users/sparxmacmini/Intern/sifteo-sdk/include/sifteo/abi.h \
   /Users/sparxmacmini/Intern/sifteo-sdk/include/sifteo/abi/syscall.h \
@@ -36,12 +36,12 @@ src/Modes/PlayGame.o: src/Modes/PlayGame.cpp src/Modes/PlayGame.h \
   /Users/sparxmacmini/Intern/sifteo-sdk/include/sifteo/video/bg1.h \
   /Users/sparxmacmini/Intern/sifteo-sdk/include/sifteo/video/bg2.h \
   /Users/sparxmacmini/Intern/sifteo-sdk/include/sifteo/video/tilebuffer.h \
-  src/Modes/.././GameDrawer.h src/Modes/Mode.h \
-  src/Modes/.././Cubes/Questioner.h src/Modes/.././Cubes/Question.h \
-  src/Modes/.././Cubes/QuestionList.h src/Modes/.././Cubes/Result.h \
-  src/Modes/.././Cubes/Operator.h src/Modes/.././Cubes/Timer.h
+  Modes/.././GameDrawer.h Modes/Mode.h Modes/.././Cubes/Questioner.h \
+  Modes/.././Cubes/Question.h Modes/.././Cubes/QuestionList.h \
+  Modes/.././Cubes/Result.h Modes/.././Cubes/Operator.h \
+  Modes/.././Cubes/Timer.h
 
-src/Modes/PlayGame.h:
+Modes/PlayGame.h:
 
 /Users/sparxmacmini/Intern/sifteo-sdk/include/sifteo.h:
 
@@ -117,18 +117,18 @@ src/Modes/PlayGame.h:
 
 /Users/sparxmacmini/Intern/sifteo-sdk/include/sifteo/video/tilebuffer.h:
 
-src/Modes/.././GameDrawer.h:
+Modes/.././GameDrawer.h:
 
-src/Modes/Mode.h:
+Modes/Mode.h:
 
-src/Modes/.././Cubes/Questioner.h:
+Modes/.././Cubes/Questioner.h:
 
-src/Modes/.././Cubes/Question.h:
+Modes/.././Cubes/Question.h:
 
-src/Modes/.././Cubes/QuestionList.h:
+Modes/.././Cubes/QuestionList.h:
 
-src/Modes/.././Cubes/Result.h:
+Modes/.././Cubes/Result.h:
 
-src/Modes/.././Cubes/Operator.h:
+Modes/.././Cubes/Operator.h:
 
-src/Modes/.././Cubes/Timer.h:
+Modes/.././Cubes/Timer.h:
