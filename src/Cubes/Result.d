@@ -1,4 +1,4 @@
-src/gpx_func.o: src/gpx_func.cpp \
+src/Cubes/Result.o: src/Cubes/Result.cpp src/Cubes/Result.h \
   /Users/recruitment/Intern/sifteo-sdk/include/sifteo.h \
   /Users/recruitment/Intern/sifteo-sdk/include/sifteo/abi.h \
   /Users/recruitment/Intern/sifteo-sdk/include/sifteo/abi/syscall.h \
@@ -36,11 +36,9 @@ src/gpx_func.o: src/gpx_func.cpp \
   /Users/recruitment/Intern/sifteo-sdk/include/sifteo/video/bg1.h \
   /Users/recruitment/Intern/sifteo-sdk/include/sifteo/video/bg2.h \
   /Users/recruitment/Intern/sifteo-sdk/include/sifteo/video/tilebuffer.h \
-  src/assets.gen.h src/./Modes/Normal.h src/./Modes/PlayGame.h \
-  src/./Modes/.././GameDrawer.h src/./Modes/Mode.h \
-  src/./Modes/.././Cubes/Questioner.h src/./Modes/.././Cubes/Question.h \
-  src/./Modes/.././Cubes/QuestionList.h src/./Modes/.././Cubes/Result.h \
-  src/./Modes/.././Cubes/Operator.h src/./Modes/.././Cubes/Timer.h
+  src/Cubes/.././GameDrawer.h
+
+src/Cubes/Result.h:
 
 /Users/recruitment/Intern/sifteo-sdk/include/sifteo.h:
 
@@ -116,24 +114,4 @@ src/gpx_func.o: src/gpx_func.cpp \
 
 /Users/recruitment/Intern/sifteo-sdk/include/sifteo/video/tilebuffer.h:
 
-src/assets.gen.h:
-
-src/./Modes/Normal.h:
-
-src/./Modes/PlayGame.h:
-
-src/./Modes/.././GameDrawer.h:
-
-src/./Modes/Mode.h:
-
-src/./Modes/.././Cubes/Questioner.h:
-
-src/./Modes/.././Cubes/Question.h:
-
-src/./Modes/.././Cubes/QuestionList.h:
-
-src/./Modes/.././Cubes/Result.h:
-
-src/./Modes/.././Cubes/Operator.h:
-
-src/./Modes/.././Cubes/Timer.h:
+src/Cubes/.././GameDrawer.h:
