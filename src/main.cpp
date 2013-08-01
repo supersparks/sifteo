@@ -244,9 +244,9 @@ void GameDrawer::printStats(int hscore,int lstreak,int totalAsked)
 
 }
 
-void GameDrawer::printRules()
+void GameDrawer::printRules(CubeID cube, int image)
 {
-    gVideo[0].bg0.image(vec(0,0),RulesBackground);
+    gVideo[cube].bg0.image(vec(0,0),RulesBackground[image]);
 }
 
 void main()

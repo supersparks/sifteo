@@ -162,6 +162,7 @@ void Questioner::runGame(TimeDelta myDelta)
 	//LOG("Questioner about to return runGame()\n");
 }
 
+//returns the most recent result
 Result Questioner::questionUpdate()
 {
 	if(extraTime)
