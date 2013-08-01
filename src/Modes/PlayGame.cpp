@@ -29,8 +29,7 @@ int PlayGame::endGame(TimeDelta delta)
 }
 
 int PlayGame::updateTime(TimeDelta delta)
-{
-	if(countdown)
+{	if(countdown)
 	{
 		//LOG("Doing countdown\n");
 		countdownSecs += delta.seconds();
@@ -71,6 +70,7 @@ int PlayGame::updateTime(TimeDelta delta)
 		}
 	}
 
+	//LOG("ended = %d\n",ended);
 	if(ended)
 	{
 		return 1;

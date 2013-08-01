@@ -2,13 +2,16 @@
 
 Practise::Practise(GameDrawer* gameDrawer) : PlayGame()
 {
+	System::setCubeRange(4);
 	myGameDrawer = gameDrawer;
 	totalAsked = 0;
+	gameEnd = 0;
+	firstTouch = 1;
 
 	int i = 0;
 	for(CubeID cube : CubeSet::connected())
     {
-    	cubeStates[i] = QUESTIONER;
+    	cubeStates[i] = CONNECTED;
     	++i;
     }
 
@@ -38,69 +41,85 @@ Practise::Practise(GameDrawer* gameDrawer) : PlayGame()
     {
     	++i;
     }
-    myTimers[i] = Timer(myGameDrawer,i);
+    myTimers[i] = Timer(myGameDrawer,i,1);
     cubeStates[i] = TIMER;
+
+    ++i;
+    while(i < CUBE_ALLOCATION)
+    {
+    	cubeStates[i] = NOT_CONNECTED;
+    	++i;
+    }
 
 }
 
 Practise::Practise()
 {}
 
-int Practise::getMinCubesReq()
-{
-	return 4;
-}
-
 void Practise::onTouch(void *x, unsigned int id)
 {
-	LOG("Practise touched \n");
-	int i=0;
-	while (i< CUBE_ALLOCATION)
+	//LOG("Practise touched onEndScreen = %d, id = %d \n",onEndScreen,id);
+	if(!ending)
 	{
-		if(cubeStates[i] == QUESTIONER)
+		if(cubeStates[id] == QUESTIONER)
 		{
-			break;
-		}
-		++i;
-	}
-	myQuestioners[i].cleanGame();
+			myQuestioners[id].cleanGame();
 
-	int k=0;
-	while(k < CUBE_ALLOCATION)
-	{
-		if(cubeStates[k] == OPERATOR)
-		{
-			break;
-		}
-		++k;
-	}
-	int l=k+1;
-	while(l < CUBE_ALLOCATION)
-	{
-		if(cubeStates[l] == OPERATOR)
-		{
-			break;
-		}
-		++l;
-	}
-	myOperators[k].cleanGame();
-	myOperators[l].cleanGame();
+			int k=0;
+			while(k < CUBE_ALLOCATION)
+			{
+				if(cubeStates[k] == OPERATOR)
+				{
+					break;
+				}
+				++k;
+			}
+			int l=k+1;
+			while(l < CUBE_ALLOCATION)
+			{
+				if(cubeStates[l] == OPERATOR)
+				{
+					break;
+				}
+				++l;
+			}
+			myOperators[k].cleanGame();
+			myOperators[l].cleanGame();
 
-	int m=0;
-	while(m < CUBE_ALLOCATION)
-	{
-		if(cubeStates[m] == TIMER)
-		{
-			break;
+			int m=0;
+			while(m < CUBE_ALLOCATION)
+			{
+				if(cubeStates[m] == TIMER)
+				{
+					break;
+				}
+				++m;
+			}
+			myGameDrawer->switchToBG0(m);
+			myGameDrawer->paintBlack(m);
+			ending = 1;
+			gameEnd = 1;
 		}
-		++l;
+		//endingFromPractise();
 	}
-	myTimers[m].gameOver();
+	else if(!firstTouch)
+	{
+		if(cubeStates[id] == QUESTIONER)
+		{
+			ended = 1;
+		}
+	}
+	else
+	{	
+		if(cubeStates[id] == QUESTIONER)
+		{
+			firstTouch = 0;
+		}
+	}
 }
 
 int Practise::runSpecificGameComms()
 {
-	//LOG("Starting runSpecificGameComms()\n");
 
 	int i=0;
 	while(i < CUBE_ALLOCATION)
@@ -131,9 +150,8 @@ int Practise::runSpecificGameComms()
 	}
 
 	//LOG("About to return from runSpecificGameComms() with game not ended\n");
-	int n = 0;
 
 
-	return 0;
+	return gameEnd;
 
 }

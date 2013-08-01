@@ -14,6 +14,8 @@ class Practise : public PlayGame
 private:
     CubeID* myCubes;
     int totalAsked;
+    int gameEnd;
+    int firstTouch;
 
 public:
 	Practise(GameDrawer* gameDrawer);

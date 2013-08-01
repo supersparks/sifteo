@@ -162,6 +162,7 @@ void Questioner::runGame(TimeDelta myDelta)
 	//LOG("Questioner about to return runGame()\n");
 }
 
+//returns the most recent result
 Result Questioner::questionUpdate()
 {
 	if(extraTime)
@@ -192,21 +193,26 @@ void Questioner::initStoredObjects()
 
 void Questioner::cleanGame()
 {
+	if(currStreak > longestStreak)
+	{
+		longestStreak = currStreak;
+	}
+
 	initStoredObjects();
 
 	int prevHighscore = -1;
 	s_HighScore.readObject(prevHighscore,0);
-	LOG("prevHighscore = %d\n",prevHighscore);
+	//LOG("prevHighscore = %d\n",prevHighscore);
 	if (prevHighscore<totalCorrect)	s_HighScore.write(totalCorrect);
 
 	int prevLongestStreak = -1;
 	s_LongestStreak.readObject(prevLongestStreak,0);
-	LOG("prevLongestStreak = %d\n",prevLongestStreak);
+	//LOG("prevLongestStreak = %d\n",prevLongestStreak);
 	if (prevLongestStreak<longestStreak) s_LongestStreak.write(longestStreak);
 
 	int prevTotalAsked = -1;
 	s_TotalAsked.readObject(prevTotalAsked,0);
-	LOG("prevTotalAsked = %d\n",prevTotalAsked);
+	//LOG("prevTotalAsked = %d\n",prevTotalAsked);
 	int newTotalAsked = prevTotalAsked + totalAsked;
 	s_TotalAsked.write(newTotalAsked);
 

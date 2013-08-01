@@ -1,9 +1,10 @@
 #include "Timer.h"
 
-Timer::Timer(GameDrawer* gameDrawer, CubeID cubeID)
+Timer::Timer(GameDrawer* gameDrawer, CubeID cubeID, int IsPractise)
 {
 	myGameDrawer = gameDrawer;
 	myCube = cubeID;
+	isPractise = IsPractise;
 
 	imageNumber = 0;
 	endTile = 15;
@@ -42,7 +43,10 @@ void Timer::updateAnimation(TimeDelta delta)
 {
 	int tickCount = ticker.tick( delta );
 
-	secondsLeft -= tickCount;
+	if(!isPractise)
+	{
+		secondsLeft -= tickCount;
+	}
 
 	int pixelsLeft = (112 * secondsLeft) / 60;
 	int newEndTile = 1 + (pixelsLeft / 8);
