@@ -6,6 +6,8 @@ Teamwork::Teamwork(GameDrawer* gameDrawer, int numPlayers)
 {
 	int cubesRequired = numPlayers*3+1;
 	System::setCubeRange(cubesRequired);
+	myGameDrawer = gameDrawer;
+	myNumPlayers = numPlayers;
 
 	int i = 0;
 	for(CubeID cube : CubeSet::connected())
@@ -47,8 +49,7 @@ Teamwork::Teamwork(GameDrawer* gameDrawer, int numPlayers)
 	int numCubes = CubeSet::connected().count();
 	ASSERT(numCubes >= 3*numPlayers + 1);
 
-	myGameDrawer = gameDrawer;
-	myNumPlayers = numPlayers;
+
 	//note that the number of questioner cubes is equal to the number of players
 	totalAsked = 0;
 	combinedStreak = 0;
