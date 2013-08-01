@@ -1,4 +1,4 @@
-Modes/Mode.o: Modes/Mode.cpp Modes/Mode.h \
+Modes/Rules.o: Modes/Rules.cpp Modes/Rules.h \
   /Users/sparxmacair2/Intern/sifteo-sdk/include/sifteo.h \
   /Users/sparxmacair2/Intern/sifteo-sdk/include/sifteo/abi.h \
   /Users/sparxmacair2/Intern/sifteo-sdk/include/sifteo/abi/syscall.h \
@@ -36,9 +36,17 @@ Modes/Mode.o: Modes/Mode.cpp Modes/Mode.h \
   /Users/sparxmacair2/Intern/sifteo-sdk/include/sifteo/video/bg1.h \
   /Users/sparxmacair2/Intern/sifteo-sdk/include/sifteo/video/bg2.h \
   /Users/sparxmacair2/Intern/sifteo-sdk/include/sifteo/video/tilebuffer.h \
-  Modes/.././GameDrawer.h
+  /Users/sparxmacair2/Intern/sifteo-sdk/include/sifteo/menu.h \
+  /Users/sparxmacair2/Intern/sifteo-sdk/include/sifteo/menu/types.h \
+  /Users/sparxmacair2/Intern/sifteo-sdk/include/sifteo/menu/util.h \
+  /Users/sparxmacair2/Intern/sifteo-sdk/include/sifteo/menu/public.h \
+  /Users/sparxmacair2/Intern/sifteo-sdk/include/sifteo/menu/states.h \
+  /Users/sparxmacair2/Intern/sifteo-sdk/include/sifteo/menu/events.h \
+  Modes/./../GameDrawer.h Modes/./../Modes/Mode.h assets.gen.h \
+  Modes/./../Cubes/Questioner.h Modes/./../Cubes/Question.h \
+  Modes/./../Cubes/QuestionList.h Modes/./../Cubes/Result.h
 
-Modes/Mode.h:
+Modes/Rules.h:
 
 /Users/sparxmacair2/Intern/sifteo-sdk/include/sifteo.h:
 
@@ -114,4 +122,28 @@ Modes/Mode.h:
 
 /Users/sparxmacair2/Intern/sifteo-sdk/include/sifteo/video/tilebuffer.h:
 
-Modes/.././GameDrawer.h:
+/Users/sparxmacair2/Intern/sifteo-sdk/include/sifteo/menu.h:
+
+/Users/sparxmacair2/Intern/sifteo-sdk/include/sifteo/menu/types.h:
+
+/Users/sparxmacair2/Intern/sifteo-sdk/include/sifteo/menu/util.h:
+
+/Users/sparxmacair2/Intern/sifteo-sdk/include/sifteo/menu/public.h:
+
+/Users/sparxmacair2/Intern/sifteo-sdk/include/sifteo/menu/states.h:
+
+/Users/sparxmacair2/Intern/sifteo-sdk/include/sifteo/menu/events.h:
+
+Modes/./../GameDrawer.h:
+
+Modes/./../Modes/Mode.h:
+
+assets.gen.h:
+
+Modes/./../Cubes/Questioner.h:
+
+Modes/./../Cubes/Question.h:
+
+Modes/./../Cubes/QuestionList.h:
+
+Modes/./../Cubes/Result.h:
