@@ -75,12 +75,13 @@ void Timer::updateAnimation(TimeDelta delta)
 
 int Timer::gameOver()
 {
-	if (!secondsLeft)
-	{
+	//if (!secondsLeft)
+	//{
 		myGameDrawer->switchToBG0(myCube);
 		myGameDrawer->paintBlack(myCube);
-	}
-	return !secondsLeft;
+	//}
+	//return !secondsLeft;
+	return 0;
 }
 
 void Timer::streakIncrease()

@@ -1,6 +1,7 @@
 #include <sifteo.h>
 #include "assets.gen.h"
 #include "./Modes/Normal.h"
+#include "./Modes/Practise.h"
 #include "./Modes/Mode.h"
 #include "./Modes/PlayGame.h"
 #include "./GameDrawer.h"
@@ -24,6 +25,7 @@ VideoBuffer gVideo[CUBE_ALLOCATION];
 
 GameDrawer myGameDrawer;
 Normal normal = Normal();
+Practise practise = Practise();
 //All other modes instantiated using default constructors
 Mode *currMode = NULL;
 
@@ -268,7 +270,8 @@ void main()
     		}
     		case(1) :
     		{
-    			//Practice
+    			practise = Practise(&myGameDrawer);
+                currMode = &practise;
     			break;
     		}
     		case(2) :
