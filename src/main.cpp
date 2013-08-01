@@ -286,8 +286,8 @@ void main()
     	{
     		case(0) :
     		{
-    			normal = Normal(&myGameDrawer);
-    			currMode = &normal;
+    			//normal = Normal(&myGameDrawer);
+    			//currMode = &normal;
     			break;
     		}
     		case(1) :
@@ -318,9 +318,6 @@ void main()
     		}
     		case(6) :
     		{
-                Events::cubeTouch.unset();
-                Events::neighborAdd.unset();
-                Events::neighborRemove.unset();
     			showStat = ShowStat(&myGameDrawer);
                 currMode = &showStat;
     			break;

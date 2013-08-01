@@ -28,3 +28,13 @@ int Result::getTotalAsked()
 {
 	return myTotalAsked;
 }
+
+void Result::setLastBroken(SystemTime t)
+{
+	lastBroken = t;
+}
+
+SystemTime Result::getLastBroken()
+{
+	return lastBroken;
+}
