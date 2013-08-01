@@ -76,7 +76,7 @@ public:
 
         do
         {
-            LOG("Running Sub Menu\n");
+            //LOG("Running Sub Menu\n");
             while (myMenu.pollEvent(&e))
             {
                 switch (e.type)

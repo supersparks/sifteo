@@ -2,13 +2,14 @@
 
 Normal::Normal(GameDrawer* gameDrawer) : PlayGame()
 {
+	System::setCubeRange(4,CUBE_ALLOCATION);
 	myGameDrawer = gameDrawer;
 	totalAsked = 0;
 
 	int i = 0;
 	for(CubeID cube : CubeSet::connected())
     {
-    	cubeStates[i] = QUESTIONER;
+    	cubeStates[i] = CONNECTED;
     	++i;
     }
 
@@ -41,15 +42,19 @@ Normal::Normal(GameDrawer* gameDrawer) : PlayGame()
     myTimers[i] = Timer(myGameDrawer,i);
     cubeStates[i] = TIMER;
 
+    //flush all others as not connected
+    //because choosing not to constantly
+    //update these values manually
+    ++i;
+    while(i < CUBE_ALLOCATION)
+    {
+    	cubeStates[i] = NOT_CONNECTED;
+    	++i;
+    }
 }
 
 Normal::Normal()
 {}
-
-int Normal::getMinCubesReq()
-{
-	return 4;
-}
 
 int Normal::runSpecificGameComms()
 {

@@ -21,8 +21,6 @@ public:
 
 	Normal();
 
-	int getMinCubesReq();
-
 private:
 	int runSpecificGameComms();
 

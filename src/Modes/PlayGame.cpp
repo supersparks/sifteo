@@ -154,6 +154,124 @@ unsigned int cube1Id, unsigned int side1)
 	}
 }
 
+void PlayGame::updateDisconnect(unsigned int id)
+{
+	//LOG("CUBE: %d has disconnected\n",id);
+	
+	int cubeReplace = cubeStates[id];
+
+	int i=0;
+	while(cubeStates[i] != CONNECTED && i < CUBE_ALLOCATION)
+	{
+		++i;
+	}
+	if(i < CUBE_ALLOCATION)
+	{
+		cubeStates[i] = (CubeState) cubeReplace;
+		cubeStates[id] = NOT_CONNECTED;
+		switch(cubeReplace)
+		{
+			case (QUESTIONER) :
+			{
+				myQuestioners[i] = myQuestioners[id];
+				myQuestioners[i].repaintNewCube(i);
+				break;
+			}
+			case (OPERATOR) :
+			{
+				myOperators[i] = myOperators[id];
+				myOperators[i].repaintNewCube(i);
+				break;
+			}
+			case (TIMER) :
+			{
+				myTimers[i] = myTimers[id];
+				myTimers[i].repaintNewCube(i);
+				break;
+			}
+			default :
+			{
+				break;
+			}
+		}
+	}
+	else
+	{
+		switch(cubeStates[id])
+		{
+			case(QUESTIONER) :
+			{
+				cubeStates[id] = QUESTIONER_NEEDED;
+				break;
+			}
+			case(OPERATOR) :
+			{
+				cubeStates[id] = OPERATOR_NEEDED;
+				break;
+			}
+			case(TIMER) :
+			{
+				cubeStates[id] = TIMER_NEEDED;
+				break;
+			}
+			default :
+				break;
+		}
+	}
+}
+
+void PlayGame::updateConnect(unsigned int id)
+{
+	//LOG("CUBE: %d has connected\n",id);
+
+	int i=0;
+	while(cubeStates[i] != QUESTIONER_NEEDED &&
+		cubeStates[i] != OPERATOR_NEEDED &&
+		cubeStates[i] != TIMER_NEEDED &&
+		i < CUBE_ALLOCATION)
+	{
+		++i;
+	}
+	if(i < CUBE_ALLOCATION)
+	{
+		switch (cubeStates[i])
+		{
+			case (QUESTIONER_NEEDED) :
+			{
+				myQuestioners[id] = myQuestioners[i];
+				if(!countdown)
+				{
+					myQuestioners[id].repaintNewCube(id);
+				}
+				cubeStates[i] = NOT_CONNECTED;
+				cubeStates[id] = QUESTIONER;
+				break;
+			}
+			case (OPERATOR_NEEDED) :
+			{
+				myOperators[id] = myOperators[i];
+				myOperators[id].repaintNewCube(id);
+				cubeStates[i] = NOT_CONNECTED;
+				cubeStates[id] = OPERATOR;
+				break;
+			}
+			case (TIMER_NEEDED) :
+			{
+				myTimers[id] = myTimers[i];
+				myTimers[id].repaintNewCube(id);
+				cubeStates[i] = NOT_CONNECTED;
+				cubeStates[id] = TIMER;
+				break;
+			}
+			default :
+			{
+				break;
+			}
+		}
+	}
+	//else Error
+}
+
 int PlayGame::findIndex(CubeID* myArray, int member)
 {
 	int i=0;

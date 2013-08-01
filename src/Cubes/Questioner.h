@@ -52,6 +52,8 @@ public:
 
     void runGame(TimeDelta myDelta);
     Result questionUpdate();
+
+    void repaintNewCube(unsigned int cube);
     void cleanGame();
 
 private:

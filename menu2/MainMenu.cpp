@@ -35,7 +35,7 @@ public:
         uint8_t item;
         int repeatMenu = 0;
 
-        //LOG("Running Main Menu\n");
+        LOG("Running Main Menu\n");
 
         if(mySubMenu.inUse())
         {

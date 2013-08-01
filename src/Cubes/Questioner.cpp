@@ -31,6 +31,69 @@ void Questioner::countdownOver()
 	currQuestion = Question(myGameDrawer, myCube, yCurrQuestion);
 }
 
+void Questioner::repaintNewCube(unsigned int cube)
+{
+	myCube = cube;
+	myGameDrawer->drawQuestionerBackground(myCube);
+
+	currPan = vec(0,0);
+	targetPan = vec(0,0);
+	yCurrQuestion = FIRST_QUESTION_HEIGHT;
+
+	int *questionHolder;
+
+	if(panning)
+	{
+		panning = 0;
+
+		if( currPan == targetPan)
+		{
+			if(currQuestion.equals(prevQuestion))
+			{
+				currQuestion = newQuestion;
+				//print both curr and prev
+				questionHolder = currQuestion.retrieveQuestion();
+				currQuestion = Question(myGameDrawer, myCube, 4, questionHolder,0);
+				questionHolder = prevQuestion.retrieveQuestion();
+				prevQuestion = Question(myGameDrawer, myCube, 8, questionHolder,1);
+			}
+			else
+			{
+				currQuestion = newQuestion;
+				//print just curr
+				questionHolder = currQuestion.retrieveQuestion();
+				currQuestion = Question(myGameDrawer, myCube, 4, questionHolder,0);
+			}
+		}
+		else
+		{
+			prevQuestion = currQuestion;
+			currQuestion = newQuestion;
+			//print both curr and prev
+			questionHolder = currQuestion.retrieveQuestion();
+			currQuestion = Question(myGameDrawer, myCube, 4, questionHolder,0);
+			questionHolder = prevQuestion.retrieveQuestion();
+			prevQuestion = Question(myGameDrawer, myCube, 8, questionHolder,1);
+		}
+	}
+	else
+	{
+		//print curr and prev
+		if(totalAsked)
+		{
+			questionHolder = currQuestion.retrieveQuestion();
+			currQuestion = Question(myGameDrawer, myCube, 4, questionHolder,0);
+			questionHolder = prevQuestion.retrieveQuestion();
+			prevQuestion = Question(myGameDrawer, myCube, 8, questionHolder,1);
+		}
+		else
+		{
+			questionHolder = currQuestion.retrieveQuestion();
+			currQuestion = Question(myGameDrawer, myCube, 4, questionHolder,0);
+		}
+	}
+}
+
 void Questioner::runGame(TimeDelta myDelta)
 {
 
@@ -54,6 +117,13 @@ void Questioner::runGame(TimeDelta myDelta)
 	}
 	else if(currQuestion.answered())
 	{
+		yCurrQuestion = yCurrQuestion - 6;
+		if(yCurrQuestion < 0)
+		{
+			yCurrQuestion += 18;
+		}
+		newQuestion = Question(myGameDrawer, myCube, yCurrQuestion);
+
 		targetPan = currPan - vec(0,48);
 		if(currPan.y < 0)
 		{
@@ -62,12 +132,6 @@ void Questioner::runGame(TimeDelta myDelta)
 		}
 
 		timePanning = 0;
-		yCurrQuestion = yCurrQuestion - 6;
-		if(yCurrQuestion < 0)
-		{
-			yCurrQuestion += 18;
-		}
-		newQuestion = Question(myGameDrawer, myCube, yCurrQuestion);
 		panning = 1;
 		corrQuestAns = 0;
 

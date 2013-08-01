@@ -25,7 +25,7 @@ VideoBuffer gVideo[CUBE_ALLOCATION];
 GameDrawer myGameDrawer;
 Normal normal = Normal();
 //All other modes instantiated using default constructors
-Mode *currMode;
+Mode *currMode = NULL;
 
 int continueGame = 1;
 
@@ -41,44 +41,26 @@ void addMoreCubes()
 
 void onDisconnect(void *x, unsigned int id)
 {
-	addMoreCubes(); //sets flag to 0 so that main loop does not call currMode.UpdateTime()
+	LOG("logged disconnect from cube: %d\n",id);
+
+	if(currMode)
+	{
+		currMode->updateDisconnect(id);
+	}
 }
 
 void onConnect(void *x, unsigned int id)
 {
+	LOG("logged connect from cube: %d\n",id);
 	auto &vid = gVideo[id];
     vid.initMode(BG0);
     vid.attach(id);
     //vid.bg0.erase(StripeTile);
-
-    CubeSet cubesLeft = CubeSet::connected();
-	//if(currMode != NULL)
+    if(currMode)
 	{
-		int numNeeded = 4;//currMode.getMinCubesReq();
-		if(id >= numNeeded -1)
-		{
-			continueGame = 1;
-		}
-		else
-		{
-			int found = 1;
-			int i = 0;
-			for(CubeID cube : CubeSet::connected())
-			{
-				if(cube != i)
-				{
-					found = 0;
-				}
-				++i;
-			}
-			if(found)
-			{
-				continueGame = 1;
-			}
-		}
+		currMode->updateConnect(id);
 	}
 
-	
 }
 
 void onNeighbourAdd(void *x,unsigned int cube0Id, unsigned int side0,
@@ -256,7 +238,7 @@ void main()
     	onConnect(NULL, cube);
     }
 
-    LOG("I am about to create a game menu\n");
+    //LOG("I am about to create a game menu\n");
 
     MainMenu gameMenu(&gVideo[0]);
 
@@ -268,6 +250,7 @@ void main()
 	    Events::neighborRemove.unset();
 
     	int modeChosen = gameMenu.runMenu();
+    	currMode = NULL;
 
     	Events::cubeTouch.set(&onTouch);
 	    Events::neighborAdd.set(&onNeighbourAdd);
