@@ -1,4 +1,5 @@
-main.o: main.cpp /Users/recruitment/Intern/sifteo-sdk/include/sifteo.h \
+Modes/ShowStat.o: Modes/ShowStat.cpp Modes/ShowStat.h \
+  /Users/recruitment/Intern/sifteo-sdk/include/sifteo.h \
   /Users/recruitment/Intern/sifteo-sdk/include/sifteo/abi.h \
   /Users/recruitment/Intern/sifteo-sdk/include/sifteo/abi/syscall.h \
   /Users/recruitment/Intern/sifteo-sdk/include/sifteo/abi/types.h \
@@ -35,18 +36,17 @@ main.o: main.cpp /Users/recruitment/Intern/sifteo-sdk/include/sifteo.h \
   /Users/recruitment/Intern/sifteo-sdk/include/sifteo/video/bg1.h \
   /Users/recruitment/Intern/sifteo-sdk/include/sifteo/video/bg2.h \
   /Users/recruitment/Intern/sifteo-sdk/include/sifteo/video/tilebuffer.h \
-  assets.gen.h Modes/Normal.h Modes/PlayGame.h Modes/.././GameDrawer.h \
-  Modes/Mode.h Modes/.././Cubes/Questioner.h Modes/.././Cubes/Question.h \
-  Modes/.././Cubes/QuestionList.h Modes/.././Cubes/Result.h \
-  Modes/.././Cubes/Operator.h Modes/.././Cubes/Timer.h Modes/Practise.h \
-  Modes/ShowStat.h \
   /Users/recruitment/Intern/sifteo-sdk/include/sifteo/menu.h \
   /Users/recruitment/Intern/sifteo-sdk/include/sifteo/menu/types.h \
   /Users/recruitment/Intern/sifteo-sdk/include/sifteo/menu/util.h \
   /Users/recruitment/Intern/sifteo-sdk/include/sifteo/menu/public.h \
   /Users/recruitment/Intern/sifteo-sdk/include/sifteo/menu/states.h \
   /Users/recruitment/Intern/sifteo-sdk/include/sifteo/menu/events.h \
-  Menu/MainMenu.cpp Menu/SubMenu.cpp Menu/SubMenu2.cpp Menu/Globals.cpp
+  Modes/./../GameDrawer.h Modes/./../Modes/Mode.h assets.gen.h \
+  Modes/./../Cubes/Questioner.h Modes/./../Cubes/Question.h \
+  Modes/./../Cubes/QuestionList.h Modes/./../Cubes/Result.h
+
+Modes/ShowStat.h:
 
 /Users/recruitment/Intern/sifteo-sdk/include/sifteo.h:
 
@@ -122,32 +122,6 @@ main.o: main.cpp /Users/recruitment/Intern/sifteo-sdk/include/sifteo.h \
 
 /Users/recruitment/Intern/sifteo-sdk/include/sifteo/video/tilebuffer.h:
 
-assets.gen.h:
-
-Modes/Normal.h:
-
-Modes/PlayGame.h:
-
-Modes/.././GameDrawer.h:
-
-Modes/Mode.h:
-
-Modes/.././Cubes/Questioner.h:
-
-Modes/.././Cubes/Question.h:
-
-Modes/.././Cubes/QuestionList.h:
-
-Modes/.././Cubes/Result.h:
-
-Modes/.././Cubes/Operator.h:
-
-Modes/.././Cubes/Timer.h:
-
-Modes/Practise.h:
-
-Modes/ShowStat.h:
-
 /Users/recruitment/Intern/sifteo-sdk/include/sifteo/menu.h:
 
 /Users/recruitment/Intern/sifteo-sdk/include/sifteo/menu/types.h:
@@ -160,10 +134,16 @@ Modes/ShowStat.h:
 
 /Users/recruitment/Intern/sifteo-sdk/include/sifteo/menu/events.h:
 
-Menu/MainMenu.cpp:
+Modes/./../GameDrawer.h:
 
-Menu/SubMenu.cpp:
+Modes/./../Modes/Mode.h:
 
-Menu/SubMenu2.cpp:
+assets.gen.h:
 
-Menu/Globals.cpp:
+Modes/./../Cubes/Questioner.h:
+
+Modes/./../Cubes/Question.h:
+
+Modes/./../Cubes/QuestionList.h:
+
+Modes/./../Cubes/Result.h:
