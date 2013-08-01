@@ -1,4 +1,4 @@
-Cubes/Questioner.o: Cubes/Questioner.cpp Cubes/Questioner.h \
+Cubes/Question.o: Cubes/Question.cpp Cubes/Question.h \
   /Users/sparxmacair2/Intern/sifteo-sdk/include/sifteo.h \
   /Users/sparxmacair2/Intern/sifteo-sdk/include/sifteo/abi.h \
   /Users/sparxmacair2/Intern/sifteo-sdk/include/sifteo/abi/syscall.h \
@@ -36,10 +36,9 @@ Cubes/Questioner.o: Cubes/Questioner.cpp Cubes/Questioner.h \
   /Users/sparxmacair2/Intern/sifteo-sdk/include/sifteo/video/bg1.h \
   /Users/sparxmacair2/Intern/sifteo-sdk/include/sifteo/video/bg2.h \
   /Users/sparxmacair2/Intern/sifteo-sdk/include/sifteo/video/tilebuffer.h \
-  Cubes/.././GameDrawer.h Cubes/Question.h Cubes/QuestionList.h \
-  Cubes/Result.h
+  Cubes/QuestionList.h Cubes/.././GameDrawer.h
 
-Cubes/Questioner.h:
+Cubes/Question.h:
 
 /Users/sparxmacair2/Intern/sifteo-sdk/include/sifteo.h:
 
@@ -115,10 +114,6 @@ Cubes/Questioner.h:
 
 /Users/sparxmacair2/Intern/sifteo-sdk/include/sifteo/video/tilebuffer.h:
 
-Cubes/.././GameDrawer.h:
-
-Cubes/Question.h:
-
 Cubes/QuestionList.h:
 
-Cubes/Result.h:
+Cubes/.././GameDrawer.h:

@@ -1,6 +1,7 @@
 #include <sifteo.h>
 #include "assets.gen.h"
 #include "./Modes/Normal.h"
+#include "./Modes/Practise.h"
 #include "./Modes/Mode.h"
 #include "./Modes/PlayGame.h"
 #include "./src/GameDrawer.h"
@@ -23,6 +24,7 @@ VideoBuffer gVideo[CUBE_ALLOCATION];
 
 GameDrawer myGameDrawer;
 Normal normal = Normal();
+Practise practise = Practise();
 Mode *currMode;
 
 int continueGame = 1;
@@ -255,6 +257,25 @@ void main()
 
     Events::neighborAdd.set(&onNeighbourAdd);
     Events::neighborRemove.set(&onNeighbourRemove);
+
+    TimeStep ts;
+    int exitLoop = 0;
+
+    while(!exitLoop)
+    {
+    	//LOG("ts.delta() = %d\n",ts.delta().milliseconds());
+    	exitLoop = currMode->updateTime(ts.delta());
+
+    	ts.next();
+    	System::paint();
+    }
+
+    practise = Practise(&myGameDrawer);
+    currMode = &practise;
+
+    Events::neighborAdd.set(&onNeighbourAdd);
+    Events::neighborRemove.set(&onNeighbourRemove);
+    Events::cubeTouch.set(&onTouch);
 
     TimeStep ts;
     int exitLoop = 0;

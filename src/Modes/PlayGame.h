@@ -53,7 +53,7 @@ public:
                         unsigned int cube1Id, unsigned int side1);
     void onNeighbourRemove(void *x,unsigned int cube0Id, unsigned int side0,
                         unsigned int cube1Id, unsigned int side1);
-    void onTouch(void *x, unsigned int id);
+    virtual void onTouch(void *x, unsigned int id);
 
     int updateTime(TimeDelta delta);
 

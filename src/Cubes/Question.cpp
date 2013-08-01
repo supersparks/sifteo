@@ -11,7 +11,14 @@ Question::Question(GameDrawer* gameDrawer, CubeID cube, int yWritePosition)
 	opsLocked = 0;
 	myScore = 0;
 
-	questionArray = QuestionList::getQuestion();
+	int questionReturn = QuestionList::getQuestion();
+
+	questionArray[0] = questionReturn & 0x0000007f;
+	questionArray[2] = (questionReturn & 0x00003f80) >> 7;
+	questionArray[4] = (questionReturn & 0x001fc000) >> 14;
+	questionArray[5] = (questionReturn & 0x0fe00000) >> 21;
+	questionArray[1] = (questionReturn & 0x30000000) >> 28;
+	questionArray[3] = (questionReturn & 0xc0000000) >> 30;
 
 	int totalDigits = 5;
 	xPosFirstOp = numDigits(questionArray[0]);
@@ -51,7 +58,14 @@ Question::Question(GameDrawer* gameDrawer, CubeID cube, int yWritePosition,
 	opsLocked = 0;
 	myScore = 0;
 
-	questionArray = question;
+	int questionReturn = QuestionList::getQuestion();
+
+	questionArray[0] = questionReturn & 0x0000007f;
+	questionArray[2] = (questionReturn & 0x00003f80) >> 7;
+	questionArray[4] = (questionReturn & 0x001fc000) >> 14;
+	questionArray[5] = (questionReturn & 0x0fe00000) >> 21;
+	questionArray[1] = (questionReturn & 0x30000000) >> 28;
+	questionArray[3] = (questionReturn & 0xc0000000) >> 30;
 
 	int totalDigits = 5;
 	xPosFirstOp = numDigits(questionArray[0]);

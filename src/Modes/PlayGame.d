@@ -1,4 +1,4 @@
-Cubes/Questioner.o: Cubes/Questioner.cpp Cubes/Questioner.h \
+Modes/PlayGame.o: Modes/PlayGame.cpp Modes/PlayGame.h \
   /Users/sparxmacair2/Intern/sifteo-sdk/include/sifteo.h \
   /Users/sparxmacair2/Intern/sifteo-sdk/include/sifteo/abi.h \
   /Users/sparxmacair2/Intern/sifteo-sdk/include/sifteo/abi/syscall.h \
@@ -36,10 +36,12 @@ Cubes/Questioner.o: Cubes/Questioner.cpp Cubes/Questioner.h \
   /Users/sparxmacair2/Intern/sifteo-sdk/include/sifteo/video/bg1.h \
   /Users/sparxmacair2/Intern/sifteo-sdk/include/sifteo/video/bg2.h \
   /Users/sparxmacair2/Intern/sifteo-sdk/include/sifteo/video/tilebuffer.h \
-  Cubes/.././GameDrawer.h Cubes/Question.h Cubes/QuestionList.h \
-  Cubes/Result.h
+  Modes/.././GameDrawer.h Modes/Mode.h Modes/.././Cubes/Questioner.h \
+  Modes/.././Cubes/Question.h Modes/.././Cubes/QuestionList.h \
+  Modes/.././Cubes/Result.h Modes/.././Cubes/Operator.h \
+  Modes/.././Cubes/Timer.h
 
-Cubes/Questioner.h:
+Modes/PlayGame.h:
 
 /Users/sparxmacair2/Intern/sifteo-sdk/include/sifteo.h:
 
@@ -115,10 +117,18 @@ Cubes/Questioner.h:
 
 /Users/sparxmacair2/Intern/sifteo-sdk/include/sifteo/video/tilebuffer.h:
 
-Cubes/.././GameDrawer.h:
+Modes/.././GameDrawer.h:
 
-Cubes/Question.h:
+Modes/Mode.h:
 
-Cubes/QuestionList.h:
+Modes/.././Cubes/Questioner.h:
 
-Cubes/Result.h:
+Modes/.././Cubes/Question.h:
+
+Modes/.././Cubes/QuestionList.h:
+
+Modes/.././Cubes/Result.h:
+
+Modes/.././Cubes/Operator.h:
+
+Modes/.././Cubes/Timer.h:

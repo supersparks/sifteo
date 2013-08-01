@@ -1,6 +1,6 @@
-#include "Normal.h"
+#include "Practise.h"
 
-Normal::Normal(GameDrawer* gameDrawer) : PlayGame()
+Practise::Practise(GameDrawer* gameDrawer) : PlayGame()
 {
 	myGameDrawer = gameDrawer;
 	totalAsked = 0;
@@ -43,17 +43,65 @@ Normal::Normal(GameDrawer* gameDrawer) : PlayGame()
 
 }
 
-Normal::Normal()
+Practise::Practise()
 {}
 
-int Normal::getMinCubesReq()
+int Practise::getMinCubesReq()
 {
 	return 4;
 }
 
-int Normal::runSpecificGameComms()
+void Practise::onTouch(void *x, unsigned int id)
+{
+	LOG("Practise touched \n");
+	int i=0;
+	while (i< CUBE_ALLOCATION)
+	{
+		if(cubeStates[i] == QUESTIONER)
+		{
+			break;
+		}
+		++i;
+	}
+	myQuestioners[i].cleanGame();
+
+	int k=0;
+	while(k < CUBE_ALLOCATION)
+	{
+		if(cubeStates[k] == OPERATOR)
+		{
+			break;
+		}
+		++k;
+	}
+	int l=k+1;
+	while(l < CUBE_ALLOCATION)
+	{
+		if(cubeStates[l] == OPERATOR)
+		{
+			break;
+		}
+		++l;
+	}
+	myOperators[k].cleanGame();
+	myOperators[l].cleanGame();
+
+	int m=0;
+	while(m < CUBE_ALLOCATION)
+	{
+		if(cubeStates[m] == TIMER)
+		{
+			break;
+		}
+		++l;
+	}
+	myTimers[m].gameOver();
+}
+
+int Practise::runSpecificGameComms()
 {
 	//LOG("Starting runSpecificGameComms()\n");
+
 	int i=0;
 	while(i < CUBE_ALLOCATION)
 	{
@@ -75,10 +123,6 @@ int Normal::runSpecificGameComms()
 		}
 		++j;
 	}
-	// if(currResult.getExtraTime())
-	// {
-	// 	myTimers[j].streakIncrease();
-	// }
 
 	if( totalAsked != currResult.getTotalAsked())
 	{
@@ -86,33 +130,10 @@ int Normal::runSpecificGameComms()
 		myTimers[j].updateResults(currResult.getCurrStreak(), currResult.getTotalCorrect());
 	}
 
-	if(myTimers[j].gameOver())
-	{
-		myQuestioners[i].cleanGame();
-		int k=0;
-		while(k < CUBE_ALLOCATION)
-		{
-			if(cubeStates[k] == OPERATOR)
-			{
-				break;
-			}
-			++k;
-		}
-		int l=k+1;
-		while(l < CUBE_ALLOCATION)
-		{
-			if(cubeStates[l] == OPERATOR)
-			{
-				break;
-			}
-			++l;
-		}
-		myOperators[k].cleanGame();
-		myOperators[l].cleanGame();
-		return 1;
-	}
-
 	//LOG("About to return from runSpecificGameComms() with game not ended\n");
+	int n = 0;
+
+
 	return 0;
 
 }
