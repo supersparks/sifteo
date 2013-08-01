@@ -26,9 +26,11 @@ VideoBuffer gVideo[CUBE_ALLOCATION];
 
 GameDrawer myGameDrawer;
 Normal normal = Normal();
-Practise practise = Practise();
+<<<<<<< HEAD
 ShowStat showStat = ShowStat();
-
+=======
+Practise practise = Practise();
+>>>>>>> 868f9016aeacca7e46d73bc2a243fdc07d1a6cb4
 //All other modes instantiated using default constructors
 Mode *currMode = NULL;
 
