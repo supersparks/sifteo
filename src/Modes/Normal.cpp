@@ -2,7 +2,7 @@
 
 Normal::Normal(GameDrawer* gameDrawer) : PlayGame()
 {
-	System::setCubeRange(4,CUBE_ALLOCATION);
+	System::setCubeRange(4);
 	myGameDrawer = gameDrawer;
 	totalAsked = 0;
 

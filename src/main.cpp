@@ -249,8 +249,10 @@ void main()
 	    Events::neighborAdd.unset();
 	    Events::neighborRemove.unset();
 
+        currMode = NULL;
+        System::setCubeRange(1,CUBE_ALLOCATION);
+
     	int modeChosen = gameMenu.runMenu();
-    	currMode = NULL;
 
     	Events::cubeTouch.set(&onTouch);
 	    Events::neighborAdd.set(&onNeighbourAdd);
