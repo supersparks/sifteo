@@ -29,7 +29,8 @@ int PlayGame::endGame(TimeDelta delta)
 }
 
 int PlayGame::updateTime(TimeDelta delta)
-{	if(countdown)
+{	
+	if(countdown)
 	{
 		//LOG("Doing countdown\n");
 		countdownSecs += delta.seconds();

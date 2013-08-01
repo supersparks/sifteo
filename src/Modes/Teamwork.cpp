@@ -15,34 +15,33 @@ Teamwork::Teamwork(GameDrawer* gameDrawer, int numPlayers)
     }
 
     i = 0;
-    while(!cubeStates[i])
+    while(cubeStates[i])
     {
     	if (i==0)
     	{
         	myTimers[i] = Timer(myGameDrawer,i,0);
     		cubeStates[i] = TIMER;
+    		timerID = i;
     	} else if (i<myNumPlayers+1)
     	{
     		myQuestioners[i-1] = Questioner(myGameDrawer,i);
- 	   		cubeStates[i-1] = QUESTIONER;
+ 	   		cubeStates[i] = QUESTIONER;
+ 	   		questionerID[i-1] = i;
  	   	} else if (i<myNumPlayers*3+1) 
  	   	{
  	   		myOperators[i-myNumPlayers-1] = Operator(myGameDrawer,i);
- 	   		cubeStates[i-myNumPlayers-1] = OPERATOR;
+ 	   		cubeStates[i] = OPERATOR;
+ 	   		operatorID[i-myNumPlayers-1] = i;
+ 	   	} else if (i<CUBE_ALLOCATION)
+ 	   	{
+ 	   		//flush all others as not connected
+    	//because choosing not to constantly
+    	//update these values manually
+ 	   		cubeStates[i] = NOT_CONNECTED;
  	   	}
- 	   i++;
+ 	   	i++;
     }
 
-
-    //flush all others as not connected
-    //because choosing not to constantly
-    //update these values manually
-    i=cubesRequired;
-    while(i < CUBE_ALLOCATION)
-    {
-    	cubeStates[i] = NOT_CONNECTED;
-    	++i;
-    }
 
 	//PRECONDITION: there are enough cubes to have numPlayers playing
 	int numCubes = CubeSet::connected().count();
@@ -53,33 +52,6 @@ Teamwork::Teamwork(GameDrawer* gameDrawer, int numPlayers)
 	//note that the number of questioner cubes is equal to the number of players
 	totalAsked = 0;
 	combinedStreak = 0;
-
-	//find out which cubes are the questioners,timers or questioners
-	i++;
-	int qCount=0;
-	int oCount=0;
-	while(i<CUBE_ALLOCATION)
-	{
-		if(cubeStates[i] == QUESTIONER)
-		{
-			questionerID[qCount] = i;
-			qCount++;
-		} else if (cubeStates[i] ==OPERATOR)
-		{
-			operatorID[oCount] = i;
-		} else if (cubeStates[i] == TIMER)
-		{
-			timerID = i;
-		}
-
-		i++;
-	}
-	
-	LOG("oCount = %d\n",oCount);
-	LOG("qCount = %d\n",qCount);
-	LOG("myNumPlayers = %d\n",myNumPlayers);
-	ASSERT(oCount+1==myNumPlayers*2);
-	ASSERT(qCount+1==myNumPlayers);
 
 }
 
