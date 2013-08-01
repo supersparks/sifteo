@@ -11,7 +11,7 @@ Rules::Rules(GameDrawer* gameDrawer) : Mode()
 	Questioner::initStoredObjects();
 
 	int i = 0;
-	for(int i=0; i < 3; ++i)
+	for(int i=0; i < 4; ++i)
     {
     	myGameDrawer->printRules(i, i);
     }
