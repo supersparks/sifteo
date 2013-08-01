@@ -13,11 +13,12 @@ private:
 	int endTile;
 	TimeTicker ticker;
 	int secondsLeft;
+	int isPractise;
 	GameDrawer* myGameDrawer;
 	CubeID myCube;
 
 public:
-	Timer(GameDrawer* gameDrawer, CubeID cubeID);
+	Timer(GameDrawer* gameDrawer, CubeID cubeID, int IsPractise);
 	Timer();
 	
 	void updateAnimation(TimeDelta delta);

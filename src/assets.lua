@@ -8,6 +8,7 @@ GameAssets = group{}
 
 OperatorBackground = image{"../assets/operator.png"}
 StatsBackground = image{"../assets/StatsBackground.png"}
+RulesBackground = image{"../assets/rules.png"}
 GameOver = image{"../assets/gameover.png"}
 
 Highlights = {image{"../assets/operator.png"},image{"../assets/operator.highlighted.png"}}

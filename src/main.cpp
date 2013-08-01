@@ -5,6 +5,7 @@
 #include "./Modes/Mode.h"
 #include "./Modes/PlayGame.h"
 #include "./Modes/ShowStat.h"
+#include "./Modes/Rules.h"
 #include "./GameDrawer.h"
 #include "./Menu/MainMenu.cpp"
 #include <sifteo.h>
@@ -28,6 +29,7 @@ GameDrawer myGameDrawer;
 Normal normal = Normal();
 Practise practise = Practise();
 ShowStat showStat = ShowStat();
+Rules rules = Rules();
 
 //All other modes instantiated using default constructors
 Mode *currMode = NULL;
@@ -243,6 +245,11 @@ void GameDrawer::printStats(int hscore,int lstreak,int totalAsked)
 
 }
 
+void GameDrawer::printRules()
+{
+    gVideo[0].bg0.image(vec(0,0),RulesBackground);
+}
+
 void main()
 {
 	assetConfig.append(MainSlot, GameAssets);
@@ -324,8 +331,9 @@ void main()
     		}
     		case(7) :
     		{
-    			//Rules
-    			break;
+                rules = Rules(&myGameDrawer);
+                currMode = &rules;
+                break;
     		}
     		default :
     		{
