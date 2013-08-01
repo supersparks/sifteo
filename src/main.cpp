@@ -243,6 +243,11 @@ void GameDrawer::printStats(int hscore,int lstreak,int totalAsked)
 
 }
 
+void GameDrawer::printRules();
+{
+    gVideo[0].bg0.image(vec(0,0),RulesBackground);
+}
+
 void main()
 {
 	assetConfig.append(MainSlot, GameAssets);
@@ -286,8 +291,8 @@ void main()
     	{
     		case(0) :
     		{
-    			normal = Normal(&myGameDrawer);
-    			currMode = &normal;
+    			//normal = Normal(&myGameDrawer);
+    			//currMode = &normal;
     			break;
     		}
     		case(1) :
@@ -318,17 +323,15 @@ void main()
     		}
     		case(6) :
     		{
-                Events::cubeTouch.unset();
-                Events::neighborAdd.unset();
-                Events::neighborRemove.unset();
     			showStat = ShowStat(&myGameDrawer);
                 currMode = &showStat;
     			break;
     		}
     		case(7) :
     		{
-    			//Rules
-    			break;
+                rules = Rules(&myGameDrawer);
+                currMode = &rules;
+                break;
     		}
     		default :
     		{
