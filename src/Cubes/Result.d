@@ -1,4 +1,4 @@
-Modes/Practise.o: Modes/Practise.cpp Modes/Practise.h \
+Cubes/Result.o: Cubes/Result.cpp Cubes/Result.h \
   /Users/recruitment/Intern/sifteo-sdk/include/sifteo.h \
   /Users/recruitment/Intern/sifteo-sdk/include/sifteo/abi.h \
   /Users/recruitment/Intern/sifteo-sdk/include/sifteo/abi/syscall.h \
@@ -36,12 +36,9 @@ Modes/Practise.o: Modes/Practise.cpp Modes/Practise.h \
   /Users/recruitment/Intern/sifteo-sdk/include/sifteo/video/bg1.h \
   /Users/recruitment/Intern/sifteo-sdk/include/sifteo/video/bg2.h \
   /Users/recruitment/Intern/sifteo-sdk/include/sifteo/video/tilebuffer.h \
-  Modes/PlayGame.h Modes/.././GameDrawer.h Modes/Mode.h \
-  Modes/.././Cubes/Questioner.h Modes/.././Cubes/Question.h \
-  Modes/.././Cubes/QuestionList.h Modes/.././Cubes/Result.h \
-  Modes/.././Cubes/Operator.h Modes/.././Cubes/Timer.h
+  Cubes/.././GameDrawer.h
 
-Modes/Practise.h:
+Cubes/Result.h:
 
 /Users/recruitment/Intern/sifteo-sdk/include/sifteo.h:
 
@@ -117,20 +114,4 @@ Modes/Practise.h:
 
 /Users/recruitment/Intern/sifteo-sdk/include/sifteo/video/tilebuffer.h:
 
-Modes/PlayGame.h:
-
-Modes/.././GameDrawer.h:
-
-Modes/Mode.h:
-
-Modes/.././Cubes/Questioner.h:
-
-Modes/.././Cubes/Question.h:
-
-Modes/.././Cubes/QuestionList.h:
-
-Modes/.././Cubes/Result.h:
-
-Modes/.././Cubes/Operator.h:
-
-Modes/.././Cubes/Timer.h:
+Cubes/.././GameDrawer.h:

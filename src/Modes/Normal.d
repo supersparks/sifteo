@@ -1,4 +1,4 @@
-Modes/Practise.o: Modes/Practise.cpp Modes/Practise.h \
+Modes/Normal.o: Modes/Normal.cpp Modes/Normal.h \
   /Users/recruitment/Intern/sifteo-sdk/include/sifteo.h \
   /Users/recruitment/Intern/sifteo-sdk/include/sifteo/abi.h \
   /Users/recruitment/Intern/sifteo-sdk/include/sifteo/abi/syscall.h \
@@ -41,7 +41,7 @@ Modes/Practise.o: Modes/Practise.cpp Modes/Practise.h \
   Modes/.././Cubes/QuestionList.h Modes/.././Cubes/Result.h \
   Modes/.././Cubes/Operator.h Modes/.././Cubes/Timer.h
 
-Modes/Practise.h:
+Modes/Normal.h:
 
 /Users/recruitment/Intern/sifteo-sdk/include/sifteo.h:
 

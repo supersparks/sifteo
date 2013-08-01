@@ -5,6 +5,7 @@
 #include "./Modes/Mode.h"
 #include "./Modes/PlayGame.h"
 #include "./Modes/ShowStat.h"
+#include "./Modes/Teamwork.h"
 #include "./Modes/Rules.h"
 #include "./GameDrawer.h"
 #include "./Menu/MainMenu.cpp"
@@ -28,6 +29,7 @@ VideoBuffer gVideo[CUBE_ALLOCATION];
 GameDrawer myGameDrawer;
 Normal normal = Normal();
 Practise practise = Practise();
+Teamwork teamwork = Teamwork();
 ShowStat showStat = ShowStat();
 Rules rules = Rules();
 
@@ -299,13 +301,15 @@ void main()
     		}
     		case(1) :
     		{
-    			practise = Practise(&myGameDrawer);
-                currMode = &practise;
+    			//practise = Practise(&myGameDrawer);
+                //currMode = &practise;
     			break;
     		}
     		case(2) :
     		{
     			//Coop 2-Player
+                teamwork = Teamwork(&myGameDrawer,2);
+                currMode = &teamwork;
     			break;
     		}
     		case(3) :
@@ -325,8 +329,8 @@ void main()
     		}
     		case(6) :
     		{
-    			showStat = ShowStat(&myGameDrawer);
-                currMode = &showStat;
+    			//showStat = ShowStat(&myGameDrawer);
+                //currMode = &showStat;
     			break;
     		}
     		case(7) :

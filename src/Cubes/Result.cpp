@@ -9,6 +9,14 @@ Result::Result(int currStreak, int totalCorrect, int extraTime, int totalAsked)
 	myTotalAsked = totalAsked;
 }
 
+Result::Result()
+{
+	myCurrStreak = 0;
+	myTotalCorrect = 0;
+	myExtraTime = 0;
+	myTotalAsked = 0;
+}
+
 int Result::getCurrStreak()
 {
 	return myCurrStreak;
@@ -27,14 +35,4 @@ int Result::getExtraTime()
 int Result::getTotalAsked()
 {
 	return myTotalAsked;
-}
-
-void Result::setLastBroken(SystemTime t)
-{
-	lastBroken = t;
-}
-
-SystemTime Result::getLastBroken()
-{
-	return lastBroken;
 }
