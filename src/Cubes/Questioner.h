@@ -11,9 +11,9 @@
 #define FIRST_QUESTION_HEIGHT 4
 using namespace Sifteo;
 
-    static StoredObject s_HighScore = StoredObject(255);
-    static StoredObject s_LongestStreak(254);
-    static StoredObject s_TotalAsked(253);
+static StoredObject s_HighScore(255);
+static StoredObject s_LongestStreak(254);
+static StoredObject s_TotalAsked(253);
     
 class Questioner{
 
