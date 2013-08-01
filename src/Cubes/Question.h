@@ -9,7 +9,7 @@ using namespace Sifteo;
 class Question
 {
 private:
-	int * questionArray;
+	int questionArray[6];
 	int xPosFirstOp;
 	int xPosSecondOp;
 	int yPos;
