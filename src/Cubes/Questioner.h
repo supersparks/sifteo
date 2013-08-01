@@ -10,12 +10,13 @@
 #define PIXEL_SCROLL 48
 #define FIRST_QUESTION_HEIGHT 4
 using namespace Sifteo;
-
-static StoredObject s_HighScore(255);
-static StoredObject s_LongestStreak(254);
-static StoredObject s_TotalAsked(253);
     
 class Questioner{
+
+public:
+    static StoredObject s_HighScore;
+    static StoredObject s_LongestStreak;
+    static StoredObject s_TotalAsked;
 
 private:
     int currStreak;
@@ -55,10 +56,11 @@ public:
 
     void repaintNewCube(unsigned int cube);
     void cleanGame();
+    static void initStoredObjects();
 
 private:
     Int2 doPanning(Int2 targetPan, int timetaken);
-    void initStoredObjects();
+
     
 };
 

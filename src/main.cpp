@@ -1,11 +1,13 @@
 #include <sifteo.h>
 #include "assets.gen.h"
 #include "./Modes/Normal.h"
+#include "./Modes/Practise.h"
 #include "./Modes/Mode.h"
 #include "./Modes/PlayGame.h"
+#include "./Modes/ShowStat.h"
+#include "./Modes/Rules.h"
 #include "./GameDrawer.h"
 #include "./Menu/MainMenu.cpp"
-#include "./Modes/Practise.h"
 #include <sifteo.h>
 using namespace Sifteo;
 
@@ -26,6 +28,9 @@ VideoBuffer gVideo[CUBE_ALLOCATION];
 GameDrawer myGameDrawer;
 Normal normal = Normal();
 Practise practise = Practise();
+ShowStat showStat = ShowStat();
+Rules rules = Rules();
+
 //All other modes instantiated using default constructors
 Mode *currMode = NULL;
 
@@ -221,6 +226,30 @@ void GameDrawer::drawUpdatedResults(CubeID cube, int currStreak, int totalCorrec
 
 }
 
+
+void GameDrawer::printStats(int hscore,int lstreak,int totalAsked)
+{
+    gVideo[0].bg0.image(vec(0,0),StatsBackground);
+
+    String<9> str_hscore;
+    String<9> str_lstreak;
+    String<9> str_totalAsked;
+
+    str_hscore << hscore;
+    str_lstreak << lstreak;
+    str_totalAsked << totalAsked;
+
+    gVideo[0].bg0.text(vec(13,3),Font,str_hscore, ' ');
+    gVideo[0].bg0.text(vec(13,6),Font,str_lstreak, ' ');
+    gVideo[0].bg0.text(vec(13,12),Font,str_totalAsked, ' ');
+
+}
+
+void GameDrawer::printRules()
+{
+    gVideo[0].bg0.image(vec(0,0),RulesBackground);
+}
+
 void main()
 {
 	assetConfig.append(MainSlot, GameAssets);
@@ -256,7 +285,9 @@ void main()
 
     	int modeChosen = gameMenu.runMenu();
 
-    	
+    	Events::cubeTouch.set(&onTouch);
+	    Events::neighborAdd.set(&onNeighbourAdd);
+	    Events::neighborRemove.set(&onNeighbourRemove);
     	//Do mode
     	switch(modeChosen)
     	{
@@ -294,13 +325,15 @@ void main()
     		}
     		case(6) :
     		{
-    			//Stats
+    			showStat = ShowStat(&myGameDrawer);
+                currMode = &showStat;
     			break;
     		}
     		case(7) :
     		{
-    			//Rules
-    			break;
+                rules = Rules(&myGameDrawer);
+                currMode = &rules;
+                break;
     		}
     		default :
     		{
@@ -308,9 +341,6 @@ void main()
     		}
     	}
     	
-        Events::cubeTouch.set(&onTouch);
-        Events::neighborAdd.set(&onNeighbourAdd);
-        Events::neighborRemove.set(&onNeighbourRemove);
 
     	TimeStep ts;
 		int exitLoop = 0;
@@ -323,6 +353,5 @@ void main()
 	    	ts.next();
 	    	System::paint();
 	    }
-        //LOG("Finished running mode\n");
     }
 }

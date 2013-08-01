@@ -53,6 +53,10 @@ void paintBlack(CubeID cube);
 
 void drawUpdatedResults(CubeID cube, int currStreak, int totalCorrect);
 
+void printStats(int hscore,int lstreak,int totalAsked);
+
+void printRules();
+
 };
 
 #endif

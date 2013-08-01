@@ -1,5 +1,8 @@
 #include "Questioner.h"
 
+StoredObject Questioner::s_HighScore = StoredObject(255);
+StoredObject Questioner::s_LongestStreak = StoredObject(254);
+StoredObject Questioner::s_TotalAsked = StoredObject(253);
 
 Questioner::Questioner(GameDrawer* gameDrawer, CubeID cubeId)
 {

@@ -4,19 +4,21 @@
 #include "./Modes/Practise.h"
 #include "./Modes/Mode.h"
 #include "./Modes/PlayGame.h"
-#include "./src/GameDrawer.h"
-
+#include "./Modes/ShowStat.h"
+#include "./GameDrawer.h"
+#include "./Menu/MainMenu.cpp"
+#include <sifteo.h>
 using namespace Sifteo;
-
 
 static AssetSlot MainSlot = AssetSlot::allocate()
 	.bootstrap(GameAssets);
+	//.bootstrap(MenuImageAssets);
 
 static Metadata M = Metadata()
 	.title("First Game")
 	.package("com.sparx.operators","1.0")
 	.icon(Icon)
-	.cubeRange(4);
+	.cubeRange(1,CUBE_ALLOCATION);
 
 static AssetLoader loader;
 static AssetConfiguration<1> assetConfig;
@@ -24,8 +26,13 @@ VideoBuffer gVideo[CUBE_ALLOCATION];
 
 GameDrawer myGameDrawer;
 Normal normal = Normal();
+<<<<<<< HEAD
+ShowStat showStat = ShowStat();
+=======
 Practise practise = Practise();
-Mode *currMode;
+>>>>>>> 868f9016aeacca7e46d73bc2a243fdc07d1a6cb4
+//All other modes instantiated using default constructors
+Mode *currMode = NULL;
 
 int continueGame = 1;
 
@@ -41,44 +48,26 @@ void addMoreCubes()
 
 void onDisconnect(void *x, unsigned int id)
 {
-	addMoreCubes(); //sets flag to 0 so that main loop does not call currMode.UpdateTime()
+	LOG("logged disconnect from cube: %d\n",id);
+
+	if(currMode)
+	{
+		currMode->updateDisconnect(id);
+	}
 }
 
 void onConnect(void *x, unsigned int id)
 {
+	LOG("logged connect from cube: %d\n",id);
 	auto &vid = gVideo[id];
     vid.initMode(BG0);
     vid.attach(id);
     //vid.bg0.erase(StripeTile);
-
-    CubeSet cubesLeft = CubeSet::connected();
-	//if(currMode != NULL)
+    if(currMode)
 	{
-		int numNeeded = 4;//currMode.getMinCubesReq();
-		if(id >= numNeeded -1)
-		{
-			continueGame = 1;
-		}
-		else
-		{
-			int found = 1;
-			int i = 0;
-			for(CubeID cube : CubeSet::connected())
-			{
-				if(cube != i)
-				{
-					found = 0;
-				}
-				++i;
-			}
-			if(found)
-			{
-				continueGame = 1;
-			}
-		}
+		currMode->updateConnect(id);
 	}
 
-	
 }
 
 void onNeighbourAdd(void *x,unsigned int cube0Id, unsigned int side0,
@@ -237,14 +226,37 @@ void GameDrawer::drawUpdatedResults(CubeID cube, int currStreak, int totalCorrec
 
 }
 
+
+void GameDrawer::printStats(int hscore,int lstreak,int totalAsked)
+{
+    gVideo[0].bg0.image(vec(0,0),StatsBackground);
+
+    String<9> str_hscore;
+    String<9> str_lstreak;
+    String<9> str_totalAsked;
+
+    str_hscore << hscore;
+    str_lstreak << lstreak;
+    str_totalAsked << totalAsked;
+
+    gVideo[0].bg0.text(vec(13,3),Font,str_hscore, ' ');
+    gVideo[0].bg0.text(vec(13,6),Font,str_lstreak, ' ');
+    gVideo[0].bg0.text(vec(13,12),Font,str_totalAsked, ' ');
+
+}
+
 void main()
 {
 	assetConfig.append(MainSlot, GameAssets);
+	//assetConfig.append(MainSlot, MenuImageAssets);
 	loader.init();
 
     Events::cubeConnect.set(&onConnect);
     Events::cubeDisconnect.set(&onDisconnect);
     Events::cubeTouch.set(&onTouch);
+
+    Events::neighborAdd.set(&onNeighbourAdd);
+    Events::neighborRemove.set(&onNeighbourRemove);
 
     for (CubeID cube : CubeSet::connected())
     {
@@ -252,41 +264,91 @@ void main()
     	onConnect(NULL, cube);
     }
 
-    normal = Normal(&myGameDrawer);
-    currMode = &normal;
+    //LOG("I am about to create a game menu\n");
 
-    Events::neighborAdd.set(&onNeighbourAdd);
-    Events::neighborRemove.set(&onNeighbourRemove);
+    MainMenu gameMenu(&gVideo[0]);
 
-    TimeStep ts;
-    int exitLoop = 0;
-
-    while(!exitLoop)
+    while(1)
     {
-    	//LOG("ts.delta() = %d\n",ts.delta().milliseconds());
-    	exitLoop = currMode->updateTime(ts.delta());
+    	//Do menu
+    	Events::cubeTouch.unset();
+	    Events::neighborAdd.unset();
+	    Events::neighborRemove.unset();
 
-    	ts.next();
-    	System::paint();
+        currMode = NULL;
+        System::setCubeRange(1,CUBE_ALLOCATION);
+
+    	int modeChosen = gameMenu.runMenu();
+
+    	Events::cubeTouch.set(&onTouch);
+	    Events::neighborAdd.set(&onNeighbourAdd);
+	    Events::neighborRemove.set(&onNeighbourRemove);
+    	//Do mode
+    	switch(modeChosen)
+    	{
+    		case(0) :
+    		{
+    			normal = Normal(&myGameDrawer);
+    			currMode = &normal;
+    			break;
+    		}
+    		case(1) :
+    		{
+    			practise = Practise(&myGameDrawer);
+                currMode = &practise;
+    			break;
+    		}
+    		case(2) :
+    		{
+    			//Coop 2-Player
+    			break;
+    		}
+    		case(3) :
+    		{
+    			//Coop 3-PLayer
+    			break;
+    		}
+    		case(4) :
+    		{
+    			//Comp 2_player
+    			break;
+    		}
+    		case(5) :
+    		{
+    			//Comp 3-Player
+    			break;
+    		}
+    		case(6) :
+    		{
+                Events::cubeTouch.unset();
+                Events::neighborAdd.unset();
+                Events::neighborRemove.unset();
+    			showStat = ShowStat(&myGameDrawer);
+                currMode = &showStat;
+    			break;
+    		}
+    		case(7) :
+    		{
+    			//Rules
+    			break;
+    		}
+    		default :
+    		{
+    			break;
+    		}
+    	}
+    	
+
+    	TimeStep ts;
+		int exitLoop = 0;
+
+		while(!exitLoop)
+	    {
+	    	//LOG("ts.delta() = %d\n",ts.delta().milliseconds());
+	    	exitLoop = currMode->updateTime(ts.delta());
+
+	    	ts.next();
+	    	System::paint();
+	    }
     }
-
-    practise = Practise(&myGameDrawer);
-    currMode = &practise;
-
-    Events::neighborAdd.set(&onNeighbourAdd);
-    Events::neighborRemove.set(&onNeighbourRemove);
-    Events::cubeTouch.set(&onTouch);
-
-    TimeStep ts;
-    int exitLoop = 0;
-
-    while(!exitLoop)
-    {
-    	//LOG("ts.delta() = %d\n",ts.delta().milliseconds());
-    	exitLoop = currMode->updateTime(ts.delta());
-
-    	ts.next();
-    	System::paint();
-    }
-
 }

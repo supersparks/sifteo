@@ -155,6 +155,11 @@ bool GameMenuNode::menuLogic(int item)
 					LOG("SHOW STATS");
 					keepLoopingRes = 1
 					break;
+				case 4;
+					//show rules
+					LOG("SHOW RULES");
+					keepLoopingRes = 1
+					break;
 			}
 			break;
 		case GameMenuNode::SINGLE_PLAYER_MENU;

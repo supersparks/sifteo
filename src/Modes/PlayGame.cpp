@@ -81,6 +81,7 @@ int PlayGame::updateTime(TimeDelta delta)
 
 void PlayGame::onTouch(void *x, unsigned int id)
 {
+	//LOG("PlayGame touched \n");
 	if(cubeStates[id] == QUESTIONER)
 	{
 		//LOG("Questioner touched\n");
