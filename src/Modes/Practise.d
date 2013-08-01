@@ -1,4 +1,5 @@
-main.o: main.cpp /Users/sparxmacmini/Intern/sifteo-sdk/include/sifteo.h \
+Modes/Practise.o: Modes/Practise.cpp Modes/Practise.h \
+  /Users/sparxmacmini/Intern/sifteo-sdk/include/sifteo.h \
   /Users/sparxmacmini/Intern/sifteo-sdk/include/sifteo/abi.h \
   /Users/sparxmacmini/Intern/sifteo-sdk/include/sifteo/abi/syscall.h \
   /Users/sparxmacmini/Intern/sifteo-sdk/include/sifteo/abi/types.h \
@@ -35,17 +36,12 @@ main.o: main.cpp /Users/sparxmacmini/Intern/sifteo-sdk/include/sifteo.h \
   /Users/sparxmacmini/Intern/sifteo-sdk/include/sifteo/video/bg1.h \
   /Users/sparxmacmini/Intern/sifteo-sdk/include/sifteo/video/bg2.h \
   /Users/sparxmacmini/Intern/sifteo-sdk/include/sifteo/video/tilebuffer.h \
-  assets.gen.h Modes/Normal.h Modes/PlayGame.h Modes/.././GameDrawer.h \
-  Modes/Mode.h Modes/.././Cubes/Questioner.h Modes/.././Cubes/Question.h \
+  Modes/PlayGame.h Modes/.././GameDrawer.h Modes/Mode.h \
+  Modes/.././Cubes/Questioner.h Modes/.././Cubes/Question.h \
   Modes/.././Cubes/QuestionList.h Modes/.././Cubes/Result.h \
-  Modes/.././Cubes/Operator.h Modes/.././Cubes/Timer.h Menu/MainMenu.cpp \
-  /Users/sparxmacmini/Intern/sifteo-sdk/include/sifteo/menu.h \
-  /Users/sparxmacmini/Intern/sifteo-sdk/include/sifteo/menu/types.h \
-  /Users/sparxmacmini/Intern/sifteo-sdk/include/sifteo/menu/util.h \
-  /Users/sparxmacmini/Intern/sifteo-sdk/include/sifteo/menu/public.h \
-  /Users/sparxmacmini/Intern/sifteo-sdk/include/sifteo/menu/states.h \
-  /Users/sparxmacmini/Intern/sifteo-sdk/include/sifteo/menu/events.h \
-  Menu/SubMenu.cpp Menu/SubMenu2.cpp Menu/Globals.cpp Modes/Practise.h
+  Modes/.././Cubes/Operator.h Modes/.././Cubes/Timer.h
+
+Modes/Practise.h:
 
 /Users/sparxmacmini/Intern/sifteo-sdk/include/sifteo.h:
 
@@ -121,10 +117,6 @@ main.o: main.cpp /Users/sparxmacmini/Intern/sifteo-sdk/include/sifteo.h \
 
 /Users/sparxmacmini/Intern/sifteo-sdk/include/sifteo/video/tilebuffer.h:
 
-assets.gen.h:
-
-Modes/Normal.h:
-
 Modes/PlayGame.h:
 
 Modes/.././GameDrawer.h:
@@ -142,25 +134,3 @@ Modes/.././Cubes/Result.h:
 Modes/.././Cubes/Operator.h:
 
 Modes/.././Cubes/Timer.h:
-
-Menu/MainMenu.cpp:
-
-/Users/sparxmacmini/Intern/sifteo-sdk/include/sifteo/menu.h:
-
-/Users/sparxmacmini/Intern/sifteo-sdk/include/sifteo/menu/types.h:
-
-/Users/sparxmacmini/Intern/sifteo-sdk/include/sifteo/menu/util.h:
-
-/Users/sparxmacmini/Intern/sifteo-sdk/include/sifteo/menu/public.h:
-
-/Users/sparxmacmini/Intern/sifteo-sdk/include/sifteo/menu/states.h:
-
-/Users/sparxmacmini/Intern/sifteo-sdk/include/sifteo/menu/events.h:
-
-Menu/SubMenu.cpp:
-
-Menu/SubMenu2.cpp:
-
-Menu/Globals.cpp:
-
-Modes/Practise.h:

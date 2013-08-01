@@ -5,6 +5,7 @@
 #include "./Modes/PlayGame.h"
 #include "./GameDrawer.h"
 #include "./Menu/MainMenu.cpp"
+#include "./Modes/Practise.h"
 #include <sifteo.h>
 using namespace Sifteo;
 
@@ -24,6 +25,7 @@ VideoBuffer gVideo[CUBE_ALLOCATION];
 
 GameDrawer myGameDrawer;
 Normal normal = Normal();
+Practise practise = Practise();
 //All other modes instantiated using default constructors
 Mode *currMode = NULL;
 
@@ -254,21 +256,20 @@ void main()
 
     	int modeChosen = gameMenu.runMenu();
 
-    	Events::cubeTouch.set(&onTouch);
-	    Events::neighborAdd.set(&onNeighbourAdd);
-	    Events::neighborRemove.set(&onNeighbourRemove);
+    	
     	//Do mode
     	switch(modeChosen)
     	{
     		case(0) :
     		{
-    			normal = Normal(&myGameDrawer);
-    			currMode = &normal;
+    			//normal = Normal(&myGameDrawer);
+    			//currMode = &normal;
     			break;
     		}
     		case(1) :
     		{
-    			//Practice
+    			practise = Practise(&myGameDrawer);
+                currMode = &practise;
     			break;
     		}
     		case(2) :
@@ -307,6 +308,9 @@ void main()
     		}
     	}
     	
+        Events::cubeTouch.set(&onTouch);
+        Events::neighborAdd.set(&onNeighbourAdd);
+        Events::neighborRemove.set(&onNeighbourRemove);
 
     	TimeStep ts;
 		int exitLoop = 0;
@@ -319,5 +323,6 @@ void main()
 	    	ts.next();
 	    	System::paint();
 	    }
+        //LOG("Finished running mode\n");
     }
 }

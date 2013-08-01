@@ -15,6 +15,8 @@ class Practise : public PlayGame
 private:
     CubeID* myCubes;
     int totalAsked;
+    int gameEnd;
+    int firstTouch;
 
 public:
 	Practise(GameDrawer* gameDrawer);
@@ -22,6 +24,8 @@ public:
 	Practise();
 
 	int getMinCubesReq();
+
+	void onTouch(void *x, unsigned int id);
 
 private:
 	int runSpecificGameComms();

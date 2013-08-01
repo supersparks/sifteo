@@ -1,14 +1,17 @@
-#include "Normal.h"
+#include "Practise.h"
 
-Normal::Normal(GameDrawer* gameDrawer) : PlayGame()
+Practise::Practise(GameDrawer* gameDrawer) : PlayGame()
 {
+	System::setCubeRange(4);
 	myGameDrawer = gameDrawer;
 	totalAsked = 0;
+	gameEnd = 0;
+	firstTouch = 1;
 
 	int i = 0;
 	for(CubeID cube : CubeSet::connected())
     {
-    	cubeStates[i] = QUESTIONER;
+    	cubeStates[i] = CONNECTED;
     	++i;
     }
 
@@ -38,22 +41,86 @@ Normal::Normal(GameDrawer* gameDrawer) : PlayGame()
     {
     	++i;
     }
-    myTimers[i] = Timer(myGameDrawer,i);
+    myTimers[i] = Timer(myGameDrawer,i,1);
     cubeStates[i] = TIMER;
 
+    ++i;
+    while(i < CUBE_ALLOCATION)
+    {
+    	cubeStates[i] = NOT_CONNECTED;
+    	++i;
+    }
+
 }
 
-Normal::Normal()
+Practise::Practise()
 {}
 
-int Normal::getMinCubesReq()
+void Practise::onTouch(void *x, unsigned int id)
 {
-	return 4;
+	//LOG("Practise touched onEndScreen = %d, id = %d \n",onEndScreen,id);
+	if(!ending)
+	{
+		if(cubeStates[id] == QUESTIONER)
+		{
+			myQuestioners[id].cleanGame();
+
+			int k=0;
+			while(k < CUBE_ALLOCATION)
+			{
+				if(cubeStates[k] == OPERATOR)
+				{
+					break;
+				}
+				++k;
+			}
+			int l=k+1;
+			while(l < CUBE_ALLOCATION)
+			{
+				if(cubeStates[l] == OPERATOR)
+				{
+					break;
+				}
+				++l;
+			}
+			myOperators[k].cleanGame();
+			myOperators[l].cleanGame();
+
+			int m=0;
+			while(m < CUBE_ALLOCATION)
+			{
+				if(cubeStates[m] == TIMER)
+				{
+					break;
+				}
+				++m;
+			}
+			myGameDrawer->switchToBG0(m);
+			myGameDrawer->paintBlack(m);
+			ending = 1;
+			gameEnd = 1;
+		}
+		//endingFromPractise();
+	}
+	else if(!firstTouch)
+	{
+		if(cubeStates[id] == QUESTIONER)
+		{
+			ended = 1;
+		}
+	}
+	else
+	{	
+		if(cubeStates[id] == QUESTIONER)
+		{
+			firstTouch = 0;
+		}
+	}
 }
 
-int Normal::runSpecificGameComms()
+int Practise::runSpecificGameComms()
 {
-	//LOG("Starting runSpecificGameComms()\n");
+
 	int i=0;
 	while(i < CUBE_ALLOCATION)
 	{
@@ -75,10 +142,6 @@ int Normal::runSpecificGameComms()
 		}
 		++j;
 	}
-	// if(currResult.getExtraTime())
-	// {
-	// 	myTimers[j].streakIncrease();
-	// }
 
 	if( totalAsked != currResult.getTotalAsked())
 	{
@@ -86,33 +149,9 @@ int Normal::runSpecificGameComms()
 		myTimers[j].updateResults(currResult.getCurrStreak(), currResult.getTotalCorrect());
 	}
 
-	if(myTimers[j].gameOver())
-	{
-		myQuestioners[i].cleanGame();
-		int k=0;
-		while(k < CUBE_ALLOCATION)
-		{
-			if(cubeStates[k] == OPERATOR)
-			{
-				break;
-			}
-			++k;
-		}
-		int l=k+1;
-		while(l < CUBE_ALLOCATION)
-		{
-			if(cubeStates[l] == OPERATOR)
-			{
-				break;
-			}
-			++l;
-		}
-		myOperators[k].cleanGame();
-		myOperators[l].cleanGame();
-		return 1;
-	}
-
 	//LOG("About to return from runSpecificGameComms() with game not ended\n");
-	return 0;
+
+
+	return gameEnd;
 
 }

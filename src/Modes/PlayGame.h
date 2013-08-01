@@ -35,12 +35,15 @@ protected:
     Operator myOperators[CUBE_ALLOCATION];
     Timer myTimers[CUBE_ALLOCATION];
 
+
+    int ending;
+    int ended;
+
 private:
     int countdown;
     double countdownSecs;
     int startgame;
-    int ended;
-    int ending;
+    
 
     int endGame(TimeDelta delta);
 
@@ -48,12 +51,14 @@ private:
 
     int findIndex(CubeID* myArray, int member);
 
+
 public:
+
     void onNeighbourAdd(void *x,unsigned int cube0Id, unsigned int side0,
                         unsigned int cube1Id, unsigned int side1);
     void onNeighbourRemove(void *x,unsigned int cube0Id, unsigned int side0,
                         unsigned int cube1Id, unsigned int side1);
-    void onTouch(void *x, unsigned int id);
+    virtual void onTouch(void *x, unsigned int id);
 
     int updateTime(TimeDelta delta);
 

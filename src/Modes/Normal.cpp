@@ -39,7 +39,7 @@ Normal::Normal(GameDrawer* gameDrawer) : PlayGame()
     {
     	++i;
     }
-    myTimers[i] = Timer(myGameDrawer,i);
+    myTimers[i] = Timer(myGameDrawer,i,0);
     cubeStates[i] = TIMER;
 
     //flush all others as not connected
