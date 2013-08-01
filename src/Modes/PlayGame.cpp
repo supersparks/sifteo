@@ -16,10 +16,10 @@ int PlayGame::endGame(TimeDelta delta)
 		switch(cubeStates[i])
 		{
 			case (QUESTIONER) :
-				myQuestioners[i].runGame(delta);
+				myQuestioners[i]->runGame(delta);
 				break;
 			case (TIMER) :
-				myTimers[i].updateAnimation(delta);
+				myTimers[i]->updateAnimation(delta);
 				break;
 			default :
 				break;
@@ -44,7 +44,7 @@ int PlayGame::updateTime(TimeDelta delta)
 			{
 				if(cubeStates[i] == QUESTIONER)
 				{
-					myQuestioners[i].countdownOver();
+					myQuestioners[i]->countdownOver();
 				}
 			}
 		}
@@ -106,8 +106,8 @@ unsigned int cube1Id, unsigned int side1)
 		{
 			if(side0 == RIGHT || side0 == LEFT)
 			{
-				myOperators[cube1Id].highlightOperator(side1);
-				myQuestioners[cube0Id].inputOperator(side0, side1);
+				myOperators[cube1Id]->highlightOperator(side1);
+				myQuestioners[cube0Id]->inputOperator(side0, side1);
 			}
 		}
 
@@ -117,8 +117,8 @@ unsigned int cube1Id, unsigned int side1)
 		{
 			if(side1 == RIGHT || side1 == LEFT)
 			{
-				myOperators[cube0Id].highlightOperator(side0);
-				myQuestioners[cube1Id].inputOperator(side1, side0);
+				myOperators[cube0Id]->highlightOperator(side0);
+				myQuestioners[cube1Id]->inputOperator(side1, side0);
 			}
 		}
 	}
@@ -137,8 +137,8 @@ unsigned int cube1Id, unsigned int side1)
 		{
 			if(side0 == RIGHT || side0 == LEFT)
 			{
-				myOperators[cube1Id].dehighlightOperator(side1);
-				myQuestioners[cube0Id].removeOperator(side0);
+				myOperators[cube1Id]->dehighlightOperator(side1);
+				myQuestioners[cube0Id]->removeOperator(side0);
 			}
 		}
 
@@ -148,8 +148,8 @@ unsigned int cube1Id, unsigned int side1)
 		{
 			if(side1 == RIGHT || side1 == LEFT)
 			{
-				myOperators[cube0Id].dehighlightOperator(side0);
-				myQuestioners[cube1Id].removeOperator(side1);
+				myOperators[cube0Id]->dehighlightOperator(side0);
+				myQuestioners[cube1Id]->removeOperator(side1);
 			}
 		}
 	}
@@ -175,19 +175,19 @@ void PlayGame::updateDisconnect(unsigned int id)
 			case (QUESTIONER) :
 			{
 				myQuestioners[i] = myQuestioners[id];
-				myQuestioners[i].repaintNewCube(i);
+				myQuestioners[i]->repaintNewCube(i);
 				break;
 			}
 			case (OPERATOR) :
 			{
 				myOperators[i] = myOperators[id];
-				myOperators[i].repaintNewCube(i);
+				myOperators[i]->repaintNewCube(i);
 				break;
 			}
 			case (TIMER) :
 			{
 				myTimers[i] = myTimers[id];
-				myTimers[i].repaintNewCube(i);
+				myTimers[i]->repaintNewCube(i);
 				break;
 			}
 			default :
@@ -242,7 +242,7 @@ void PlayGame::updateConnect(unsigned int id)
 				myQuestioners[id] = myQuestioners[i];
 				if(!countdown)
 				{
-					myQuestioners[id].repaintNewCube(id);
+					myQuestioners[id]->repaintNewCube(id);
 				}
 				cubeStates[i] = NOT_CONNECTED;
 				cubeStates[id] = QUESTIONER;
@@ -251,7 +251,7 @@ void PlayGame::updateConnect(unsigned int id)
 			case (OPERATOR_NEEDED) :
 			{
 				myOperators[id] = myOperators[i];
-				myOperators[id].repaintNewCube(id);
+				myOperators[id]->repaintNewCube(id);
 				cubeStates[i] = NOT_CONNECTED;
 				cubeStates[id] = OPERATOR;
 				break;
@@ -259,7 +259,7 @@ void PlayGame::updateConnect(unsigned int id)
 			case (TIMER_NEEDED) :
 			{
 				myTimers[id] = myTimers[i];
-				myTimers[id].repaintNewCube(id);
+				myTimers[id]->repaintNewCube(id);
 				cubeStates[i] = NOT_CONNECTED;
 				cubeStates[id] = TIMER;
 				break;

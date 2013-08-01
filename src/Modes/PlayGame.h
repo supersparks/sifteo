@@ -31,9 +31,9 @@ protected:
 
     CubeState cubeStates[CUBE_ALLOCATION] = {NOT_CONNECTED};
 
-    Questioner myQuestioners[CUBE_ALLOCATION];
-    Operator myOperators[CUBE_ALLOCATION];
-    Timer myTimers[CUBE_ALLOCATION];
+    Questioner* myQuestioners[CUBE_ALLOCATION];
+    Operator* myOperators[CUBE_ALLOCATION];
+    Timer* myTimers[CUBE_ALLOCATION];
 
 
     int ending;

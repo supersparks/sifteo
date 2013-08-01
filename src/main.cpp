@@ -25,9 +25,9 @@ static Metadata M = Metadata()
 VideoBuffer gVideo[CUBE_ALLOCATION];
 
 GameDrawer myGameDrawer;
-Normal normal = Normal();
-Practise practise = Practise();
-ShowStat showStat = ShowStat();
+Normal normal = NULL;
+Practise practise = NULL;
+ShowStat showStat = NULL;
 Rules rules = Rules();
 
 //All other modes instantiated using default constructors
@@ -333,8 +333,8 @@ void main()
     	{
     		case(0) :
     		{
-    			//normal = Normal(&myGameDrawer);
-    			//currMode = &normal;
+    			normal = Normal(&myGameDrawer);
+    			currMode = &normal;
     			break;
     		}
     		case(1) :

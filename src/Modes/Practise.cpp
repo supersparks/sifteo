@@ -20,28 +20,32 @@ Practise::Practise(GameDrawer* gameDrawer) : PlayGame()
     {
     	++i;
     }
-    myQuestioners[i] = Questioner(myGameDrawer,i);
+    myQuestioner = Questioner(myGameDrawer,i);
+    myQuestioners[i] = &myQuestioner;
     cubeStates[i] = QUESTIONER;
     ++i;
     while(!cubeStates[i])
     {
     	++i;
     }
-    myOperators[i] = Operator(myGameDrawer,i);
+    myOperator1 = Operator(myGameDrawer,i);
+    myOperators[i] = &myOperator1;
     cubeStates[i] = OPERATOR;
     ++i;
     while(!cubeStates[i])
     {
     	++i;
     }
-    myOperators[i] = Operator(myGameDrawer,i);
+    myOperator2 = Operator(myGameDrawer,i);
+    myOperators[i] = &myOperator2;
     cubeStates[i] = OPERATOR;
     ++i;
     while(!cubeStates[i])
     {
     	++i;
     }
-    myTimers[i] = Timer(myGameDrawer,i,1);
+    myTimer = Timer(myGameDrawer,i,1);
+    myTimers[i] = &myTimer;
     cubeStates[i] = TIMER;
 
     ++i;
@@ -63,7 +67,7 @@ void Practise::onTouch(void *x, unsigned int id)
 	{
 		if(cubeStates[id] == QUESTIONER)
 		{
-			myQuestioners[id].cleanGame();
+			myQuestioners[id]->cleanGame();
 
 			int k=0;
 			while(k < CUBE_ALLOCATION)
@@ -83,8 +87,8 @@ void Practise::onTouch(void *x, unsigned int id)
 				}
 				++l;
 			}
-			myOperators[k].cleanGame();
-			myOperators[l].cleanGame();
+			myOperators[k]->cleanGame();
+			myOperators[l]->cleanGame();
 
 			int m=0;
 			while(m < CUBE_ALLOCATION)
@@ -130,7 +134,7 @@ int Practise::runSpecificGameComms()
 		}
 		++i;
 	}
-	Result currResult = myQuestioners[i].questionUpdate();
+	Result currResult = myQuestioners[i]->questionUpdate();
 
 
 	int j=0;
@@ -146,7 +150,7 @@ int Practise::runSpecificGameComms()
 	if( totalAsked != currResult.getTotalAsked())
 	{
 		totalAsked = currResult.getTotalAsked();
-		myTimers[j].updateResults(currResult.getCurrStreak(), currResult.getTotalCorrect());
+		myTimers[j]->updateResults(currResult.getCurrStreak(), currResult.getTotalCorrect());
 	}
 
 	//LOG("About to return from runSpecificGameComms() with game not ended\n");
