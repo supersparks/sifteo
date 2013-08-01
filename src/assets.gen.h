@@ -6,16 +6,15 @@
 
 #pragma once
 
+extern Sifteo::AssetGroup IconAssets;
+extern const Sifteo::AssetImage Icon;
 extern Sifteo::AssetGroup GameAssets;
+extern const Sifteo::AssetImage OperatorBackground;
+extern const Sifteo::PinnedAssetImage FontRed;
 extern const Sifteo::AssetImage GameOver;
 extern const Sifteo::PinnedAssetImage Font;
-extern const Sifteo::PinnedAssetImage FontGreen;
 extern const Sifteo::PinnedAssetImage Font2;
-extern const Sifteo::PinnedAssetImage FontRed;
-extern const Sifteo::AssetImage OperatorBackground;
-extern const Sifteo::AssetImage LabelBack;
-extern const Sifteo::AssetImage LabelNorm;
-extern const Sifteo::AssetImage LabelNumPlayers;
+extern const Sifteo::PinnedAssetImage FontGreen;
 extern const Sifteo::AssetImage ConnectCube;
 extern const Sifteo::AssetImage TimerBackground;
 extern const Sifteo::AssetImage QuestionerBackground;
@@ -48,8 +47,9 @@ extern const Sifteo::AssetImage LabelCoop;
 extern const Sifteo::AssetImage LabelStats;
 extern const Sifteo::AssetImage LabelRules;
 extern const Sifteo::AssetImage LabelSing;
-extern Sifteo::AssetGroup IconAssets;
-extern const Sifteo::AssetImage Icon;
+extern const Sifteo::AssetImage LabelBack;
+extern const Sifteo::AssetImage LabelNorm;
+extern const Sifteo::AssetImage LabelNumPlayers;
 extern const Sifteo::AssetImage TimebarAnim[9];
 extern const Sifteo::AssetImage Countdown[3];
 extern const Sifteo::AssetImage Highlights[2];
