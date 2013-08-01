@@ -12,8 +12,7 @@
 using namespace Sifteo;
 
 static AssetSlot MainSlot = AssetSlot::allocate()
-	.bootstrap(GameAssets);
-	//.bootstrap(MenuImageAssets);
+	.bootstrap(MenuImageAssets);
 
 static Metadata M = Metadata()
 	.title("First Game")
@@ -21,8 +20,8 @@ static Metadata M = Metadata()
 	.icon(Icon)
 	.cubeRange(1,CUBE_ALLOCATION);
 
-static AssetLoader loader;
-static AssetConfiguration<1> assetConfig;
+//static AssetLoader loader;
+//static AssetConfiguration<1> assetConfig;
 VideoBuffer gVideo[CUBE_ALLOCATION];
 
 GameDrawer myGameDrawer;
@@ -48,7 +47,7 @@ void addMoreCubes()
 
 void onDisconnect(void *x, unsigned int id)
 {
-	LOG("logged disconnect from cube: %d\n",id);
+	//LOG("logged disconnect from cube: %d\n",id);
 
 	if(currMode)
 	{
@@ -58,7 +57,7 @@ void onDisconnect(void *x, unsigned int id)
 
 void onConnect(void *x, unsigned int id)
 {
-	LOG("logged connect from cube: %d\n",id);
+	//LOG("logged connect from cube: %d\n",id);
 	auto &vid = gVideo[id];
     vid.initMode(BG0);
     vid.attach(id);
@@ -252,9 +251,11 @@ void GameDrawer::printRules()
 
 void main()
 {
-	assetConfig.append(MainSlot, GameAssets);
-	//assetConfig.append(MainSlot, MenuImageAssets);
-	loader.init();
+    Sifteo::ScopedAssetLoader assetLoader;
+
+    assetLoader.init();
+    
+    ASSERT(MenuImageAssets.isInstalled(CubeSet::connected()));
 
     Events::cubeConnect.set(&onConnect);
     Events::cubeDisconnect.set(&onDisconnect);
@@ -283,11 +284,50 @@ void main()
         currMode = NULL;
         System::setCubeRange(1,CUBE_ALLOCATION);
 
+        AssetConfiguration<1> assetConfig;
+        CubeSet cubes = CubeSet::connected();
+
+        /* Only needed if we do not want to bootstrap
+        MenuImageAssets anymore.
+        if(!MenuImageAssets.isInstalled(cubes))
+        {
+            assetConfig.append(MainSlot, MenuImageAssets);
+            assetLoader.start(assetConfig, cubes);
+            while (!assetLoader.isComplete())
+            {
+                System::paint();
+            }
+        }*/
+
     	int modeChosen = gameMenu.runMenu();
 
     	Events::cubeTouch.set(&onTouch);
 	    Events::neighborAdd.set(&onNeighbourAdd);
 	    Events::neighborRemove.set(&onNeighbourRemove);
+
+        if(!GameAssets.isInstalled(cubes))
+        {
+            assetConfig.append(MainSlot, GameAssets);
+            assetLoader.start(assetConfig, cubes);
+            for(CubeID cube : cubes)
+            {
+                gVideo[cube].initMode(BG0_ROM);
+                gVideo[cube].attach(cube);
+                gVideo[cube].bg0rom.fill(vec(0,0),vec(16,16),BG0ROMDrawable::SOLID_BG);
+                gVideo[cube].bg0rom.text(vec(1,1), "Loading...", BG0ROMDrawable::BLACK);
+            }
+            while (!assetLoader.isComplete())
+            {
+                System::paint();
+            }
+            for(CubeID cube : cubes)
+            {
+                gVideo[cube].initMode(BG0);
+                gVideo[cube].attach(cube);
+            }
+        }
+        //LOG("Loading done\n");
+
     	//Do mode
     	switch(modeChosen)
     	{
