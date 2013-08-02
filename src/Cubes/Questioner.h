@@ -24,6 +24,7 @@ private:
     int totalAsked;
     int longestStreak;
     int extraTime;
+    int gameEnded;
 
     Question currQuestion;
     Question prevQuestion;

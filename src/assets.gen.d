@@ -1,55 +1,55 @@
 assets.gen.o: assets.gen.cpp \
-  /Users/sparxmacmini/Intern/sifteo-sdk/include/sifteo/asset.h \
-  /Users/sparxmacmini/Intern/sifteo-sdk/include/sifteo/asset/group.h \
-  /Users/sparxmacmini/Intern/sifteo-sdk/include/sifteo/abi.h \
-  /Users/sparxmacmini/Intern/sifteo-sdk/include/sifteo/abi/syscall.h \
-  /Users/sparxmacmini/Intern/sifteo-sdk/include/sifteo/abi/types.h \
-  /Users/sparxmacmini/Intern/sifteo-sdk/include/sifteo/abi/audio.h \
-  /Users/sparxmacmini/Intern/sifteo-sdk/include/sifteo/abi/events.h \
-  /Users/sparxmacmini/Intern/sifteo-sdk/include/sifteo/abi/vram.h \
-  /Users/sparxmacmini/Intern/sifteo-sdk/include/sifteo/abi/asset.h \
-  /Users/sparxmacmini/Intern/sifteo-sdk/include/sifteo/abi/elf.h \
-  /Users/sparxmacmini/Intern/sifteo-sdk/include/sifteo/limits.h \
-  /Users/sparxmacmini/Intern/sifteo-sdk/include/sifteo/macros.h \
-  /Users/sparxmacmini/Intern/sifteo-sdk/include/sifteo/math.h \
-  /Users/sparxmacmini/Intern/sifteo-sdk/include/sifteo/asset/loader.h \
-  /Users/sparxmacmini/Intern/sifteo-sdk/include/sifteo/array.h \
-  /Users/sparxmacmini/Intern/sifteo-sdk/include/sifteo/memory.h \
-  /Users/sparxmacmini/Intern/sifteo-sdk/include/sifteo/asset/audio.h \
-  /Users/sparxmacmini/Intern/sifteo-sdk/include/sifteo/asset/image.h
+  C:\Users\owner\Documents\Sifteo\sifteo-sdk-windows\/include\sifteo/asset.h \
+  C:\Users\owner\Documents\Sifteo\sifteo-sdk-windows\/include\sifteo/asset/group.h \
+  C:\Users\owner\Documents\Sifteo\sifteo-sdk-windows\/include\sifteo/abi.h \
+  C:\Users\owner\Documents\Sifteo\sifteo-sdk-windows\/include\sifteo/abi/syscall.h \
+  C:\Users\owner\Documents\Sifteo\sifteo-sdk-windows\/include\sifteo/abi/types.h \
+  C:\Users\owner\Documents\Sifteo\sifteo-sdk-windows\/include\sifteo/abi/audio.h \
+  C:\Users\owner\Documents\Sifteo\sifteo-sdk-windows\/include\sifteo/abi/events.h \
+  C:\Users\owner\Documents\Sifteo\sifteo-sdk-windows\/include\sifteo/abi/vram.h \
+  C:\Users\owner\Documents\Sifteo\sifteo-sdk-windows\/include\sifteo/abi/asset.h \
+  C:\Users\owner\Documents\Sifteo\sifteo-sdk-windows\/include\sifteo/abi/elf.h \
+  C:\Users\owner\Documents\Sifteo\sifteo-sdk-windows\/include\sifteo/limits.h \
+  C:\Users\owner\Documents\Sifteo\sifteo-sdk-windows\/include\sifteo/macros.h \
+  C:\Users\owner\Documents\Sifteo\sifteo-sdk-windows\/include\sifteo/math.h \
+  C:\Users\owner\Documents\Sifteo\sifteo-sdk-windows\/include\sifteo/asset/loader.h \
+  C:\Users\owner\Documents\Sifteo\sifteo-sdk-windows\/include\sifteo/array.h \
+  C:\Users\owner\Documents\Sifteo\sifteo-sdk-windows\/include\sifteo/memory.h \
+  C:\Users\owner\Documents\Sifteo\sifteo-sdk-windows\/include\sifteo/asset/audio.h \
+  C:\Users\owner\Documents\Sifteo\sifteo-sdk-windows\/include\sifteo/asset/image.h
 
-/Users/sparxmacmini/Intern/sifteo-sdk/include/sifteo/asset.h:
+C:\Users\owner\Documents\Sifteo\sifteo-sdk-windows\/include\sifteo/asset.h:
 
-/Users/sparxmacmini/Intern/sifteo-sdk/include/sifteo/asset/group.h:
+C:\Users\owner\Documents\Sifteo\sifteo-sdk-windows\/include\sifteo/asset/group.h:
 
-/Users/sparxmacmini/Intern/sifteo-sdk/include/sifteo/abi.h:
+C:\Users\owner\Documents\Sifteo\sifteo-sdk-windows\/include\sifteo/abi.h:
 
-/Users/sparxmacmini/Intern/sifteo-sdk/include/sifteo/abi/syscall.h:
+C:\Users\owner\Documents\Sifteo\sifteo-sdk-windows\/include\sifteo/abi/syscall.h:
 
-/Users/sparxmacmini/Intern/sifteo-sdk/include/sifteo/abi/types.h:
+C:\Users\owner\Documents\Sifteo\sifteo-sdk-windows\/include\sifteo/abi/types.h:
 
-/Users/sparxmacmini/Intern/sifteo-sdk/include/sifteo/abi/audio.h:
+C:\Users\owner\Documents\Sifteo\sifteo-sdk-windows\/include\sifteo/abi/audio.h:
 
-/Users/sparxmacmini/Intern/sifteo-sdk/include/sifteo/abi/events.h:
+C:\Users\owner\Documents\Sifteo\sifteo-sdk-windows\/include\sifteo/abi/events.h:
 
-/Users/sparxmacmini/Intern/sifteo-sdk/include/sifteo/abi/vram.h:
+C:\Users\owner\Documents\Sifteo\sifteo-sdk-windows\/include\sifteo/abi/vram.h:
 
-/Users/sparxmacmini/Intern/sifteo-sdk/include/sifteo/abi/asset.h:
+C:\Users\owner\Documents\Sifteo\sifteo-sdk-windows\/include\sifteo/abi/asset.h:
 
-/Users/sparxmacmini/Intern/sifteo-sdk/include/sifteo/abi/elf.h:
+C:\Users\owner\Documents\Sifteo\sifteo-sdk-windows\/include\sifteo/abi/elf.h:
 
-/Users/sparxmacmini/Intern/sifteo-sdk/include/sifteo/limits.h:
+C:\Users\owner\Documents\Sifteo\sifteo-sdk-windows\/include\sifteo/limits.h:
 
-/Users/sparxmacmini/Intern/sifteo-sdk/include/sifteo/macros.h:
+C:\Users\owner\Documents\Sifteo\sifteo-sdk-windows\/include\sifteo/macros.h:
 
-/Users/sparxmacmini/Intern/sifteo-sdk/include/sifteo/math.h:
+C:\Users\owner\Documents\Sifteo\sifteo-sdk-windows\/include\sifteo/math.h:
 
-/Users/sparxmacmini/Intern/sifteo-sdk/include/sifteo/asset/loader.h:
+C:\Users\owner\Documents\Sifteo\sifteo-sdk-windows\/include\sifteo/asset/loader.h:
 
-/Users/sparxmacmini/Intern/sifteo-sdk/include/sifteo/array.h:
+C:\Users\owner\Documents\Sifteo\sifteo-sdk-windows\/include\sifteo/array.h:
 
-/Users/sparxmacmini/Intern/sifteo-sdk/include/sifteo/memory.h:
+C:\Users\owner\Documents\Sifteo\sifteo-sdk-windows\/include\sifteo/memory.h:
 
-/Users/sparxmacmini/Intern/sifteo-sdk/include/sifteo/asset/audio.h:
+C:\Users\owner\Documents\Sifteo\sifteo-sdk-windows\/include\sifteo/asset/audio.h:
 
-/Users/sparxmacmini/Intern/sifteo-sdk/include/sifteo/asset/image.h:
+C:\Users\owner\Documents\Sifteo\sifteo-sdk-windows\/include\sifteo/asset/image.h:

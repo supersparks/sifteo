@@ -203,22 +203,18 @@ int MultCompetitive::runSpecificGameComms()
 			myQuestioners[questionID[j]]->cleanGame();
 		}
 	}
-
 	int endGameNow = 1;
 	for(int j=0; j < myNumPlayers; ++j)
 	{
 		endGameNow *= Player_GameOver[j];
 	}
 
-	//LOG("About to do endGameNow if statement\n");
 	if(endGameNow)
 	{
-		LOG("Ending game now\n");
 		for(int j=0; j < 2 * myNumPlayers; ++j)
 		{
 			myOperators[operatorID[j]]->cleanGame();
 		}
-		LOG("Cleaned operators\n");
 		int winner = 0;
 		for(int j = 1; j < myNumPlayers; ++j)
 		{
@@ -227,12 +223,10 @@ int MultCompetitive::runSpecificGameComms()
 				winner = j;
 			}
 		}
-		LOG("About to print final game over screen");
 		for(int j=0; j < myNumPlayers; ++j)
 		{
 			myQuestioners[questionID[j]]->cleanGameMultiplayer(winner, currResult[winner].getTotalCorrect());
 		}
-		LOG("About to return from runSpecificGameComms() with game ended\n");
 	}
 	return endGameNow;
 

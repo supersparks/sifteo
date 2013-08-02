@@ -9,8 +9,8 @@
 extern Sifteo::AssetGroup IconAssets;
 extern const Sifteo::AssetImage Icon;
 extern Sifteo::AssetGroup GameAssets;
-extern const Sifteo::AssetImage OperatorBackground;
 extern const Sifteo::AssetImage StatsBackground;
+extern const Sifteo::AssetImage OperatorBackground;
 extern const Sifteo::AssetImage GameOverTeam;
 extern const Sifteo::AssetImage GameOver;
 extern const Sifteo::PinnedAssetImage Font;

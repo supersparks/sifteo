@@ -10,6 +10,7 @@ Timer::Timer(GameDrawer* gameDrawer, CubeID cubeID, int IsPractise)
 	endTile = 15;
 	ticker = TimeTicker(1);
 	secondsLeft = 60;
+	gameEnded = 0;
 
 	myGameDrawer->switchToBG0_BG1(myCube);
 	myGameDrawer->drawTimerBackground(myCube);
@@ -41,49 +42,57 @@ void Timer::repaintNewCube(unsigned int cube)
 
 void Timer::updateAnimation(TimeDelta delta)
 {
-	int tickCount = ticker.tick( delta );
-
-	if(!isPractise)
+	//LOG("Timer on cube %d has secondsLeft = %d",(int) myCube, secondsLeft);
+	if(!gameEnded)
 	{
-		secondsLeft -= tickCount;
-	}
+		int tickCount = ticker.tick( delta );
 
-	int pixelsLeft = (112 * secondsLeft) / 60;
-	int newEndTile = 1 + (pixelsLeft / 8);
-	imageNumber = 8 - (pixelsLeft % 8);
-
-	if(pixelsLeft > 112)
-	{
-		myGameDrawer->drawTimeBarPartial(myCube, vec(14,1),0);
-
-		if(pixelsLeft > 112 + 8)
+		if(!isPractise)
 		{
-			myGameDrawer->drawTimeBarPartial(myCube, vec(15,1),0);
+			secondsLeft -= tickCount;
+		}
+
+		int pixelsLeft = (112 * secondsLeft) / 60;
+		int newEndTile = 1 + (pixelsLeft / 8);
+		imageNumber = 8 - (pixelsLeft % 8);
+
+		if(pixelsLeft > 112)
+		{
+			myGameDrawer->drawTimeBarPartial(myCube, vec(14,1),0);
+
+			if(pixelsLeft > 112 + 8)
+			{
+				myGameDrawer->drawTimeBarPartial(myCube, vec(15,1),0);
+			}
+			else
+			{
+				myGameDrawer->drawTimeBarPartial(myCube, vec(15,1),imageNumber);
+			}
 		}
 		else
 		{
-			myGameDrawer->drawTimeBarPartial(myCube, vec(15,1),imageNumber);
-		}
-	}
-	else
-	{
-		myGameDrawer->drawTimeBarPartial(myCube, vec(newEndTile,1),imageNumber);
+			myGameDrawer->drawTimeBarPartial(myCube, vec(newEndTile,1),imageNumber);
 
-		if(newEndTile < endTile)
-		{
-			myGameDrawer->drawBlankTimeBar(myCube, vec(endTile,1));
-			endTile = newEndTile;
+			if(newEndTile < endTile)
+			{
+				myGameDrawer->drawBlankTimeBar(myCube, vec(endTile,1));
+				endTile = newEndTile;
+			}
 		}
 	}
 }
 
 int Timer::gameOver()
 {
-	if (!secondsLeft)
+	if(!gameEnded)
 	{
-		myGameDrawer->clearBG1Mask(myCube);
-		myGameDrawer->switchToBG0(myCube);
-		myGameDrawer->paintBlack(myCube);
+		if (!secondsLeft)
+		{
+			myGameDrawer->clearBG1Mask(myCube);
+			myGameDrawer->switchToBG0(myCube);
+			myGameDrawer->paintBlack(myCube);
+			gameEnded = 1;
+		}
 	}
 	return !secondsLeft;
 }

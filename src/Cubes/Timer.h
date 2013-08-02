@@ -14,6 +14,7 @@ private:
 	TimeTicker ticker;
 	int secondsLeft;
 	int isPractise;
+	int gameEnded;
 	GameDrawer* myGameDrawer;
 	CubeID myCube;
 
