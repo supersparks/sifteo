@@ -27,6 +27,8 @@ void doPanning(CubeID cube, Int2 Pan);
 
 void paintGameOver(CubeID cube, int Score, int longestStreak);
 
+void paintGameOverTeamwork(CubeID cube, int Score, int longestStreak, int teamTotalCorrect);
+
 void drawConnectCube(CubeID cube);
 
 void drawCountdown(CubeID cube, int CountdownSecs);
@@ -42,6 +44,8 @@ void switchToBG0_BG1(CubeID cube);
 void switchToBG0(CubeID cube);
 
 void setBG1Mask(CubeID cube);
+
+void clearBG1Mask(CubeID cube);
 
 void drawTimeBar(CubeID cube);
 

@@ -9,8 +9,8 @@ class Teamwork : public PlayGame {
     //TODO: set max cubes to CUBE_ALLOCATION
 
 public:
-	Teamwork();
 	Teamwork(GameDrawer* gameDrawer,int numPlayers);
+    Teamwork();
 
 private:
     int combinedStreak;
@@ -19,9 +19,13 @@ private:
     int totalAsked;
    	int runSpecificGameComms();
 
-   	//used in runSpecificGameComms but could be adapted and used 
-   	//higher up in PlayGame
-   	int questionerID[CUBE_ALLOCATION];
-	int operatorID[CUBE_ALLOCATION];
-	int timerID = 0;
+    //Streak since any player last got
+    //a question wrong
+   	int unbrokenStreak[3];
+    int playerTotalCorrect[3];
+    int playerTotalAsked[3];
+
+    Questioner myQuestionerArray[3];
+    Operator myOperatorArray[6];
+    Timer myOneTimer;
 };

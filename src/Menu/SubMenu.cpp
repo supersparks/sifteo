@@ -64,7 +64,7 @@ public:
         uint8_t item;
         int repeatMenu = 0;
 
-        if(mySubMenu.inUse())
+        /*if(mySubMenu.inUse())
         {
             int sMenuPick = mySubMenu.runMenu();
             if(sMenuPick != -1)
@@ -72,7 +72,7 @@ public:
                 return sMenuPick;
             }
             //LOG("Registered pressing Back before loop in Main menu class\n");
-        }
+        }*/
 
         do
         {

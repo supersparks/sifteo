@@ -46,8 +46,8 @@ main.o: main.cpp /Users/sparxmacmini/Intern/sifteo-sdk/include/sifteo.h \
   /Users/sparxmacmini/Intern/sifteo-sdk/include/sifteo/menu/public.h \
   /Users/sparxmacmini/Intern/sifteo-sdk/include/sifteo/menu/states.h \
   /Users/sparxmacmini/Intern/sifteo-sdk/include/sifteo/menu/events.h \
-  Modes/Rules.h Menu/MainMenu.cpp Menu/SubMenu.cpp Menu/SubMenu2.cpp \
-  Menu/Globals.cpp
+  Modes/Rules.h Modes/Teamwork.h Menu/MainMenu.cpp Menu/SubMenu.cpp \
+  Menu/SubMenu2.cpp Menu/Globals.cpp
 
 /Users/sparxmacmini/Intern/sifteo-sdk/include/sifteo.h:
 
@@ -162,6 +162,8 @@ Modes/ShowStat.h:
 /Users/sparxmacmini/Intern/sifteo-sdk/include/sifteo/menu/events.h:
 
 Modes/Rules.h:
+
+Modes/Teamwork.h:
 
 Menu/MainMenu.cpp:
 

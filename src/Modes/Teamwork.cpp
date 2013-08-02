@@ -1,13 +1,20 @@
 #include "Teamwork.h"
 
-Teamwork::Teamwork(){}
-
-Teamwork::Teamwork(GameDrawer* gameDrawer, int numPlayers)
+Teamwork::Teamwork(GameDrawer* gameDrawer, int numPlayers) : PlayGame()
 {
+	LOG("Constructing Teamwork\n");
 	int cubesRequired = numPlayers*3+1;
 	System::setCubeRange(cubesRequired);
 	myGameDrawer = gameDrawer;
 	myNumPlayers = numPlayers;
+	for(int i=0; i < myNumPlayers; ++i)
+	{
+		unbrokenStreak[i] = 0;
+		playerTotalCorrect[i] = 0;
+		playerTotalAsked[i] = 0;
+		//LOG("Player %d, unbrokenStreak = %d, playerTotalCorrect = %d\n",
+		//	i, unbrokenStreak[i], playerTotalCorrect[i]);
+	}
 
 	int i = 0;
 	for(CubeID cube : CubeSet::connected())
@@ -17,44 +24,60 @@ Teamwork::Teamwork(GameDrawer* gameDrawer, int numPlayers)
     }
 
     i = 0;
-    while(cubeStates[i])
+    while(!cubeStates[i])
     {
-    	if (i==0)
-    	{
-        	myTimers[i] = Timer(myGameDrawer,i,0);
-    		cubeStates[i] = TIMER;
-    		timerID = i;
-    	} else if (i<myNumPlayers+1)
-    	{
-    		myQuestioners[i-1] = Questioner(myGameDrawer,i);
- 	   		cubeStates[i] = QUESTIONER;
- 	   		questionerID[i-1] = i;
- 	   	} else if (i<myNumPlayers*3+1) 
- 	   	{
- 	   		myOperators[i-myNumPlayers-1] = Operator(myGameDrawer,i);
- 	   		cubeStates[i] = OPERATOR;
- 	   		operatorID[i-myNumPlayers-1] = i;
- 	   	} else if (i<CUBE_ALLOCATION)
- 	   	{
- 	   		//flush all others as not connected
-    	//because choosing not to constantly
-    	//update these values manually
- 	   		cubeStates[i] = NOT_CONNECTED;
- 	   	}
- 	   	i++;
+    	++i;
+    }
+    myOneTimer = Timer(myGameDrawer,i,0);
+    myTimers[i] = &myOneTimer;
+    cubeStates[i] = TIMER;
+    ++i;
+
+    int countPlayers = 0;
+    while(countPlayers < myNumPlayers)
+    {
+    	while(!cubeStates[i])
+	    {
+	    	++i;
+	    }
+	    myQuestionerArray[countPlayers] = Questioner(myGameDrawer,i);
+	    myQuestioners[i] = &(myQuestionerArray[countPlayers]);
+	    cubeStates[i] = QUESTIONER;
+	    ++i;
+	    while(!cubeStates[i])
+	    {
+	    	++i;
+	    }
+	    myOperatorArray[2 * countPlayers] = Operator(myGameDrawer,i);
+	    myOperators[i] = &(myOperatorArray[2 * countPlayers]);
+	    cubeStates[i] = OPERATOR;
+	    ++i;
+	    while(!cubeStates[i])
+	    {
+	    	++i;
+	    }
+	    myOperatorArray[2 * countPlayers + 1] = Operator(myGameDrawer,i);
+	    myOperators[i] = &(myOperatorArray[2 * countPlayers + 1]);
+	    cubeStates[i] = OPERATOR;
+	    ++i;
+
+ 	   	countPlayers++;
     }
 
-
-	//PRECONDITION: there are enough cubes to have numPlayers playing
-	int numCubes = CubeSet::connected().count();
-	ASSERT(numCubes >= 3*numPlayers + 1);
-
+    while(i < CUBE_ALLOCATION)
+    {
+    	cubeStates[i] = NOT_CONNECTED;
+    	++i;
+    }
 
 	//note that the number of questioner cubes is equal to the number of players
 	totalAsked = 0;
 	combinedStreak = 0;
 
 }
+
+Teamwork::Teamwork()
+{}
 
 //returns 1 when the game has ended
 //returns 0 if the game needs to keep looping
@@ -63,58 +86,108 @@ Teamwork::Teamwork(GameDrawer* gameDrawer, int numPlayers)
 int Teamwork::runSpecificGameComms()
 {
 
-	Result currResult[CUBE_ALLOCATION];
-	//get most recent result from each questioner
-	for (int i=0;i<myNumPlayers;i++)
+	Result currResult[3];
+	
+	int questionID[3];
+	int operatorID[6];
+	int timerID;
+
+	int i=0;
+	int jQuestion=0;
+	int jOperator=0;
+	while(i < CUBE_ALLOCATION)
 	{
-		currResult[i] = myQuestioners[questionerID[i]].questionUpdate();
+		switch (cubeStates[i])
+		{
+			case (QUESTIONER) :
+			{
+				questionID[jQuestion] = i;
+				++jQuestion;
+				break;
+			}
+			case (OPERATOR) :
+			{
+				operatorID[jOperator] = i;
+				++jOperator;
+				break;
+			}
+			case (TIMER) :
+			{
+				timerID = i;
+				break;
+			}
+			default:
+				break;
+		}
+		++i;
 	}
 
-	int combinedGain =0;
-	int streakIncrement = 0;
-	int broken = 1;
-	int temp = 0;
-	for(int i=0;i<myNumPlayers;i++)
+	for (int i=0; i < myNumPlayers; i++)
 	{
-		temp = currResult[i].getCurrStreak();
-		broken *= temp;
-		combinedGain += temp;
+		currResult[i] = myQuestioners[questionID[i]]->questionUpdate();
 	}
-	streakIncrement = (broken==0)? 0 : combinedGain;
-	combinedStreak += streakIncrement;
+
+	for(int i=0; i < myNumPlayers; i++)
+	{
+		int streak = currResult[i].getCurrStreak();
+		//LOG("streak = %d\n",streak);
+		if(!streak && currResult[i].getTotalAsked() > playerTotalAsked[i])
+		{
+			for(int j=0; j < myNumPlayers; ++j)
+			{
+				unbrokenStreak[j] = 0;
+				playerTotalCorrect[j] = currResult[j].getTotalCorrect();
+			}
+			break;
+		}
+		unbrokenStreak[i] += (currResult[i].getTotalCorrect() - playerTotalCorrect[i]);
+		playerTotalCorrect[i] = currResult[i].getTotalCorrect();
+		// LOG("Player %d, unbrokenStreak = %d, playerTotalCorrect = %d, getTotalCorrect = %d\n",
+		// 	i, unbrokenStreak[i], playerTotalCorrect[i], currResult[i].getTotalCorrect());
+	}
+
+	int oldCombinedStreak = combinedStreak;
+	combinedStreak = 0;
+	for(int i=0; i < myNumPlayers; i++)
+	{
+		combinedStreak += unbrokenStreak[i];
+	}
 
 	//if we need extra time then increase the time as needed on the timer
-	if (streakIncrement>=5)
+	if (!(combinedStreak % 5) && combinedStreak && oldCombinedStreak != combinedStreak)
 	{
-		myTimers[timerID].streakIncrease();
+		myTimers[timerID]->streakIncrease();
 	}
 
-	int newTotalAsked=0;
+	int newTotalAsked = 0;
+	int teamTotalCorrect = 0;
 	//update totalAsked,currStreak and totalCorrect on the timer
-	for(int i=0;i<myNumPlayers;i++)
+	for(int i=0; i < myNumPlayers; i++)
 	{
 		newTotalAsked += currResult[i].getTotalAsked();
+		playerTotalAsked[i] = currResult[i].getTotalAsked();
+		teamTotalCorrect += playerTotalCorrect[i];
 	}
 
-	if( newTotalAsked >0)
+	if( newTotalAsked > totalAsked)
 	{
-		totalAsked += newTotalAsked;
-		myTimers[timerID].updateResults(combinedStreak, totalAsked);
+		totalAsked = newTotalAsked;
+		myTimers[timerID]->updateTeamworkResults(combinedStreak, teamTotalCorrect);
 	}
 
 	//if it is game over then clean game from all the cubes
-	if(myTimers[timerID].gameOver())
+	if(myTimers[timerID]->gameOver())
 	{
 		//clean game on all the questioners
 		for(int i=0;i<myNumPlayers;i++)
 		{
-			myQuestioners[questionerID[i]].cleanGame();
+			myQuestioners[questionID[i]]->cleanGameTeamwork(teamTotalCorrect);
 		}
-
+		LOG("Finished cleaning questioners\n");
 		//cleangame on all the operators
-		for(int i=0;i<myNumPlayers;i++)
+		for(int i=0;i < 2 * myNumPlayers; i++)
 		{
-			myOperators[operatorID[i]].cleanGame();
+			myOperators[operatorID[i]]->cleanGame();
 		}
 		
 		return 1;

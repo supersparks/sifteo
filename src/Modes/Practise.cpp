@@ -110,6 +110,8 @@ void Practise::onTouch(void *x, unsigned int id)
 	{
 		if(cubeStates[id] == QUESTIONER)
 		{
+			myGameDrawer->paintBlack(id);
+			myGameDrawer->doPanning(id,vec(0,0));
 			ended = 1;
 		}
 	}

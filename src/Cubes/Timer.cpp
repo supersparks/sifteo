@@ -9,7 +9,7 @@ Timer::Timer(GameDrawer* gameDrawer, CubeID cubeID, int IsPractise)
 	imageNumber = 0;
 	endTile = 15;
 	ticker = TimeTicker(1);
-	secondsLeft = 60;
+	secondsLeft = 10;
 
 	myGameDrawer->switchToBG0_BG1(myCube);
 	myGameDrawer->drawTimerBackground(myCube);
@@ -81,6 +81,7 @@ int Timer::gameOver()
 {
 	if (!secondsLeft)
 	{
+		myGameDrawer->clearBG1Mask(myCube);
 		myGameDrawer->switchToBG0(myCube);
 		myGameDrawer->paintBlack(myCube);
 	}

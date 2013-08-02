@@ -6,6 +6,7 @@
 #include "./Modes/PlayGame.h"
 #include "./Modes/ShowStat.h"
 #include "./Modes/Rules.h"
+#include "./Modes/Teamwork.h"
 #include "./GameDrawer.h"
 #include "./Menu/MainMenu.cpp"
 #include <sifteo.h>
@@ -25,10 +26,11 @@ static Metadata M = Metadata()
 VideoBuffer gVideo[CUBE_ALLOCATION];
 
 GameDrawer myGameDrawer;
-Normal normal = NULL;
-Practise practise = NULL;
-ShowStat showStat = NULL;
+Normal normal = Normal();
+Practise practise = Practise();
+ShowStat showStat = ShowStat();
 Rules rules = Rules();
+Teamwork teamwork = Teamwork();
 
 //All other modes instantiated using default constructors
 Mode *currMode = NULL;
@@ -141,6 +143,21 @@ void GameDrawer::paintGameOver(CubeID cube, int Score, int longestStreak)
 	gVideo[cube].bg0.text(vec(8,12),Font2, lStreak, ' ');
 }
 
+void GameDrawer::paintGameOverTeamwork(CubeID cube, int Score, int longestStreak, int teamTotalCorrect)
+{
+    gVideo[cube].bg0.setPanning(vec(0,0));
+    gVideo[cube].bg0.image(vec(0,0), GameOverTeam);
+    String<9> score;
+    score << Score;
+    String<9> lStreak;
+    lStreak << longestStreak;
+    String<9> teamScore;
+    teamScore << teamTotalCorrect;
+    gVideo[cube].bg0.text(vec(8,7),Font2, teamScore, ' ');
+    gVideo[cube].bg0.text(vec(8,10),Font2, score, ' ');
+    gVideo[cube].bg0.text(vec(8,13),Font2, lStreak, ' ');
+}
+
 void GameDrawer::GameDrawer::drawConnectCube(CubeID cube)
 {
 	gVideo[cube].bg0.image(vec(0,0),ConnectCube);
@@ -170,17 +187,24 @@ void GameDrawer::drawQuestionerBackground(CubeID cube)
 
 void GameDrawer::switchToBG0_BG1(CubeID cube)
 {
-	gVideo[cube].setMode(BG0_BG1);
+    gVideo[cube].initMode(BG0_BG1);
+	gVideo[cube].attach(cube);
 }
 
 void GameDrawer::switchToBG0(CubeID cube)
 {
-	gVideo[cube].setMode(BG0);
+	gVideo[cube].initMode(BG0);
+    gVideo[cube].attach(cube);
 }
 
 void GameDrawer::setBG1Mask(CubeID cube)
 {
 	gVideo[cube].bg1.setMask(BG1Mask::filled(vec(0,1),vec(16,1)));
+}
+
+void GameDrawer::clearBG1Mask(CubeID cube)
+{
+    gVideo[cube].bg1.eraseMask();
 }
 
 void GameDrawer::drawTimeBar(CubeID cube)
@@ -281,14 +305,16 @@ void main()
 	    Events::neighborAdd.unset();
 	    Events::neighborRemove.unset();
 
+        LOG("events unset\n");
         currMode = NULL;
         System::setCubeRange(1,CUBE_ALLOCATION);
 
-        AssetConfiguration<1> assetConfig;
         CubeSet cubes = CubeSet::connected();
 
         /* Only needed if we do not want to bootstrap
-        MenuImageAssets anymore.
+        MenuImageAssets anymore.*/
+        AssetConfiguration<1> assetConfig;
+
         if(!MenuImageAssets.isInstalled(cubes))
         {
             assetConfig.append(MainSlot, MenuImageAssets);
@@ -297,13 +323,12 @@ void main()
             {
                 System::paint();
             }
-        }*/
+        }
+        LOG("About to run menu\n");
 
     	int modeChosen = gameMenu.runMenu();
 
-    	Events::cubeTouch.set(&onTouch);
-	    Events::neighborAdd.set(&onNeighbourAdd);
-	    Events::neighborRemove.set(&onNeighbourRemove);
+        LOG("Just run menu\n");
 
         if(!GameAssets.isInstalled(cubes))
         {
@@ -326,6 +351,10 @@ void main()
                 gVideo[cube].attach(cube);
             }
         }
+
+        Events::cubeTouch.set(&onTouch);
+        Events::neighborAdd.set(&onNeighbourAdd);
+        Events::neighborRemove.set(&onNeighbourRemove);
         //LOG("Loading done\n");
 
     	//Do mode
@@ -345,12 +374,14 @@ void main()
     		}
     		case(2) :
     		{
-    			//Coop 2-Player
+    			teamwork = Teamwork(&myGameDrawer, 2);
+                currMode = &teamwork;
     			break;
     		}
     		case(3) :
     		{
-    			//Coop 3-PLayer
+    			teamwork = Teamwork(&myGameDrawer, 3);
+                currMode = &teamwork;
     			break;
     		}
     		case(4) :
@@ -393,5 +424,6 @@ void main()
 	    	ts.next();
 	    	System::paint();
 	    }
+        LOG("Finished mode\n");
     }
 }

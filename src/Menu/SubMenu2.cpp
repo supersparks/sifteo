@@ -96,7 +96,7 @@ public:
             {
                 case MENU_ITEM_PRESS:
                     //LOG("PRESS");
-                    myMenu.anchor(e.item);
+                    //myMenu.anchor(e.item);
                     if(e.item == backIndex)
                     {
                         beingUsed = 0;
@@ -137,6 +137,7 @@ public:
 
         if(myGameType == COOP && e.item != backIndex)
         {
+            System::setCubeRange(7);
             return 2 + e.item;
         }
         else if(myGameType == COMP && e.item != backIndex)

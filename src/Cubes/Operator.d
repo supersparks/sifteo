@@ -1,4 +1,4 @@
-Modes/Teamwork.o: Modes/Teamwork.cpp Modes/Teamwork.h \
+Cubes/Operator.o: Cubes/Operator.cpp Cubes/Operator.h \
   /Users/sparxmacmini/Intern/sifteo-sdk/include/sifteo.h \
   /Users/sparxmacmini/Intern/sifteo-sdk/include/sifteo/abi.h \
   /Users/sparxmacmini/Intern/sifteo-sdk/include/sifteo/abi/syscall.h \
@@ -36,12 +36,9 @@ Modes/Teamwork.o: Modes/Teamwork.cpp Modes/Teamwork.h \
   /Users/sparxmacmini/Intern/sifteo-sdk/include/sifteo/video/bg1.h \
   /Users/sparxmacmini/Intern/sifteo-sdk/include/sifteo/video/bg2.h \
   /Users/sparxmacmini/Intern/sifteo-sdk/include/sifteo/video/tilebuffer.h \
-  Modes/./../GameDrawer.h Modes/PlayGame.h Modes/Mode.h \
-  Modes/.././Cubes/Questioner.h Modes/.././Cubes/Question.h \
-  Modes/.././Cubes/QuestionList.h Modes/.././Cubes/Result.h \
-  Modes/.././Cubes/Operator.h Modes/.././Cubes/Timer.h
+  Cubes/.././GameDrawer.h
 
-Modes/Teamwork.h:
+Cubes/Operator.h:
 
 /Users/sparxmacmini/Intern/sifteo-sdk/include/sifteo.h:
 
@@ -117,20 +114,4 @@ Modes/Teamwork.h:
 
 /Users/sparxmacmini/Intern/sifteo-sdk/include/sifteo/video/tilebuffer.h:
 
-Modes/./../GameDrawer.h:
-
-Modes/PlayGame.h:
-
-Modes/Mode.h:
-
-Modes/.././Cubes/Questioner.h:
-
-Modes/.././Cubes/Question.h:
-
-Modes/.././Cubes/QuestionList.h:
-
-Modes/.././Cubes/Result.h:
-
-Modes/.././Cubes/Operator.h:
-
-Modes/.././Cubes/Timer.h:
+Cubes/.././GameDrawer.h:

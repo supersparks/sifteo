@@ -25,6 +25,7 @@ int PlayGame::endGame(TimeDelta delta)
 				break;
 		}
 	}
+	//LOG("About to call runSpecificGameComms()\n");
 	return runSpecificGameComms();
 }
 
@@ -89,6 +90,16 @@ void PlayGame::onTouch(void *x, unsigned int id)
 		if(ending)
 		{
 			//LOG("Questioner touched at end of game\n");
+			int i=0;
+			while(i < CUBE_ALLOCATION)
+			{
+				if(cubeStates[i] == QUESTIONER)
+				{
+					myGameDrawer->doPanning(i,vec(0,0));
+					myGameDrawer->paintBlack(i);
+				}
+				++i;
+			}
 			ended = 1;
 		}
 	}

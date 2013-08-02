@@ -139,6 +139,7 @@ void Questioner::runGame(TimeDelta myDelta)
 		corrQuestAns = 0;
 
 		int correct = currQuestion.wasRight();
+
 		if(!correct)
 		{
 			if(longestStreak < currStreak)
@@ -150,6 +151,7 @@ void Questioner::runGame(TimeDelta myDelta)
 		else
 		{
 			currStreak += correct;
+			//LOG("currStreak = %d questioner with cubeID = %d\n",currStreak, (int)myCube);
 			totalCorrect += correct;
 			if(!(currStreak % 5))
 			{
@@ -165,6 +167,7 @@ void Questioner::runGame(TimeDelta myDelta)
 //returns the most recent result
 Result Questioner::questionUpdate()
 {
+	//LOG("questionUpdate being called from questioner with cubeID = %d\n",(int)myCube);
 	if(extraTime)
 	{
 		extraTime = 0;
@@ -172,6 +175,7 @@ Result Questioner::questionUpdate()
 	}
 	else
 	{
+		//if (currStreak>=1) LOG("currStreak = %d\n",currStreak);
 		return Result(currStreak, totalCorrect, 0, totalAsked);
 	}
 }
@@ -217,6 +221,34 @@ void Questioner::cleanGame()
 	s_TotalAsked.write(newTotalAsked);
 
 	myGameDrawer->paintGameOver(myCube, totalCorrect, longestStreak);
+}
+
+void Questioner::cleanGameTeamwork(int teamTotalCorrect)
+{
+	if(currStreak > longestStreak)
+	{
+		longestStreak = currStreak;
+	}
+
+	initStoredObjects();
+
+	int prevHighscore = -1;
+	s_HighScore.readObject(prevHighscore,0);
+	//LOG("prevHighscore = %d\n",prevHighscore);
+	if (prevHighscore<totalCorrect)	s_HighScore.write(totalCorrect);
+
+	int prevLongestStreak = -1;
+	s_LongestStreak.readObject(prevLongestStreak,0);
+	//LOG("prevLongestStreak = %d\n",prevLongestStreak);
+	if (prevLongestStreak<longestStreak) s_LongestStreak.write(longestStreak);
+
+	int prevTotalAsked = -1;
+	s_TotalAsked.readObject(prevTotalAsked,0);
+	//LOG("prevTotalAsked = %d\n",prevTotalAsked);
+	int newTotalAsked = prevTotalAsked + totalAsked;
+	s_TotalAsked.write(newTotalAsked);
+
+	myGameDrawer->paintGameOverTeamwork(myCube, totalCorrect, longestStreak, teamTotalCorrect);
 }
 
 void Questioner::inputOperator(int mySide,int opType)
