@@ -11,6 +11,7 @@ PlayGame::PlayGame() : Mode()
 
 int PlayGame::endGame(TimeDelta delta)
 {
+	//LOG("In endGame\n");
 	for(int i=0; i < CUBE_ALLOCATION; ++i)
 	{
 		switch(cubeStates[i])
@@ -65,7 +66,7 @@ int PlayGame::updateTime(TimeDelta delta)
 	if(startgame)
 	{
 		//LOG("Doing startgame\n");
-		ending = endGame(delta);
+		ending = PlayGame::endGame(delta);
 		if(ending)
 		{
 			startgame = 0;

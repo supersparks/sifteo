@@ -13,7 +13,6 @@ class Normal : public PlayGame
     //TODO: set max cubes to 4 in the constructor
 
 private:
-    CubeID* myCubes;
     int totalAsked;
     Questioner myQuestioner;
     Timer myTimer;

@@ -11,6 +11,8 @@ StatsBackground = image{"../assets/StatsBackground.png"}
 RulesBackground = {image{"../assets/rules_1.png"},image{"../assets/rules_2.png"},image{"../assets/rules_3.png"},image{"../assets/rules_4.png"}}
 GameOver = image{"../assets/gameover.png"}
 GameOverTeam = image{"../assets/Game Over_mult.png"}
+GameOverMult = { image{"../assets/Player1_win.png"}, image{"../assets/Player2_win.png"}, image{"../assets/Player3_win.png"} }
+PlayerNumbers = { image{"../assets/Player1.png"}, image{"../assets/Player2.png"}, image{"../assets/Player3.png"} }
 
 Highlights = {image{"../assets/operator.png"},image{"../assets/operator.highlighted.png"}}
 Font = image{"../assets/Font-8x16.png", pinned=true, width=8, height=16}

@@ -6,10 +6,10 @@ Timer::Timer(GameDrawer* gameDrawer, CubeID cubeID, int IsPractise)
 	myCube = cubeID;
 	isPractise = IsPractise;
 
-	imageNumber = 0;
+	imageNumber = 8;
 	endTile = 15;
 	ticker = TimeTicker(1);
-	secondsLeft = 10;
+	secondsLeft = 60;
 
 	myGameDrawer->switchToBG0_BG1(myCube);
 	myGameDrawer->drawTimerBackground(myCube);

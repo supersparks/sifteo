@@ -60,7 +60,7 @@ public:
                         unsigned int cube1Id, unsigned int side1);
     virtual void onTouch(void *x, unsigned int id);
 
-    int updateTime(TimeDelta delta);
+    virtual int updateTime(TimeDelta delta);
 
     void updateDisconnect(unsigned int id);
 

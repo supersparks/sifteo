@@ -2,15 +2,16 @@
 
 MultCompetitive::MultCompetitive(GameDrawer* gameDrawer, int numPlayers) : PlayGame()
 {
-	ASSERT(Cubes::cubesConnected.size()>= 3*numPlayers);
-
 	myGameDrawer = gameDrawer;
 	myNumPlayers = numPlayers;
+	showWhichPlayer = 1;
+	showPlayerCountdown = 0;
 
 	for(int j=0; j < numPlayers; ++j)
 	{
 		totalAsked[j]=0;
 		streaks[j]=0;
+		Player_GameOver[j] = 0;
 	}
 
 	int i = 0;
@@ -21,126 +22,46 @@ MultCompetitive::MultCompetitive(GameDrawer* gameDrawer, int numPlayers) : PlayG
     }
 
     i = 0;
-    for(int i)
-    while(!cubeStates[i])
-    {
-    	++i;
-    }
-    myQuestioner1 = Questioner(myGameDrawer,i);
-    myQuestioners[i] = &myQuestioner1;
-    cubeStates[i] = QUESTIONER;
-    ++i;
-
-    while(!cubeStates[i])
-    {
-    	++i;
-    }
-    myQuestioner2 = Questioner(myGameDrawer,i);
-    myQuestioners[i] = &myQuestioner2;
-    cubeStates[i] = QUESTIONER;
-    ++i;
-
-    if(myNumPlayers>=3)
+    int countPlayers = 0;
+    while(countPlayers < myNumPlayers)
     {
     	while(!cubeStates[i])
-  		{
-			++i;
-		}
-		myQuestioner3 = Questioner(myGameDrawer,i);
-		myQuestioners[i] = &myQuestioner3;
-		cubeStates[i] = QUESTIONER;
-		++i;
-	}
+	    {
+	    	++i;
+	    }
+	    myQuestionerArray[countPlayers] = Questioner(myGameDrawer,i);
+	    myQuestioners[i] = &(myQuestionerArray[countPlayers]);
+	    cubeStates[i] = QUESTIONER;
+	    ++i;
+	    while(!cubeStates[i])
+	    {
+	    	++i;
+	    }
+	    myOperatorArray[2 * countPlayers] = Operator(myGameDrawer,i);
+	    myOperators[i] = &(myOperatorArray[2 * countPlayers]);
+	    cubeStates[i] = OPERATOR;
+	    ++i;
+	    while(!cubeStates[i])
+	    {
+	    	++i;
+	    }
+	    myOperatorArray[2 * countPlayers + 1] = Operator(myGameDrawer,i);
+	    myOperators[i] = &(myOperatorArray[2 * countPlayers + 1]);
+	    cubeStates[i] = OPERATOR;
+	    ++i;
 
-    while(!cubeStates[i])
-    {
-    	++i;
-    }
-    myOperator1 = Operator(myGameDrawer,i);
-    myOperators[i] = &myOperator1;
-    cubeStates[i] = OPERATOR;
-    ++i;
+    	while(!cubeStates[i])
+	    {
+	    	++i;
+	    }
+	    myTimerArray[countPlayers] = Timer(myGameDrawer,i,0);
+	    myTimers[i] = &(myTimerArray[countPlayers]);
+	    cubeStates[i] = TIMER;
+	    ++i;
 
-    while(!cubeStates[i])
-    {
-    	++i;
-    }
-    myOperator2 = Operator(myGameDrawer,i);
-    myOperators[i] = &myOperator2;
-    cubeStates[i] = OPERATOR;
-    ++i;
-
-    while(!cubeStates[i])
-    {
-    	++i;
-    }
-    myOperator3 = Operator(myGameDrawer,i);
-    myOperators[i] = &myOperator3;
-    cubeStates[i] = OPERATOR;
-    ++i;
-    
-    while(!cubeStates[i])
-    {
-    	++i;
-    }
-    myOperator4 = Operator(myGameDrawer,i);
-    myOperators[i] = &myOperator4;
-    cubeStates[i] = OPERATOR;
-    ++i;
-
-    if(myNumPlayers>=3)
-    {
-    	    while(!cubeStates[i])
-    		{
-   		 	++i;
-    		}
-    		myOperator5 = Operator(myGameDrawer,i);
-    		myOperators[i] = &myOperator5;
-    		cubeStates[i] = OPERATOR;
-    		++i;
-    
-    		while(!cubeStates[i])
-    		{
-    			++i;
-    		}
-    		myOperator6 = Operator(myGameDrawer,i);
-    		myOperators[i] = &myOperator6;
-    		cubeStates[i] = OPERATOR;
-    		++i;
+ 	   	countPlayers++;
     }
 
-
-    while(!cubeStates[i])
-    {
-    	++i;
-    }
-    myTimer1 = Timer(myGameDrawer,i,0);
-    myTimers[i] = &myTimer1;
-    cubeStates[i] = TIMER;
-
-    while(!cubeStates[i])
-    {
-    	++i;
-    }
-    myTimer2 = Timer(myGameDrawer,i,0);
-    myTimers[i] = &myTimer2;
-    cubeStates[i] = TIMER;
-
-    if(myNumPlayers>=3)
-    {
-    	    while(!cubeStates[i])
-    		{
-    			++i;
-    		}
-    		myTimer3 = Timer(myGameDrawer,i,0);
-    		myTimers[i] = &myTimer3;
-    		cubeStates[i] = TIMER;
-    }
-
-    //flush all others as not connected
-    //because choosing not to constantly
-    //update these values manually
-    ++i;
     while(i < CUBE_ALLOCATION)
     {
     	cubeStates[i] = NOT_CONNECTED;
@@ -148,151 +69,171 @@ MultCompetitive::MultCompetitive(GameDrawer* gameDrawer, int numPlayers) : PlayG
     }
 }
 
-	combinedResult = Result(0,0,0,0);
-}
-
 MultCompetitive::MultCompetitive()
 {}
 
+int MultCompetitive::updateTime(TimeDelta delta)
+{
+	if(showWhichPlayer)
+	{
+		int questionID[3];
+		int operatorID[6];
+		int timerID[3];
+
+		int i=0;
+		int jQuestion=0;
+		int jOperator=0;
+		int jTimer = 0;
+		while(i < CUBE_ALLOCATION)
+		{
+			switch (cubeStates[i])
+			{
+				case (QUESTIONER) :
+				{
+					questionID[jQuestion] = i;
+					++jQuestion;
+					break;
+				}
+				case (OPERATOR) :
+				{
+					operatorID[jOperator] = i;
+					++jOperator;
+					break;
+				}
+				case (TIMER) :
+				{
+					timerID[jTimer] = i;
+					++jTimer;
+					break;
+				}
+				default:
+					break;
+			}
+			++i;
+		}
+
+		showPlayerCountdown += delta.seconds();
+		if((int) showPlayerCountdown >= 3)
+		{
+			showWhichPlayer = 0;
+			for(int i=0; i < myNumPlayers; ++i)
+			{
+				myTimers[timerID[i]]->repaintNewCube(timerID[i]);
+			}
+		}
+		else
+		{
+			for(int i=0; i < myNumPlayers; ++i)
+			{
+				myGameDrawer->drawWhichPlayer(timerID[i], i);
+				myGameDrawer->drawWhichPlayer(questionID[i], i);
+			}
+		}
+	}
+	else
+	{
+		return PlayGame::updateTime(delta);
+	}
+
+	return 0;
+}
+
 int MultCompetitive::runSpecificGameComms()
 {
-	Player1_GameOver = 0;
-	Player2_GameOver = 0;
-	Player3_GameOver = 0;
-
 	//LOG("Starting runSpecificGameComms()\n");
+	int questionID[3];
+	int operatorID[6];
+	int timerID[3];
+
 	int i=0;
-	int m=0;
-	while(i < CUBE_ALLOCATION && m < numPlayers+1)
+	int jQuestion=0;
+	int jOperator=0;
+	int jTimer = 0;
+	while(i < CUBE_ALLOCATION)
 	{
-		if(cubeStates[i] == QUESTIONER)
+		switch (cubeStates[i])
 		{
-			Result combinedResult[m] = myQuestioners[i]->questionUpdate();
-			++m;
+			case (QUESTIONER) :
+			{
+				questionID[jQuestion] = i;
+				++jQuestion;
+				break;
+			}
+			case (OPERATOR) :
+			{
+				operatorID[jOperator] = i;
+				++jOperator;
+				break;
+			}
+			case (TIMER) :
+			{
+				timerID[jTimer] = i;
+				++jTimer;
+				break;
+			}
+			default:
+				break;
 		}
 		++i;
 	}
 
-
-
-	int j=0;
-	int k=0;
-	while(j < CUBE_ALLOCATION)
+	for (int j=0; j < myNumPlayers; j++)
 	{
-		if(cubeStates[j] == TIMER)
-		{	
-			break;
-		}
-		++j;
-	}
-	if(k==0)
-	{
-
-		if( totalAsked[0] != combinedResult[0].getTotalAsked())
-		{
-			totalAsked[0] = combinedResult[0].getTotalAsked();
-			myTimers[j]->updateResults(currResult.getCurrStreak(), currResult.getTotalCorrect());
-		}
-
-		if(myTimers[j]->gameOver())
-		{
-			Player1_GameOver = 1;
-		}
-			
-		++k;
+		currResult[j] = myQuestioners[questionID[j]]->questionUpdate();
 	}
 
-	if(k==1)
+	for(int j=0; j< myNumPlayers; ++j)
 	{
-		if( totalAsked[1] != combinedResult[1].getTotalAsked())
+		if(currResult[j].getExtraTime())
 		{
-			totalAsked[1] = combinedResult[1].getTotalAsked();
-			myTimers[j]->updateResults(combinedResult[1].getCurrStreak(), combinedResult[1].getTotalCorrect());
+			myTimers[timerID[j]]->streakIncrease();
 		}
 
-		if(myTimers[j]->gameOver())
+		if( totalAsked[j] != currResult[j].getTotalAsked())
 		{
-			Player2_GameOver = 1;
-		}
-		if(myNumPlayers>=3)
-			{++k;}
-	}
-
-	if(k==2)
-	{
-		if( totalAsked[2] != combinedResult[2].getTotalAsked())
-		{
-			totalAsked[2] = combinedResult[2].getTotalAsked();
-			myTimers[j]->updateResults(combinedResult[2].getCurrStreak(), combinedResult[2].getTotalCorrect());
+			//LOG("Player %d has answered %d questions\n", j, currResult[j].getTotalAsked());
+			totalAsked[j] = currResult[j].getTotalAsked();
+			myTimers[timerID[j]]->updateResults(currResult[j].getCurrStreak(), currResult[j].getTotalCorrect());
 		}
 
-		if(myTimers[j]->gameOver())
+		if(myTimers[timerID[j]]->gameOver())
 		{
-			Player3_GameOver = 1;
+			Player_GameOver[j] = 1;
+
+			myQuestioners[questionID[j]]->cleanGame();
 		}
 	}
 
-	int l=0
-
-	while(j < CUBE_ALLOCATION)
+	int endGameNow = 1;
+	for(int j=0; j < myNumPlayers; ++j)
 	{
-		if(cubeStates[j] == TIMER)
-		{	
-			break;
-		}
-		++j;
+		endGameNow *= Player_GameOver[j];
 	}
 
-	if(myNumPlayers == 2 && Player1_GameOver && Player2_GameOver)
+	//LOG("About to do endGameNow if statement\n");
+	if(endGameNow)
 	{
-		j = 0;
-		while(j < CUBE_ALLOCATION)
+		LOG("Ending game now\n");
+		for(int j=0; j < 2 * myNumPlayers; ++j)
 		{
-			if(cubeStates[j] == QUESTIONER)
-			{	
-				myQuestioners[j]->cleanGame();
-			}
-			++j;
+			myOperators[operatorID[j]]->cleanGame();
 		}
-
-		k=0;
-		while(k < CUBE_ALLOCATION)
+		LOG("Cleaned operators\n");
+		int winner = 0;
+		for(int j = 1; j < myNumPlayers; ++j)
 		{
-			if(cubeStates[k] == OPERATOR)
+			if( currResult[winner].getTotalCorrect() < currResult[j].getTotalCorrect())
 			{
-				myOperators[k]->cleanGame();
+				winner = j;
 			}
-			++k;
 		}
-		return 1;
-	}
-
-	if(myNumPlayers == 3 && Player1_GameOver && Player2_GameOver && Player3_GameOver)
-	{
-		j = 0;
-		while(j < CUBE_ALLOCATION)
+		LOG("About to print final game over screen");
+		for(int j=0; j < myNumPlayers; ++j)
 		{
-			if(cubeStates[j] == QUESTIONER)
-			{	
-				myQuestioners[j]->cleanGame();
-			}
-			++j;
+			myQuestioners[questionID[j]]->cleanGameMultiplayer(winner, currResult[winner].getTotalCorrect());
 		}
-
-		k=0;
-		while(k < CUBE_ALLOCATION)
-		{
-			if(cubeStates[k] == OPERATOR)
-			{
-				myOperators[k]->cleanGame();
-			}
-			++k;
-		}
-		return 1;
+		LOG("About to return from runSpecificGameComms() with game ended\n");
 	}
-
-	//LOG("About to return from runSpecificGameComms() with game not ended\n");
-	return 0;
+	return endGameNow;
 
 }
- No newline at end of file

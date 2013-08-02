@@ -5,6 +5,7 @@
 #include "./Modes/Mode.h"
 #include "./Modes/PlayGame.h"
 #include "./Modes/ShowStat.h"
+#include "./Modes/MultCompetitive.h"
 #include "./Modes/Rules.h"
 #include "./Modes/Teamwork.h"
 #include "./GameDrawer.h"
@@ -31,21 +32,12 @@ Practise practise = Practise();
 ShowStat showStat = ShowStat();
 Rules rules = Rules();
 Teamwork teamwork = Teamwork();
+MultCompetitive multcompetitive = MultCompetitive();
 
 //All other modes instantiated using default constructors
 Mode *currMode = NULL;
 
 int continueGame = 1;
-
-
-void addMoreCubes()
-{
-	continueGame = 0;
-	for (CubeID cube : CubeSet::connected())
-    {
-    	myGameDrawer.drawConnectCube(cube);
-    }
-}
 
 void onDisconnect(void *x, unsigned int id)
 {
@@ -158,10 +150,26 @@ void GameDrawer::paintGameOverTeamwork(CubeID cube, int Score, int longestStreak
     gVideo[cube].bg0.text(vec(11,13),Font2, lStreak, ' ');
 }
 
-void GameDrawer::GameDrawer::drawConnectCube(CubeID cube)
+void GameDrawer::paintGameOverMultiplayer(CubeID cube, int Score, int longestStreak, int winner, int winnerScore)
 {
-	gVideo[cube].bg0.image(vec(0,0),ConnectCube);
+    gVideo[cube].bg0.setPanning(vec(0,0));
+    gVideo[cube].bg0.image(vec(0,0), GameOverMult[winner]);
+    String<9> score;
+    score << Score;
+    String<9> lStreak;
+    lStreak << longestStreak;
+    String<9> winScore;
+    winScore << winnerScore;
+    gVideo[cube].bg0.text(vec(12,7),Font2, winScore, ' ');
+    gVideo[cube].bg0.text(vec(12,10),Font2, score, ' ');
+    gVideo[cube].bg0.text(vec(12,13),Font2, lStreak, ' ');
 }
+
+void GameDrawer::drawWhichPlayer(CubeID cube, int playerNum)
+{
+    gVideo[cube].bg0.image(vec(0,0), PlayerNumbers[playerNum]);
+}
+
 
 void GameDrawer::drawCountdown(CubeID cube, int CountdownSecs)
 {
@@ -305,7 +313,7 @@ void main()
 	    Events::neighborAdd.unset();
 	    Events::neighborRemove.unset();
 
-        LOG("events unset\n");
+        //LOG("events unset\n");
         currMode = NULL;
         System::setCubeRange(1,CUBE_ALLOCATION);
 
@@ -324,11 +332,11 @@ void main()
                 System::paint();
             }
         }
-        LOG("About to run menu\n");
+        //LOG("About to run menu\n");
 
     	int modeChosen = gameMenu.runMenu();
 
-        LOG("Just run menu\n");
+        //LOG("Just run menu\n");
 
         if(!GameAssets.isInstalled(cubes))
         {
@@ -386,12 +394,14 @@ void main()
     		}
     		case(4) :
     		{
-    			//Comp 2_player
+    			multcompetitive = MultCompetitive(&myGameDrawer, 2);
+                currMode = &multcompetitive;
     			break;
     		}
     		case(5) :
     		{
-    			//Comp 3-Player
+    			multcompetitive = MultCompetitive(&myGameDrawer, 3);
+                currMode = &multcompetitive;
     			break;
     		}
     		case(6) :
@@ -424,6 +434,6 @@ void main()
 	    	ts.next();
 	    	System::paint();
 	    }
-        LOG("Finished mode\n");
+        //LOG("Finished mode\n");
     }
 }

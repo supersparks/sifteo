@@ -96,9 +96,10 @@ Question::Question(GameDrawer* gameDrawer, CubeID cube, int yWritePosition,
 }
 
 //Used only when initialising lastQuestion to an empty question;
-Question::Question()
+Question::Question(CubeID cube)
 {
 	yPos = 8;
+	myCube = cube;
 }
 
 bool Question::equals(const Question& q) const
@@ -156,6 +157,7 @@ void Question::removeOperator(int whichPos)
 
 void Question::clean()
 {
+	//LOG("myCube = %d\n",myCube);
 	for(int i=0; i < 16; ++i)
 	{
 		myGameDrawer->printOperator(myCube, vec(i,yPos), 4);

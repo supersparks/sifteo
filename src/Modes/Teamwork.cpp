@@ -24,15 +24,6 @@ Teamwork::Teamwork(GameDrawer* gameDrawer, int numPlayers) : PlayGame()
     }
 
     i = 0;
-    while(!cubeStates[i])
-    {
-    	++i;
-    }
-    myOneTimer = Timer(myGameDrawer,i,0);
-    myTimers[i] = &myOneTimer;
-    cubeStates[i] = TIMER;
-    ++i;
-
     int countPlayers = 0;
     while(countPlayers < myNumPlayers)
     {
@@ -60,6 +51,18 @@ Teamwork::Teamwork(GameDrawer* gameDrawer, int numPlayers) : PlayGame()
 	    myOperators[i] = &(myOperatorArray[2 * countPlayers + 1]);
 	    cubeStates[i] = OPERATOR;
 	    ++i;
+
+	    if(countPlayers == 0)
+	    {
+	    	while(!cubeStates[i])
+		    {
+		    	++i;
+		    }
+		    myOneTimer = Timer(myGameDrawer,i,0);
+		    myTimers[i] = &myOneTimer;
+		    cubeStates[i] = TIMER;
+		    ++i;
+	    }
 
  	   	countPlayers++;
     }
@@ -183,7 +186,7 @@ int Teamwork::runSpecificGameComms()
 		{
 			myQuestioners[questionID[i]]->cleanGameTeamwork(teamTotalCorrect);
 		}
-		LOG("Finished cleaning questioners\n");
+		//LOG("Finished cleaning questioners\n");
 		//cleangame on all the operators
 		for(int i=0;i < 2 * myNumPlayers; i++)
 		{

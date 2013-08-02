@@ -32,10 +32,12 @@ void Questioner::countdownOver()
 	//LOG("Questioner cube is %d\n",(int) myCube );
 	myGameDrawer->drawQuestionerBackground(myCube);
 	currQuestion = Question(myGameDrawer, myCube, yCurrQuestion);
+	prevQuestion = Question(myCube);
 }
 
 void Questioner::repaintNewCube(unsigned int cube)
 {
+	//LOG("repainting New Questioner Cube\n");
 	myCube = cube;
 	myGameDrawer->drawQuestionerBackground(myCube);
 
@@ -249,6 +251,35 @@ void Questioner::cleanGameTeamwork(int teamTotalCorrect)
 	s_TotalAsked.write(newTotalAsked);
 
 	myGameDrawer->paintGameOverTeamwork(myCube, totalCorrect, longestStreak, teamTotalCorrect);
+}
+
+void Questioner::cleanGameMultiplayer(int winner, int winnerScore)
+{
+	if(currStreak > longestStreak)
+	{
+		longestStreak = currStreak;
+	}
+
+	initStoredObjects();
+
+	int prevHighscore = -1;
+	s_HighScore.readObject(prevHighscore,0);
+	//LOG("prevHighscore = %d\n",prevHighscore);
+	if (prevHighscore<totalCorrect)	s_HighScore.write(totalCorrect);
+
+	int prevLongestStreak = -1;
+	s_LongestStreak.readObject(prevLongestStreak,0);
+	//LOG("prevLongestStreak = %d\n",prevLongestStreak);
+	if (prevLongestStreak<longestStreak) s_LongestStreak.write(longestStreak);
+
+	int prevTotalAsked = -1;
+	s_TotalAsked.readObject(prevTotalAsked,0);
+	//LOG("prevTotalAsked = %d\n",prevTotalAsked);
+	int newTotalAsked = prevTotalAsked + totalAsked;
+	s_TotalAsked.write(newTotalAsked);
+
+	myGameDrawer->paintGameOverMultiplayer(myCube, totalCorrect
+		, longestStreak, winner, winnerScore);
 }
 
 void Questioner::inputOperator(int mySide,int opType)

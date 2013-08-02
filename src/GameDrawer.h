@@ -29,7 +29,9 @@ void paintGameOver(CubeID cube, int Score, int longestStreak);
 
 void paintGameOverTeamwork(CubeID cube, int Score, int longestStreak, int teamTotalCorrect);
 
-void drawConnectCube(CubeID cube);
+void paintGameOverMultiplayer(CubeID cube, int Score, int longestStreak, int winner, int winnerScore);
+
+void drawWhichPlayer(CubeID cube, int playerNum);
 
 void drawCountdown(CubeID cube, int CountdownSecs);
 

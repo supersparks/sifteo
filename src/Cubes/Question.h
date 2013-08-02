@@ -29,7 +29,8 @@ public:
 	Question(GameDrawer* gameDrawer, CubeID cube, int yWritePosition,
 		int* question, int updateCorrect);
 	//Used only when initialising lastQuestion to an empty question;
-	Question();
+	Question(CubeID cube);
+	Question(){};
 
 	void printOperator(int whichOp, int whichPos);
 	void removeOperator(int whichPos);
