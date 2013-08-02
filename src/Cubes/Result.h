@@ -12,22 +12,16 @@ private:
 	int myTotalCorrect;
 	int myExtraTime;
 
-	//when was the streak last broken?
-	SystemTime lastBroken;
-
 	int myTotalAsked;
 
 public:
 	Result(int currStreak, int totalCorrect, int extraTime, int totalAsked);
-
+	Result();
 	int getCurrStreak();
 	int getTotalCorrect();
 	int getExtraTime();
 
 	int getTotalAsked();
-
-	void setLastBroken(SystemTime t);
-	SystemTime getLastBroken();
 };
 
 #endif

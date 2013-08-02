@@ -1,31 +1,27 @@
-#include <sifteo,h>
+#include <sifteo.h>
 #include "./../GameDrawer.h"
+#include "PlayGame.h"
 using namespace Sifteo;
 
 //In this mode, the multiple users work together to get as many points as possible.
 //Extra time is added for a streak by all the users.
-class Teamwork : PlayGame {
+class Teamwork : public PlayGame {
     //TODO: set max cubes to CUBE_ALLOCATION
 
 public:
 	Teamwork();
-	Teamwork(GameDrawer gameDrawer,int numPlayers);
-
-	void onNeighbourAdd(void *x,unsigned int cube0Id, unsigned int side0,
-	                unsigned int cube1Id, unsigned int side1);
-	void onNeighbourRemove(void *x,unsigned int cube0Id, unsigned int side0,
-	                unsigned int cube1Id, unsigned int side1);
-	void onTouch(void *x, unsigned int id);
-	    
-
-	int updateTime(TimeDelta delta);
+	Teamwork(GameDrawer* gameDrawer,int numPlayers);
 
 private:
     int combinedStreak;
-    GameDrawer myGameDrawer;
+    GameDrawer* myGameDrawer;
     int myNumPlayers;
     int totalAsked;
    	int runSpecificGameComms();
-   	int questionerID[myNumPlayers];
-	int operatorID[2*myNumPlayers];
+
+   	//used in runSpecificGameComms but could be adapted and used 
+   	//higher up in PlayGame
+   	int questionerID[CUBE_ALLOCATION];
+	int operatorID[CUBE_ALLOCATION];
+	int timerID = 0;
 };

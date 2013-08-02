@@ -146,7 +146,7 @@ void Questioner::runGame(TimeDelta myDelta)
 				longestStreak = currStreak;
 			}
 			currStreak = 0;
-		}
+		}                                                                                                                                        
 		else
 		{
 			currStreak += correct;
