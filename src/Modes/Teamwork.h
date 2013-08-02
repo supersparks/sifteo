@@ -21,7 +21,7 @@ private:
 
    	//used in runSpecificGameComms but could be adapted and used 
    	//higher up in PlayGame
-   	int questionerID[CUBE_ALLOCATION];
-	int operatorID[CUBE_ALLOCATION];
+   	int* questionerID[CUBE_ALLOCATION];
+	int* operatorID[CUBE_ALLOCATION];
 	int timerID = 0;
 };

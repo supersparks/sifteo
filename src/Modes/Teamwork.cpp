@@ -21,17 +21,17 @@ Teamwork::Teamwork(GameDrawer* gameDrawer, int numPlayers)
     {
     	if (i==0)
     	{
-        	myTimers[i] = Timer(myGameDrawer,i,0);
+        	myTimers[i] = &Timer(myGameDrawer,i,0);
     		cubeStates[i] = TIMER;
     		timerID = i;
     	} else if (i<myNumPlayers+1)
     	{
-    		myQuestioners[i-1] = Questioner(myGameDrawer,i);
+    		myQuestioners[i-1] = &Questioner(myGameDrawer,i);
  	   		cubeStates[i] = QUESTIONER;
  	   		questionerID[i-1] = i;
  	   	} else if (i<myNumPlayers*3+1) 
  	   	{
- 	   		myOperators[i-myNumPlayers-1] = Operator(myGameDrawer,i);
+ 	   		myOperators[i-myNumPlayers-1] = &Operator(myGameDrawer,i);
  	   		cubeStates[i] = OPERATOR;
  	   		operatorID[i-myNumPlayers-1] = i;
  	   	} else if (i<CUBE_ALLOCATION)
