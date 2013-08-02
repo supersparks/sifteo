@@ -18,28 +18,32 @@ Normal::Normal(GameDrawer* gameDrawer) : PlayGame()
     {
     	++i;
     }
-    myQuestioners[i] = Questioner(myGameDrawer,i);
+    myQuestioner = Questioner(myGameDrawer,i);
+    myQuestioners[i] = &myQuestioner;
     cubeStates[i] = QUESTIONER;
     ++i;
     while(!cubeStates[i])
     {
     	++i;
     }
-    myOperators[i] = Operator(myGameDrawer,i);
+    myOperator1 = Operator(myGameDrawer,i);
+    myOperators[i] = &myOperator1;
     cubeStates[i] = OPERATOR;
     ++i;
     while(!cubeStates[i])
     {
     	++i;
     }
-    myOperators[i] = Operator(myGameDrawer,i);
+    myOperator2 = Operator(myGameDrawer,i);
+    myOperators[i] = &myOperator2;
     cubeStates[i] = OPERATOR;
     ++i;
     while(!cubeStates[i])
     {
     	++i;
     }
-    myTimers[i] = Timer(myGameDrawer,i,0);
+    myTimer = Timer(myGameDrawer,i,0);
+    myTimers[i] = &myTimer;
     cubeStates[i] = TIMER;
 
     //flush all others as not connected
@@ -68,7 +72,7 @@ int Normal::runSpecificGameComms()
 		}
 		++i;
 	}
-	Result currResult = myQuestioners[i].questionUpdate();
+	Result currResult = myQuestioners[i]->questionUpdate();
 
 
 	int j=0;
@@ -82,18 +86,18 @@ int Normal::runSpecificGameComms()
 	}
 	if(currResult.getExtraTime())
 	{
-		myTimers[j].streakIncrease();
+		myTimers[j]->streakIncrease();
 	}
 
 	if( totalAsked != currResult.getTotalAsked())
 	{
 		totalAsked = currResult.getTotalAsked();
-		myTimers[j].updateResults(currResult.getCurrStreak(), currResult.getTotalCorrect());
+		myTimers[j]->updateResults(currResult.getCurrStreak(), currResult.getTotalCorrect());
 	}
 
-	if(myTimers[j].gameOver())
+	if(myTimers[j]->gameOver())
 	{
-		myQuestioners[i].cleanGame();
+		myQuestioners[i]->cleanGame();
 		int k=0;
 		while(k < CUBE_ALLOCATION)
 		{
@@ -112,8 +116,8 @@ int Normal::runSpecificGameComms()
 			}
 			++l;
 		}
-		myOperators[k].cleanGame();
-		myOperators[l].cleanGame();
+		myOperators[k]->cleanGame();
+		myOperators[l]->cleanGame();
 		return 1;
 	}
 

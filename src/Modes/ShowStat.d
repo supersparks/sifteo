@@ -1,4 +1,4 @@
-Cubes/Questioner.o: Cubes/Questioner.cpp Cubes/Questioner.h \
+Modes/ShowStat.o: Modes/ShowStat.cpp Modes/ShowStat.h \
   /Users/sparxmacmini/Intern/sifteo-sdk/include/sifteo.h \
   /Users/sparxmacmini/Intern/sifteo-sdk/include/sifteo/abi.h \
   /Users/sparxmacmini/Intern/sifteo-sdk/include/sifteo/abi/syscall.h \
@@ -36,10 +36,17 @@ Cubes/Questioner.o: Cubes/Questioner.cpp Cubes/Questioner.h \
   /Users/sparxmacmini/Intern/sifteo-sdk/include/sifteo/video/bg1.h \
   /Users/sparxmacmini/Intern/sifteo-sdk/include/sifteo/video/bg2.h \
   /Users/sparxmacmini/Intern/sifteo-sdk/include/sifteo/video/tilebuffer.h \
-  Cubes/.././GameDrawer.h Cubes/Question.h Cubes/QuestionList.h \
-  Cubes/Result.h
+  /Users/sparxmacmini/Intern/sifteo-sdk/include/sifteo/menu.h \
+  /Users/sparxmacmini/Intern/sifteo-sdk/include/sifteo/menu/types.h \
+  /Users/sparxmacmini/Intern/sifteo-sdk/include/sifteo/menu/util.h \
+  /Users/sparxmacmini/Intern/sifteo-sdk/include/sifteo/menu/public.h \
+  /Users/sparxmacmini/Intern/sifteo-sdk/include/sifteo/menu/states.h \
+  /Users/sparxmacmini/Intern/sifteo-sdk/include/sifteo/menu/events.h \
+  Modes/./../GameDrawer.h Modes/./../Modes/Mode.h assets.gen.h \
+  Modes/./../Cubes/Questioner.h Modes/./../Cubes/Question.h \
+  Modes/./../Cubes/QuestionList.h Modes/./../Cubes/Result.h
 
-Cubes/Questioner.h:
+Modes/ShowStat.h:
 
 /Users/sparxmacmini/Intern/sifteo-sdk/include/sifteo.h:
 
@@ -115,10 +122,28 @@ Cubes/Questioner.h:
 
 /Users/sparxmacmini/Intern/sifteo-sdk/include/sifteo/video/tilebuffer.h:
 
-Cubes/.././GameDrawer.h:
+/Users/sparxmacmini/Intern/sifteo-sdk/include/sifteo/menu.h:
 
-Cubes/Question.h:
+/Users/sparxmacmini/Intern/sifteo-sdk/include/sifteo/menu/types.h:
 
-Cubes/QuestionList.h:
+/Users/sparxmacmini/Intern/sifteo-sdk/include/sifteo/menu/util.h:
 
-Cubes/Result.h:
+/Users/sparxmacmini/Intern/sifteo-sdk/include/sifteo/menu/public.h:
+
+/Users/sparxmacmini/Intern/sifteo-sdk/include/sifteo/menu/states.h:
+
+/Users/sparxmacmini/Intern/sifteo-sdk/include/sifteo/menu/events.h:
+
+Modes/./../GameDrawer.h:
+
+Modes/./../Modes/Mode.h:
+
+assets.gen.h:
+
+Modes/./../Cubes/Questioner.h:
+
+Modes/./../Cubes/Question.h:
+
+Modes/./../Cubes/QuestionList.h:
+
+Modes/./../Cubes/Result.h:

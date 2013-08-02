@@ -10,7 +10,11 @@ Rules::Rules(GameDrawer* gameDrawer) : Mode()
 	myGameDrawer = gameDrawer;
 	Questioner::initStoredObjects();
 
-    myGameDrawer->printRules();
+	int i = 0;
+	for(int i=0; i < 4; ++i)
+    {
+    	myGameDrawer->printRules(i, i);
+    }
 }
 
 int Rules::updateTime(TimeDelta delta){ return end; }
@@ -24,6 +28,10 @@ void Rules::onNeighbourRemove(void *x,unsigned int cube0Id, unsigned int side0,
 void Rules::onTouch(void *x, unsigned int id)
 { 
 	end  = 1;
+	for(int i=1; i < 4; ++i)
+	{
+		myGameDrawer->paintBlack(i);
+	}
 }
 
 void Rules::updateDisconnect(unsigned int id){}

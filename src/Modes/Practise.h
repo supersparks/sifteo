@@ -16,6 +16,10 @@ private:
     int totalAsked;
     int gameEnd;
     int firstTouch;
+    Questioner myQuestioner;
+    Timer myTimer;
+    Operator myOperator1;
+    Operator myOperator2;
 
 public:
 	Practise(GameDrawer* gameDrawer);

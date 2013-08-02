@@ -15,6 +15,10 @@ class Normal : public PlayGame
 private:
     CubeID* myCubes;
     int totalAsked;
+    Questioner myQuestioner;
+    Timer myTimer;
+    Operator myOperator1;
+    Operator myOperator2;
 
 public:
 	Normal(GameDrawer* gameDrawer);
