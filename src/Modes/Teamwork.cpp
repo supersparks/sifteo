@@ -172,7 +172,7 @@ int Teamwork::runSpecificGameComms()
 	if( newTotalAsked > totalAsked)
 	{
 		totalAsked = newTotalAsked;
-		myTimers[timerID]->updateTeamworkResults(combinedStreak, teamTotalCorrect);
+		myTimers[timerID]->updateResults(combinedStreak, teamTotalCorrect);
 	}
 
 	//if it is game over then clean game from all the cubes

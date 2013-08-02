@@ -10,6 +10,7 @@ OperatorBackground = image{"../assets/operator.png"}
 StatsBackground = image{"../assets/StatsBackground.png"}
 RulesBackground = {image{"../assets/rules_1.png"},image{"../assets/rules_2.png"},image{"../assets/rules_3.png"},image{"../assets/rules_4.png"}}
 GameOver = image{"../assets/gameover.png"}
+GameOverTeam = image{"../assets/Game Over_mult.png"}
 
 Highlights = {image{"../assets/operator.png"},image{"../assets/operator.highlighted.png"}}
 Font = image{"../assets/Font-8x16.png", pinned=true, width=8, height=16}

@@ -137,11 +137,12 @@ public:
 
         if(myGameType == COOP && e.item != backIndex)
         {
-            System::setCubeRange(7);
+            System::setCubeRange(7 + (3 * e.item));
             return 2 + e.item;
         }
         else if(myGameType == COMP && e.item != backIndex)
         {
+            System::setCubeRange(8 + (4 * e.item));
             return 4 + e.item;
         }
         else

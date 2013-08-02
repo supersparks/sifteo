@@ -147,6 +147,7 @@ public:
             }
             else if((e.item == NORMAL || e.item == PRACTISE) && myGameType == SINGLE)
             {
+                System::setCubeRange(4);
                 if(e.item == NORMAL)
                 {
                     return 0;

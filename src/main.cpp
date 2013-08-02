@@ -153,9 +153,9 @@ void GameDrawer::paintGameOverTeamwork(CubeID cube, int Score, int longestStreak
     lStreak << longestStreak;
     String<9> teamScore;
     teamScore << teamTotalCorrect;
-    gVideo[cube].bg0.text(vec(8,7),Font2, teamScore, ' ');
-    gVideo[cube].bg0.text(vec(8,10),Font2, score, ' ');
-    gVideo[cube].bg0.text(vec(8,13),Font2, lStreak, ' ');
+    gVideo[cube].bg0.text(vec(11,7),Font2, teamScore, ' ');
+    gVideo[cube].bg0.text(vec(11,10),Font2, score, ' ');
+    gVideo[cube].bg0.text(vec(11,13),Font2, lStreak, ' ');
 }
 
 void GameDrawer::GameDrawer::drawConnectCube(CubeID cube)
