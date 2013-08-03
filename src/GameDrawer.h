@@ -59,6 +59,10 @@ void paintBlack(CubeID cube);
 
 void drawUpdatedResults(CubeID cube, int currStreak, int totalCorrect);
 
+void playCorrect();
+
+void playWrong();
+
 void printStats(int hscore,int lstreak,int totalAsked);
 
 void printRules(CubeID cube, int image);

@@ -315,6 +315,12 @@ void Questioner::removeOperator(unsigned int mySide)
 
 Int2 Questioner::doPanning(Int2 targetPan, int timetaken)
 {
+	if(timetaken > TIME_TO_SCROLL)
+	{
+		myGameDrawer->doPanning(myCube, targetPan);
+		return targetPan;
+	}
+
 	float panningPropTimeLeft = (TIME_TO_SCROLL - timetaken) / (float) TIME_TO_SCROLL;
 	
 	Float2 diffPan = vec((float) 0, panningPropTimeLeft * PIXEL_SCROLL);

@@ -36,13 +36,12 @@ MultCompetitive multcompetitive = MultCompetitive();
 
 //All other modes instantiated using default constructors
 Mode *currMode = NULL;
-
-int continueGame = 1;
+CubeSet cubes;
 
 void onDisconnect(void *x, unsigned int id)
 {
 	//LOG("logged disconnect from cube: %d\n",id);
-
+    cubes = CubeSet::connected();
 	if(currMode)
 	{
 		currMode->updateDisconnect(id);
@@ -55,7 +54,8 @@ void onConnect(void *x, unsigned int id)
 	auto &vid = gVideo[id];
     vid.initMode(BG0);
     vid.attach(id);
-    //vid.bg0.erase(StripeTile);
+    vid.bg0.erase(StripeTile);
+    cubes = CubeSet::connected();
     if(currMode)
 	{
 		currMode->updateConnect(id);
@@ -66,12 +66,14 @@ void onConnect(void *x, unsigned int id)
 void onNeighbourAdd(void *x,unsigned int cube0Id, unsigned int side0,
                         unsigned int cube1Id, unsigned int side1)
 {
+    //LOG("Cube %d was neighboured with cube %d\n",cube0Id, cube1Id);
 	currMode->onNeighbourAdd(x, cube0Id, side0,
                        cube1Id, side1);
 }
 void onNeighbourRemove(void *x,unsigned int cube0Id, unsigned int side0,
                         unsigned int cube1Id, unsigned int side1)
 {
+    //LOG("Cube %d was de-neighboured with cube %d\n",cube0Id, cube1Id);
 	currMode->onNeighbourRemove(x, cube0Id, side0,
                        cube1Id, side1);
 }
@@ -120,6 +122,7 @@ void GameDrawer::printRedOperator(CubeID cube, Int2 TopLeft, int whichOp)
 
 void GameDrawer::doPanning(CubeID cube, Int2 Pan)
 {
+    //LOG("Cube %d will be set to pan at (%d,%d)\n",(int) cube, Pan.x, Pan.y);
 	gVideo[cube].bg0.setPanning(Pan);
 }
 
@@ -235,6 +238,24 @@ void GameDrawer::paintBlack(CubeID cube)
 	gVideo[cube].bg0.image(vec(0,0), BlackImage);
 }
 
+void GameDrawer::playCorrect()
+{
+    //Sifteo::AudioChannel(0).play(MusicCorrect, AudioChannel::ONCE);
+    //Sifteo::AudioChannel(1).play(MusicCorrect, AudioChannel::ONCE);
+    //Sifteo::AudioChannel(2).play(MusicCorrect, AudioChannel::ONCE);
+    //Sifteo::AudioChannel(3).play(MusicCorrect, AudioChannel::ONCE);
+    AudioTracker::play(MusicCorrect);
+}
+
+void GameDrawer::playWrong()
+{
+    //Sifteo::AudioChannel(4).play(MusicWrong, AudioChannel::ONCE);
+    //Sifteo::AudioChannel(5).play(MusicWrong, AudioChannel::ONCE);
+    //Sifteo::AudioChannel(6).play(MusicWrong, AudioChannel::ONCE);
+    //Sifteo::AudioChannel(7).play(MusicWrong, AudioChannel::ONCE);
+    AudioTracker::play(MusicWrong);
+}
+
 void GameDrawer::drawUpdatedResults(CubeID cube, int currStreak, int totalCorrect)
 {
 	if(!currStreak)
@@ -291,10 +312,6 @@ void main()
 
     Events::cubeConnect.set(&onConnect);
     Events::cubeDisconnect.set(&onDisconnect);
-    Events::cubeTouch.set(&onTouch);
-
-    Events::neighborAdd.set(&onNeighbourAdd);
-    Events::neighborRemove.set(&onNeighbourRemove);
 
     for (CubeID cube : CubeSet::connected())
     {
@@ -308,16 +325,11 @@ void main()
 
     while(1)
     {
-    	//Do menu
-    	Events::cubeTouch.unset();
-	    Events::neighborAdd.unset();
-	    Events::neighborRemove.unset();
 
-        //LOG("events unset\n");
         currMode = NULL;
-        System::setCubeRange(1,CUBE_ALLOCATION);
+        
 
-        CubeSet cubes = CubeSet::connected();
+        cubes = CubeSet::connected();
 
         /* Only needed if we do not want to bootstrap
         MenuImageAssets anymore.*/
@@ -332,6 +344,12 @@ void main()
                 System::paint();
             }
         }
+
+        for(CubeID cube : cubes)
+        {
+            gVideo[cube].bg0.erase(StripeTile);
+        }
+
         //LOG("About to run menu\n");
 
     	int modeChosen = gameMenu.runMenu();
@@ -434,6 +452,14 @@ void main()
 	    	ts.next();
 	    	System::paint();
 	    }
+
+        //Do menu
+        Events::cubeTouch.unset();
+        Events::neighborAdd.unset();
+        Events::neighborRemove.unset();
+        System::setCubeRange(1,CUBE_ALLOCATION);
+        //LOG("events unset\n");
+
         //LOG("Finished mode\n");
     }
 }

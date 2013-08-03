@@ -217,5 +217,10 @@ void Question::questionSubmitted()
 	if(opsChosen[0] == questionArray[1] && opsChosen[1] == questionArray[3])
 	{
 		myScore = 1;
+		myGameDrawer->playCorrect();
+	}
+	else
+	{
+		myGameDrawer->playWrong();
 	}
 }

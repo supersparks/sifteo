@@ -62,7 +62,18 @@ Practise::Practise()
 
 void Practise::onTouch(void *x, unsigned int id)
 {
-	//LOG("Practise touched onEndScreen = %d, id = %d \n",onEndScreen,id);
+	LOG("Practise touch ending = %d, firstTouch = %d, id = %d \n",ending, firstTouch, id);
+
+	if(!firstTouch)
+	{
+		if(cubeStates[id] == QUESTIONER)
+		{
+			myGameDrawer->paintBlack(id);
+			myGameDrawer->doPanning(id,vec(0,0));
+			ended = 1;
+		}
+	}
+
 	if(!ending)
 	{
 		if(cubeStates[id] == QUESTIONER)
@@ -105,15 +116,6 @@ void Practise::onTouch(void *x, unsigned int id)
 			gameEnd = 1;
 		}
 		//endingFromPractise();
-	}
-	else if(!firstTouch)
-	{
-		if(cubeStates[id] == QUESTIONER)
-		{
-			myGameDrawer->paintBlack(id);
-			myGameDrawer->doPanning(id,vec(0,0));
-			ended = 1;
-		}
 	}
 	else
 	{	

@@ -56,7 +56,10 @@ MultCompetitive::MultCompetitive(GameDrawer* gameDrawer, int numPlayers) : PlayG
 	    }
 	    myTimerArray[countPlayers] = Timer(myGameDrawer,i,0);
 	    myTimers[i] = &(myTimerArray[countPlayers]);
+
 	    cubeStates[i] = TIMER;
+	    //Special for MultCompetitive
+	    myGameDrawer->clearBG1Mask(i);
 	    ++i;
 
  	   	countPlayers++;
@@ -113,7 +116,7 @@ int MultCompetitive::updateTime(TimeDelta delta)
 		}
 
 		showPlayerCountdown += delta.seconds();
-		if((int) showPlayerCountdown >= 3)
+		if((int) showPlayerCountdown >= 6)
 		{
 			showWhichPlayer = 0;
 			for(int i=0; i < myNumPlayers; ++i)
