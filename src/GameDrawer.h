@@ -27,7 +27,7 @@ void doPanning(CubeID cube, Int2 Pan);
 
 void paintGameOver(CubeID cube, int Score, int longestStreak);
 
-void paintGameOverTeamwork(CubeID cube, int Score, int longestStreak, int teamTotalCorrect);
+void paintGameOverTeamwork(CubeID cube, int teamLongestStreak, int longestStreak, int teamTotalCorrect);
 
 void paintGameOverMultiplayer(CubeID cube, int Score, int longestStreak, int winner, int winnerScore);
 

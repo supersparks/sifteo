@@ -14,6 +14,7 @@ public:
 
 private:
     int combinedStreak;
+    int longestCombinedStreak;
     GameDrawer* myGameDrawer;
     int myNumPlayers;
     int totalAsked;

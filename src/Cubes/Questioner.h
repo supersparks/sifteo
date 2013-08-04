@@ -57,7 +57,7 @@ public:
 
     void repaintNewCube(unsigned int cube);
     void cleanGame();
-    void cleanGameTeamwork(int teamTotalCorrect);
+    void cleanGameTeamwork(int teamTotalCorrect, int teamLongestStreak);
     void cleanGameMultiplayer(int winner, int winnerScore);
     static void initStoredObjects();
 

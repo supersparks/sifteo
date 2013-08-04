@@ -231,7 +231,7 @@ void Questioner::cleanGame()
 	}
 }
 
-void Questioner::cleanGameTeamwork(int teamTotalCorrect)
+void Questioner::cleanGameTeamwork(int teamTotalCorrect, int teamLongestStreak)
 {
 	if(currStreak > longestStreak)
 	{
@@ -256,7 +256,7 @@ void Questioner::cleanGameTeamwork(int teamTotalCorrect)
 	int newTotalAsked = prevTotalAsked + totalAsked;
 	s_TotalAsked.write(newTotalAsked);
 
-	myGameDrawer->paintGameOverTeamwork(myCube, totalCorrect, longestStreak, teamTotalCorrect);
+	myGameDrawer->paintGameOverTeamwork(myCube, teamLongestStreak, longestStreak, teamTotalCorrect);
 }
 
 void Questioner::cleanGameMultiplayer(int winner, int winnerScore)

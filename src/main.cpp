@@ -138,19 +138,19 @@ void GameDrawer::paintGameOver(CubeID cube, int Score, int longestStreak)
 	gVideo[cube].bg0.text(vec(8,12),Font2, lStreak, ' ');
 }
 
-void GameDrawer::paintGameOverTeamwork(CubeID cube, int Score, int longestStreak, int teamTotalCorrect)
+void GameDrawer::paintGameOverTeamwork(CubeID cube, int teamLongestStreak, int longestStreak, int teamTotalCorrect)
 {
     gVideo[cube].bg0.setPanning(vec(0,0));
     gVideo[cube].bg0.image(vec(0,0), GameOverTeam);
-    String<9> score;
-    score << Score;
+    String<9> lStreakTeam;
+    lStreakTeam << teamLongestStreak;
     String<9> lStreak;
     lStreak << longestStreak;
     String<9> teamScore;
     teamScore << teamTotalCorrect;
     gVideo[cube].bg0.text(vec(11,7),Font2, teamScore, ' ');
-    gVideo[cube].bg0.text(vec(11,10),Font2, score, ' ');
-    gVideo[cube].bg0.text(vec(11,13),Font2, lStreak, ' ');
+    gVideo[cube].bg0.text(vec(11,10),Font2, lStreak, ' ');
+    gVideo[cube].bg0.text(vec(11,13),Font2, lStreakTeam, ' ');
 }
 
 void GameDrawer::paintGameOverMultiplayer(CubeID cube, int Score, int longestStreak, int winner, int winnerScore)
@@ -245,6 +245,7 @@ void GameDrawer::playCorrect()
     //Sifteo::AudioChannel(2).play(MusicCorrect, AudioChannel::ONCE);
     //Sifteo::AudioChannel(3).play(MusicCorrect, AudioChannel::ONCE);
     AudioTracker::play(MusicCorrect);
+    AudioTracker::setVolume(256);
 }
 
 void GameDrawer::playWrong()
@@ -254,6 +255,7 @@ void GameDrawer::playWrong()
     //Sifteo::AudioChannel(6).play(MusicWrong, AudioChannel::ONCE);
     //Sifteo::AudioChannel(7).play(MusicWrong, AudioChannel::ONCE);
     AudioTracker::play(MusicWrong);
+    AudioTracker::setVolume(256);
 }
 
 void GameDrawer::drawUpdatedResults(CubeID cube, int currStreak, int totalCorrect)

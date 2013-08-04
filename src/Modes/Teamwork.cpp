@@ -2,7 +2,7 @@
 
 Teamwork::Teamwork(GameDrawer* gameDrawer, int numPlayers) : PlayGame()
 {
-	LOG("Constructing Teamwork\n");
+	//LOG("Constructing Teamwork\n");
 	int cubesRequired = numPlayers*3+1;
 	System::setCubeRange(cubesRequired);
 	myGameDrawer = gameDrawer;
@@ -76,6 +76,7 @@ Teamwork::Teamwork(GameDrawer* gameDrawer, int numPlayers) : PlayGame()
 	//note that the number of questioner cubes is equal to the number of players
 	totalAsked = 0;
 	combinedStreak = 0;
+	longestCombinedStreak = 0;
 
 }
 
@@ -149,6 +150,11 @@ int Teamwork::runSpecificGameComms()
 		// 	i, unbrokenStreak[i], playerTotalCorrect[i], currResult[i].getTotalCorrect());
 	}
 
+	if(combinedStreak > longestCombinedStreak)
+	{
+		longestCombinedStreak = combinedStreak;
+	}
+
 	int oldCombinedStreak = combinedStreak;
 	combinedStreak = 0;
 	for(int i=0; i < myNumPlayers; i++)
@@ -184,7 +190,7 @@ int Teamwork::runSpecificGameComms()
 		//clean game on all the questioners
 		for(int i=0;i<myNumPlayers;i++)
 		{
-			myQuestioners[questionID[i]]->cleanGameTeamwork(teamTotalCorrect);
+			myQuestioners[questionID[i]]->cleanGameTeamwork(teamTotalCorrect, longestCombinedStreak);
 		}
 		//LOG("Finished cleaning questioners\n");
 		//cleangame on all the operators
